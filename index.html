@@ -222,15 +222,12 @@ function setCookie(obj) {
 function getCookie() {
     var name = "key=";
     var ca = document.cookie.split(';');
-    console.log(ca)
     for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-        	console.log(c.substring(name.length, c.length));
-        	console.log(JSON.parse(c.substring(name.length, c.length)));
             return JSON.parse(c.substring(name.length, c.length));
         }
     }
@@ -250,9 +247,12 @@ var cookieDefault = {
 	items:defaultItemGrid
 }
 
-var test2;
-
+var cookielock = false;
 function loadCookie() {
+	if (cookielock)
+		return;
+	cookielock = true;
+
 	cookieobj = getCookie();
 
 	cookiekeys.forEach(function (key) {
@@ -279,9 +279,15 @@ function loadCookie() {
 	document.getElementsByName('showcrystal')[0].onchange();
 	document.getElementsByName('showmedallion')[0].checked = !!cookieobj.medal;
 	document.getElementsByName('showmedallion')[0].onchange();
+
+	cookielock = false;
 }
 
 function saveCookie() {
+	if (cookielock)
+		return;
+	cookielock = true;
+
 	cookieobj = {};
 
 	cookieobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
@@ -300,6 +306,8 @@ function saveCookie() {
 	cookieobj.items = JSON.parse(JSON.stringify(itemLayout));
 
 	setCookie(cookieobj);
+
+	cookielock = false;
 }
 
 // Event of clicking a chest on the map
@@ -440,6 +448,7 @@ function showSettings(sender) {
 
 				if (!startdraw) {
 					itemGrid[r]['row'].style.display = 'none';
+					itemGrid[r]['half'].style.display = 'none';
 				}	
 			}
 		}
@@ -682,6 +691,7 @@ function initGridRow(itemsets) {
 
 			if (!startdraw) {
 				itemGrid[r]['row'].style.display = 'none';
+				itemGrid[r]['half'].style.display = 'none';
 			}			
 		}
 	}
