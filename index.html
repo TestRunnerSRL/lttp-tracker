@@ -211,34 +211,26 @@ var showmedals = true;
 var editmode = false;
 var selected = {};
 
-var cookieobj;
-
-		name="showitems"
-		onchange="setZoom('itemdiv', this)"
-		name="showmap"
-		onchange="setZoom('mapdiv', this)"
-		name='mapposition'
-		name='maporientation'
-
-
 function setCookie(obj) {
     var d = new Date();
     d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
     var expires = "expires="+d.toUTCString();
     var val = JSON.stringify(obj);
     document.cookie = "key=" + val + ";" + expires + ";path=/";
-    console.log(document.cookie)
 }
 
 function getCookie() {
     var name = "key=";
     var ca = document.cookie.split(';');
+    console.log(ca)
     for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
+        	console.log(c.substring(name.length, c.length));
+        	console.log(JSON.parse(c.substring(name.length, c.length)));
             return JSON.parse(c.substring(name.length, c.length));
         }
     }
@@ -918,28 +910,47 @@ function itemConfigClick (sender) {
 	</div>
 	<div id='mapdiv' class='mapdiv'>
 		<script>
+		var mapdiv = document.getElementById('mapdiv');
+
 		// Initialize all chests on the map
 		for(k=0; k<chests.length; k++){
-		    document.write("<span style='background-image:url(images/poi.png);' id='"+k+"' onClick='toggleChest("+k+")' onMouseover='highlight("+k+")' onMouseout='unhighlight("+k+")' color='black'></span>");
-		    document.getElementById(k).style.left = chests[k].x;
-		    document.getElementById(k).style.top = chests[k].y;
-		    if(chests[k].isOpened)
-			document.getElementById(k).className = "mapspan chest opened";
-		    else
-			    document.getElementById(k).className = "mapspan chest " + chests[k].isAvailable();
+			var s = document.createElement('span');
+			s.style.backgroundImage = 'url(images/poi.png)';
+			s.style.color = 'black';
+			s.id = k;
+			s.onclick = new Function('toggleChest('+k+')');
+			s.onmouseover = new Function('highlight('+k+')');
+			s.onmouseout = new Function('unhighlight('+k+')');
+			s.style.left = chests[k].x;
+			s.style.top = chests[k].y;
+			if(chests[k].isOpened)
+				s.className = "mapspan chest opened";
+			else
+				s.className = "mapspan chest " + chests[k].isAvailable();
+			mapdiv.appendChild(s);
 		}
 
 		// Dungeon bosses & chests
 		for(k=0; k<dungeons.length; k++){
-		    document.write("<span style='background-image:url(images/"+dungeons[k].image+");' id='bossMap"+k+"' onMouseover='highlightDungeon("+k+")' onMouseout='unhighlightDungeon("+k+")'></span>");
-		    document.getElementById("bossMap"+k).style.left = dungeons[k].x;
-		    document.getElementById("bossMap"+k).style.top = dungeons[k].y;
-		    document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[k].isBeatable();
+			var s = document.createElement('span');
+			s.style.backgroundImage = 'url(images/' + dungeons[k].image + ')';
+			s.id = 'bossMap' + k;
+			s.onmouseover = new Function('highlightDungeon('+k+')');
+			s.onmouseout = new Function('unhighlightDungeon('+k+')');
+			s.style.left = dungeons[k].x;
+			s.style.top = dungeons[k].y;
+			s.className = "mapspan boss " + dungeons[k].isBeatable();
+			mapdiv.appendChild(s);
 
-		    document.write("<span style='background-image:url(images/poi.png)' id='dungeon"+k+"' onMouseover='highlightDungeon("+k+")' onMouseout='unhighlightDungeon("+k+")'></span>");
-		    document.getElementById("dungeon"+k).style.left = dungeons[k].x;
-		    document.getElementById("dungeon"+k).style.top = dungeons[k].y;
-		    document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[k].canGetChest();
+			s = document.createElement('span');
+			s.style.backgroundImage = 'url(images/poi.png)';
+			s.id = 'dungeon' + k;
+			s.onmouseover = new Function('highlightDungeon('+k+')');
+			s.onmouseout = new Function('unhighlightDungeon('+k+')');
+			s.style.left = dungeons[k].x;
+			s.style.top = dungeons[k].y;
+			s.className = "mapspan dungeon " + dungeons[k].canGetChest();
+			mapdiv.appendChild(s);
 		}
 		</script>
 	</div>
