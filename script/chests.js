@@ -906,7 +906,7 @@ chests[50] = {
     isOpened: false,
     isAvailable: function(){
 		if(steve())
-			if(items.cape)
+			if(items.cape && items.glove)
 				return "available";
 			else
 				return "possible";
@@ -1064,7 +1064,10 @@ chests[62] = {
 			if((prizes[k]==1 || prizes[k]==2) && items["boss"+k]==2)
 				if(++pendantCount==3)
 					return "available";
-		return "unavailable";
+        if (items.book)
+          return "possible";
+        else 
+          return "unavailable";            
     }
 };
 

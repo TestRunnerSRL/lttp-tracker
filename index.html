@@ -778,10 +778,10 @@ function gridItemClick(row, col, corner) {
 			if(medallions[d] == 4)
 				medallions[d] = 0;
 			// Update availability of dungeon boss AND chests
-		    if(dungeons[x].isBeaten)
-				document.getElementById("bossMap"+x).className = "mapspan boss opened";
+		    if(dungeons[d].isBeaten)
+				document.getElementById("bossMap"+d).className = "mapspan boss opened";
 		    else
-				document.getElementById("bossMap"+x).className = "mapspan boss " + dungeons[x].isBeatable();
+				document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable();
 
 		    if(dungeonchests[d] > 0)
 			    document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest();
@@ -1034,7 +1034,7 @@ function itemConfigClick (sender) {
 	saveCookie();
 </script>
 
-<footer style='bottom:0; width:100%; text-align: center; position: absolute; color:grey'>Lttp Item Randomizer v1.0 - TestRunner (Based on <a href="https://www.twitch.tv/crossproduct">Stoop Cross Cheet 4.0</a>)</footer>
+<footer style='bottom:0; width:100%; text-align: center; position: absolute; color:grey; display:none'>Lttp Item Randomizer v1.0 - TestRunner (Based on <a href="https://www.twitch.tv/crossproduct">Stoop Cross Cheet 4.0</a>)</footer>
 </body>
 </html>
 
