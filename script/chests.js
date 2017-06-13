@@ -665,7 +665,7 @@ chests[28] = {
     y: "52.2%",
     isOpened: false,
     isAvailable: function(){
-	if(items.moonpearl && items.glove==2 && items.mirror)
+	if(items.moonpearl && items.glove==2)
 		return "available";
 	return "unavailable";
     }
@@ -1067,7 +1067,7 @@ chests[60] = {
     y: "51.8%",
     isOpened: false,
     isAvailable: function(){
-		if(items.moonpearl && items.glove==2 && items.mirror)
+		if(items.moonpearl && items.glove==2)
 			return "available";
 		return "unavailable";
     }
