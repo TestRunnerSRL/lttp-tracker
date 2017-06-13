@@ -6,6 +6,10 @@ function steve(){
     return items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers);
 }
 
+function stevelight(){
+    return items.moonpearl && items.hookshot && (items.hammer || items.glove || items.flippers);
+}
+
 // define dungeon chests
 var dungeons = new Array;
 
@@ -86,14 +90,14 @@ dungeons[3] = {
 		if(!items.moonpearl || !(items.bow>1) || !items.hammer)
 			return "unavailable";
 		if(!items.agahnim && !items.glove)
-			return "unavailable";
+			return "agahnim";
 		return "available";
     },
     canGetChest: function(){
 		if(!items.moonpearl)
 			return "unavailable";
 		if(!items.agahnim && !(items.hammer&&items.glove) && !(items.glove==2 && items.flippers))
-			return "unavailable";
+			return "agahnim";
 		if(items.bow>1 && (items.chest3>1 || items.hammer))
 			return "available";
 		return "possible";
@@ -112,12 +116,14 @@ dungeons[4] = {
 		if(!items.hammer || !items.hookshot)
 			return "unavailable";
 		if(!items.glove && !items.agahnim)
-			return "unavailable";
+			return "agahnim";
 		return "available";
 	},
     canGetChest: function(){
 		if(!items.moonpearl || !items.mirror || !items.flippers)
 			return "unavailable";
+        if(!steve() && (!items.agahnim && (stevelight() || items.hammer)))
+            return "agahnim";
 		if(!steve() && !(items.agahnim && items.hammer))
 			return "unavailable";
 
@@ -152,16 +158,21 @@ dungeons[5] = {
     image: "boss52.png",
     isBeaten: false,
     isBeatable: function(){
-		if(!steve() || !items.firerod)
-			return "unavailable";
-		return "available";
+        if(steve() && items.firerod)
+            return "available";
+        if(stevelight() && items.firerod)
+            return "agahnim";
+        return "unavailable";
     },
     canGetChest: function(){
-		if(!steve())
-			return "unavailable";
-		if(items.firerod)
-			return "available";
-		return "possible";
+        if(steve())
+            if(items.firerod)
+                return "available";
+            else
+                return "possible";
+        if(stevelight())
+            return "agahnim";
+        return "unavailable";
     }
 };
 
@@ -174,11 +185,15 @@ dungeons[6] = {
     isBeatable: function(){
 		if(steve())
 			return "available";
+        if(stevelight())
+            return "agahnim";
 		return "unavailable";
     },
     canGetChest: function(){
-		if(!steve())
+		if(!stevelight() && !steve())
 			return "unavailable";
+        if(!steve())
+            return "agahnim";
 		if(items.chest6==1 && !items.hammer)
 			return "possible";
 		return "available";
@@ -312,6 +327,8 @@ chests[0] = {
 			return "unavailable";
 		if ( (steve() && items["mirror"]) || items["glove"]==2 )
 			return "available";
+        if (stevelight() && items.mirror)
+            return "agahnim";
 		return "unavailable";
     }
 };
@@ -398,6 +415,8 @@ chests[7] = {
     isAvailable: function(){
 		if(steve())
 			return "available";
+        if(stevelight())
+            return "agahnim";
 		return "unavailable";
     }
 };
@@ -410,6 +429,8 @@ chests[8] = {
     isAvailable: function(){
 		if(steve())
 			return "available";
+        if(stevelight())
+            return "agahnim";
 		return "unavailable";
     }
 };
@@ -498,6 +519,8 @@ chests[16] = {
     isAvailable: function(){
 	if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
 		return "available";
+    if( stevelight() ||  (items.moonpearl && items.hammer) )
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -580,6 +603,8 @@ chests[23] = {
     isAvailable: function(){
 	if(steve())
 		return "available";
+    if(stevelight())
+        return "agahnim";
 	return "unavailable";
 
     }
@@ -616,6 +641,8 @@ chests[26] = {
     isAvailable: function(){
 	if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
 		return "available";
+    if( stevelight() || (items.moonpearl && items.hammer) )
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -676,6 +703,8 @@ chests[31] = {
     isAvailable: function(){
 	if( (steve() || (items.agahnim && items.moonpearl && items.hammer)) && items.mirror && items.sword>=2 && items.book )
 		return "available";
+	if( (stevelight() || (items.moonpearl && items.hammer)) && items.mirror && items.sword>=2 && items.book )
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -688,6 +717,8 @@ chests[32] = {
     isAvailable: function(){
 	if( items.moonpearl && items.glove && (items.agahnim || items.hammer || (items.glove==2 && items.flippers)) )
 		return "available";
+	if( items.moonpearl && items.glove )
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -746,6 +777,8 @@ chests[37] = {
     isAvailable: function(){
 	if( items.agahnim && items.boots )
 		return "available";
+    if( items.boots )
+        return "agahnim";
 	return "possible";
     }
 };
@@ -770,6 +803,8 @@ chests[39] = {
     isAvailable: function(){
 	if( items.mirror && (steve() || (items.agahnim && items.moonpearl && items.hammer)) )
 		return "available";
+    if( items.mirror && (stevelight() || (items.moonpearl && items.hammer )))
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -782,6 +817,8 @@ chests[40] = {
     isAvailable: function(){
 	if( steve() && items.mirror )
 		return "available";
+    if(stevelight() && items.mirror )
+        return "agahnim";
 	return "unavailable";
     }
 };
@@ -893,6 +930,8 @@ chests[49] = {
 		if(items.flippers)
 			if( items.moonpearl && items.mirror && (items.agahnim || items.glove==2 || (items.glove&&items.hammer)) )
 				return "available";
+            else if( items.moonpearl && items.mirror )
+                return "agahnim";
 			else
 				return "possible";
 		return "unavailable";
@@ -910,6 +949,8 @@ chests[50] = {
 				return "available";
 			else
 				return "possible";
+        if(stevelight() && items.cape && items.glove)
+            return "agahnim";
 		return "unavailable";
     }
 };
@@ -922,7 +963,7 @@ chests[51] = {
     isAvailable: function(){
 	if( items.agahnim || (items.glove&&items.hammer&&items.moonpearl) || (items.glove==2&&items.moonpearl&&items.flippers) )
 			return "available";
-		return "unavailable";
+		return "agahnim";
     }
 };
 
@@ -934,6 +975,8 @@ chests[52] = {
     isAvailable: function(){
 		if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
 			return "available";
+        if( stevelight() || items.moonpearl && items.hammer)
+            return "agahnim";
 		return "unavailable";
     }
 };
@@ -1048,6 +1091,8 @@ chests[61] = {
 			return "available";
 		if(items.agahnim && items.mirror && steve())
 			return "available";
+        if(items.hammer || (items.mirror && (steve() || stevelight())))
+            return "agahnim";
 		return "unavailable";
     }
 };

@@ -37,7 +37,7 @@ var cookiekeys = ['map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', '
 var cookieDefault = {
     map:1,
     iZoom:100,
-    mZoom:51,
+    mZoom:50,
     mOrien:0,
     mPos:0,
     chest:1,

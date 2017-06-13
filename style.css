@@ -184,6 +184,9 @@ label {
     background-color: rgb(255,255,0);
 }
 
+.agahnim{
+    background-color: rgb(0,255,255);
+}
 .opened{
     background-color: rgb(127,127,127);
 }
