@@ -20,13 +20,13 @@ dungeons[0] = {
     image: "boss02.png",
     isBeaten: false,
     isBeatable: function(){
-		if(items.bow>1)
+		if(items.bow)
 			return "available";
 		else
 			return "unavailable";
     },
     canGetChest: function(){
-		if(items.chest0>1 || items.bow>1)
+		if(items.chest0>1 || items.bow)
 			return "available";
 		return "possible";
     }
@@ -87,7 +87,7 @@ dungeons[3] = {
     image: "boss32.png",
     isBeaten: false,
     isBeatable: function(){
-        if(!items.moonpearl || !(items.bow>1) || !items.hammer)
+        if(!items.moonpearl || !(items.bow) || !items.hammer)
             return "unavailable";
         if(!items.agahnim && !items.glove)
             if(!(items.sword>=2 || items.cape))
@@ -104,7 +104,7 @@ dungeons[3] = {
                 return "unavailable";
             else
                 return "agahnim";
-		if(items.bow>1 && (items.chest3>1 || items.hammer))
+		if(items.bow && (items.chest3>1 || items.hammer))
 			return "available";
 		return "possible";
     }

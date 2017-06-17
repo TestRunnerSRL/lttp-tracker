@@ -32,6 +32,7 @@ var defaultItemGrid = [
         "bottle",
         "cape",
         "icerod",
+        "silvers",
     ],
     [
         "boss3",
@@ -53,7 +54,7 @@ var defaultItemGrid = [
 ]
 
 var items = {
-    bow: 0,
+    bow: false,
     boomerang: 0,
     hookshot: false,
     hammer: false,
@@ -81,6 +82,7 @@ var items = {
     icerod: false,
     byrna: false,
     net: false,
+    silvers: false,
 
     boss0: 1,
     boss1: 1,
@@ -117,7 +119,6 @@ var itemsMin = {
     tunic:1,
 
     bottle:0,
-    bow:0,
     boomerang:0,
     glove:0,
 
@@ -142,7 +143,6 @@ var itemsMax = {
     tunic:3,
 
     bottle:4,
-    bow:3,
     boomerang:3,
     glove:2,
 
