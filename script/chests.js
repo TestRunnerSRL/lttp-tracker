@@ -1000,7 +1000,7 @@ chests[53] = {
 };
 
 chests[54] = {
-    name: "Buried Itam <img src='images/shovel.png' class='mini'>",
+    name: "Buried Item <img src='images/shovel.png' class='mini'>",
     x: "14.4%",
     y: "66.2%",
     isOpened: false,
