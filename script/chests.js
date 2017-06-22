@@ -1012,14 +1012,12 @@ chests[54] = {
 };
 
 chests[55] = {
-    name: "Fall to Escape Sewer (3) <img src='images/glove1.png' class='mini'> + <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
+    name: "Escape Sewer (4) <img src='images/bomb.png' class='mini'>/<img src='images/boots.png' class='mini'>",
     x: "26.8%",
     y: "32.4%",
     isOpened: false,
     isAvailable: function(){
-		if(items.glove)
-			return "available";
-		return "unavailable";
+		return "available";
     }
 };
 
@@ -1034,7 +1032,7 @@ chests[56] = {
 };
 
 chests[57] = {
-    name: "Hyrule Castle (4 including Key)",
+    name: "Hyrule Castle (3)",
     x: "24.9%",
     y: "44.1%",
     isOpened: false,
