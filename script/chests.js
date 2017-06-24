@@ -32,7 +32,7 @@ dungeons[0] = {
             if(items.lantern)
                 return "available";
             else
-                return "lanternskip";
+                return "glitchavailable";
 		else
 			return "unavailable";
     },
@@ -43,7 +43,7 @@ dungeons[0] = {
             if(items.lantern)
                 return "available";
             else
-                return "lanternskip";
+                return "glitchavailable";
 		return "unavailable";
     }
 };
@@ -88,7 +88,7 @@ dungeons[2] = {
         if(!deathmountaindarkness())
             return "unavailable";
         if(!deathmountain())
-            return "lanternskip";
+            return "glitchavailable";
 		if(items.firerod || items.lantern)
 			return "available";
 		return "possible";
@@ -113,7 +113,7 @@ dungeons[3] = {
             else
                 return "agahnim";
         if(!items.lantern)
-            return "lanternskip";
+            return "glitchavailable";
         return "available";
     },
     canGetChest: function(){
@@ -128,8 +128,11 @@ dungeons[3] = {
             if(items.lantern)
                 return "available";
             else
-                return "lanternskip";
-		return "possible";
+                return "glitchavailable";
+        if(items.lantern)
+            return "possible";
+        else
+            return "glitchpossible";
     }
 };
 
@@ -280,8 +283,8 @@ dungeons[8] = {
 		if(items.lantern)
 			return "available";
         if(items.firerod)
-            return "lanternskip";
-		return "possible";
+            return "glitchavailable";
+		return "glitchpossible";
     },
     canGetChest: function(){
 		if(!items.moonpearl || !items.flute || items.glove!=2)
@@ -298,11 +301,13 @@ dungeons[8] = {
 		
 		if(!items.firerod && !items.lantern)
 			return "possible";
-		if(dungeonchests[8]>1 || items.somaria)
+        if(dungeonchests[8]>1)
+            return "available"
+		if(items.somaria)
             if(items.lantern)
                 return "available";
             else
-                return "lanternskip";
+                return "glitchavailable";
 		return "possible";
     }
 };
@@ -326,9 +331,12 @@ dungeons[9] = {
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
 			return "unavailable";
 		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-			return "possible";
+            if(!items.flute && !items.lantern)
+                return "glitchpossible";
+            else
+                return "possible";
         if(!items.flute && !items.lantern)
-            return "lanternskip";
+            return "glitchavailable";
 		return "available";
     },
     canGetChest: function(){
@@ -342,16 +350,22 @@ dungeons[9] = {
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
 			return "unavailable";
 		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-			return "possible";
+            if(!items.flute && !items.lantern)
+                return "glitchpossible";
+            else
+                return "possible";
 
 		if(!items.firerod)
 			return "possible";
 		if(dungeonchests[9]>1 || items.icerod)
             if(!items.flute && !items.lantern)
-                return "lanternskip";
+                return "glitchavailable";
             else
                 return "available";
-		return "possible";
+        if(!items.flute && !items.lantern)
+            return "glitchpossible";
+        else
+            return "possible";
     }
 };
 
@@ -404,7 +418,7 @@ chests[3] = {
         if (deathmountain())
             return "available";
         else if (deathmountaindarkness())
-            return "lanternskip";
+            return "glitchavailable";
 	return "unavailable";
     }
 };
@@ -423,11 +437,20 @@ chests[4] = {
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
 			return "unavailable";
 		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-			return "possible";
+            if(!items.flute && !items.lantern)
+                return "glitchpossible";
+            else
+                return "possible";
 
 		if(items.firerod)
-			return "available";
-		return "possible";
+            if(!items.flute && !items.lantern)
+                return "glitchavailable";
+            else
+                return "available";
+        if(!items.flute && !items.lantern)
+            return "glitchpossible";
+        else
+            return "possible";
     }
 };
 
@@ -511,7 +534,7 @@ chests[11] = {
             if (deathmountain() && items.moonpearl)
                 return "available";
             else
-                return "lanternskip";
+                return "glitchavailable";
 		return "unavailable";
     }
 };
@@ -536,7 +559,7 @@ chests[13] = {
         if (deathmountain())
             return "available";
         else if (deathmountaindarkness())
-            return "lanternskip";
+            return "glitchavailable";
 	return "unavailable";
     }
 };
@@ -585,7 +608,7 @@ chests[17] = {
         if( deathmountain())
             return "available";
         else if( deathmountaindarkness())
-            return "lanternskip";
+            return "glitchavailable";
 	return "unavailable";
 		
     }
@@ -634,7 +657,7 @@ chests[21] = {
         if (deathmountain())
             return "available";
         else
-            return "lanternskip";
+            return "glitchavailable";
     return "unavailable";
     }
 };
@@ -649,7 +672,7 @@ chests[22] = {
         if (deathmountain())
             return "available";
         else
-            return "lanternskip";
+            return "glitchavailable";
 		return "unavailable";
     }
 };
@@ -751,7 +774,7 @@ chests[30] = {
 	if( items.sword>=2 && items.book && (deathmountain()) && (items.mirror || (items.hookshot&&items.hammer)) )
 		return "available";
 	if( items.sword>=2 && items.book && (deathmountaindarkness()) && (items.mirror || (items.hookshot&&items.hammer)) )
-        return "lanternskip";
+        return "glitchavailable";
 	return "unavailable";
     }
 };
@@ -805,7 +828,7 @@ chests[34] = {
 	if( deathmountain() )
 		return "available";
     if( deathmountaindarkness() )
-        return "lanternskip";
+        return "glitchavailable";
 	return "unavailable";
     }
 };
@@ -855,7 +878,7 @@ chests[38] = {
 	if( deathmountain() )
 		return "available";
     if( deathmountaindarkness() )
-        return "lanternskip";
+        return "glitchavailable";
 	return "unavailable";
     }
 };
@@ -947,9 +970,9 @@ chests[45] = {
 			return "possible";
     if( deathmountaindarkness() )
         if(items.mirror)
-            return "lanternskip";
+            return "glitchavailable";
         else
-            return "possible";
+            return "glitchpossible";
 	return "unavailable";
     }
 };
@@ -964,7 +987,10 @@ chests[46] = {
 			if(items.mirror && items.moonpearl && items.glove==2)
 				return "available";
 			else
-				return "possible";
+                if(!items.flute && !items.lantern)
+                    return "glitchpossible";
+                else
+                    return "possible";
 		return "unavailable";
 	}
 };

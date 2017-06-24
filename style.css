@@ -188,8 +188,12 @@ label {
     background-color: rgb(0,255,255);
 }
 
-.lanternskip{
+.glitchavailable{
     background-color: rgb(0,127,0);
+}
+
+.glitchpossible{
+    background-color: rgb(192,192,0);
 }
 
 .opened{
