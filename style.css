@@ -187,6 +187,11 @@ label {
 .agahnim{
     background-color: rgb(0,255,255);
 }
+
+.lanternskip{
+    background-color: rgb(0,127,0);
+}
+
 .opened{
     background-color: rgb(127,127,127);
 }
