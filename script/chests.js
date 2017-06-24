@@ -87,17 +87,23 @@ dungeons[3] = {
     image: "boss32.png",
     isBeaten: false,
     isBeatable: function(){
-		if(!items.moonpearl || !(items.bow>1) || !items.hammer || !(items.sword>=2 || items.cape))
-			return "unavailable";
-		if(!items.agahnim && !items.glove)
-			return "agahnim";
-		return "available";
+        if(!items.moonpearl || !(items.bow>1) || !items.hammer)
+            return "unavailable";
+        if(!items.agahnim && !items.glove)
+            if(!(items.sword>=2 || items.cape))
+                return "unavailable";
+            else
+                return "agahnim";
+        return "available";
     },
     canGetChest: function(){
-		if(!items.moonpearl || !(items.sword>=2 || items.cape))
+		if(!items.moonpearl)
 			return "unavailable";
-		if(!items.agahnim && !(items.hammer&&items.glove) && !(items.glove==2 && items.flippers))
-			return "agahnim";
+        if(!items.agahnim && !(items.hammer&&items.glove) && !(items.glove==2 && items.flippers))
+            if(!(items.sword>=2 || items.cape))
+                return "unavailable";
+            else
+                return "agahnim";
 		if(items.bow>1 && (items.chest3>1 || items.hammer))
 			return "available";
 		return "possible";
@@ -115,10 +121,11 @@ dungeons[4] = {
 			return "unavailable";
 		if(!items.hammer || !items.hookshot)
 			return "unavailable";
-        if(!(items.sword>=2 || items.cape))
-            return "unavailable";
 		if(!items.glove && !items.agahnim)
-			return "agahnim";
+            if(!(items.sword>=2 || items.cape))
+                return "unavailable";
+            else
+                return "agahnim";
 		return "available";
 	},
     canGetChest: function(){
