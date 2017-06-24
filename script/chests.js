@@ -242,22 +242,34 @@ dungeons[7] = {
     image: "boss72.png",
     isBeaten: false,
     isBeatable: function(){
-		if(!items.moonpearl || !items.flippers || items.glove!=2 || !items.hammer)
+		if(!items.moonpearl || items.glove!=2 || !items.hammer)
 			return "unavailable";
 		if(!items.firerod && !items.bombos)
 			return "unavailable";
 		if(items.hookshot || items.somaria)
-			return "available";
-		return "possible";
+            if(items.flippers)
+                return "available";
+            else
+                return "glitchavailable";
+        if(items.flippers)
+            return "possible";
+        else
+            return "glitchpossible";
     },
     canGetChest: function(){
-		if(!items.moonpearl || !items.flippers || items.glove!=2)
+		if(!items.moonpearl || items.glove!=2)
 			return "unavailable";
 		if(!items.firerod && !items.bombos)
 			return "unavailable";
 		if(items.hammer)
-			return "available";
-		return "possible";
+            if(items.flippers)
+                return "available";
+            else
+                return "glitchavailable";
+        if(items.flippers)
+            return "possible";
+        else
+            return "glitchpossible";
     }
 };
 
@@ -761,7 +773,7 @@ chests[29] = {
     isAvailable: function(){
 	if(items.flippers)
 		return "available";
-	return "unavailable";
+	return "glitchavailable";
     }
 };
 
@@ -815,7 +827,7 @@ chests[33] = {
     isAvailable: function(){
 	if( items.flippers || items.glove )
 		return "available";
-	return "unavailable";
+	return "glitchavailable";
     }
 };
 
@@ -1030,7 +1042,7 @@ chests[49] = {
                 return "agahnim";
 			else
 				return "possible";
-		return "unavailable";
+		return "glitchpossible";
 	}
 };
 
