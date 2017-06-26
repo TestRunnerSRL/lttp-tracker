@@ -85,7 +85,7 @@ dungeons[2] = {
     isBeatable: function(){
 		if(!items.mirror && !(items.hookshot && items.hammer))
 			return "unavailable";
-        if(!deathmountaindarkness())
+        if(!deathmountain() && !deathmountaindarkness())
             return "unavailable";
         if(!deathmountain())
             return "glitchavailable";
