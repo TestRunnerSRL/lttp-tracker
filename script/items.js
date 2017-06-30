@@ -54,6 +54,7 @@ var defaultItemGrid = [
 
 var items = {
     bow: 0,
+    boomerang: 0,
     hookshot: false,
     hammer: false,
     firerod: false,
