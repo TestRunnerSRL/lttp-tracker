@@ -343,11 +343,11 @@ dungeons[9] = {
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
 			return "unavailable";
 		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-            if(!items.flute && !items.lantern)
+            if(!items.lantern)
                 return "glitchpossible";
             else
                 return "possible";
-        if(!items.flute && !items.lantern)
+        if(!items.lantern)
             return "glitchavailable";
 		return "available";
     },
@@ -362,18 +362,29 @@ dungeons[9] = {
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
 			return "unavailable";
 		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-            if(!items.flute && !items.lantern)
+            if(!items.flute && !items.lantern) // dark navigation to DM
                 return "glitchpossible";
             else
                 return "possible";
 
 		if(!items.firerod)
-			return "possible";
-		if(dungeonchests[9]>1 || items.icerod)
-            if(!items.flute && !items.lantern)
+            if(!items.flute && !items.lantern) // dark navigation to DM
+                return "glitchpossible";
+            else
+                return "possible";
+
+		if(dungeonchests[9]>1)
+            if(!items.flute && !items.lantern) // dark navigation to DM
                 return "glitchavailable";
             else
                 return "available";
+
+        if(items.icerod) // Last item on Trinexx
+            if(!items.lantern)
+                return "glitchavailable";
+            else
+                return "available";
+
         if(!items.flute && !items.lantern)
             return "glitchpossible";
         else
