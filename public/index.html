@@ -1,0 +1,20 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LttP Networked Item Tracker</title>
+</head>
+
+<body>
+    <h1>LttP Networked Item Tracker</h1>
+    <p style="font-size: 1.4em;">Go to <span id="loc"></span>/[NAME] to view a tracker. If the name does not 
+        already exist, you will be able to create the tracker. If it does exist, you will be able to watch the 
+        tracker and, if the room creator gives you the passcode, update the tracker as well.</p>
+    <p>Remember the passcode when you create a tracker. If your cookies clear, you will not be able to update
+        the tracker without putting in the passcode.</p>
+    <script>
+        document.getElementById('loc').innerText = location.origin;
+    </script>
+</body>
+</html>

@@ -1,5 +1,4 @@
-var prizes = [];
-var medallions = [];
+
 
 var itemGrid = [];
 var itemLayout = [];
@@ -9,6 +8,23 @@ var showmedals = true;
 
 var editmode = false;
 var selected = {};
+
+var items = itemsInit;
+var dungeonchests = dungeonchestsInit;
+var dungeonbeaten = dungeonbeatenInit;
+var prizes = prizesInit;
+var medallions = medallionsInit;
+
+var uid = undefined;
+var roomid = location.pathname.replace(/\//g, "");
+
+var chestsopenedInit = [];
+for(var i = 0; i < chests.length; i++) {
+    chestsopenedInit.push(false);
+}
+var chestsopened = chestsopenedInit;
+
+var rootRef = {};
 
 function setCookie(obj) {
     var d = new Date();
@@ -37,7 +53,7 @@ var cookiekeys = ['map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', '
 var cookieDefault = {
     map:1,
     iZoom:100,
-    mZoom:51,
+    mZoom:50,
     mOrien:0,
     mPos:0,
     chest:1,
@@ -111,32 +127,28 @@ function saveCookie() {
 
 // Event of clicking a chest on the map
 function toggleChest(x){
-    chests[x].isOpened = !chests[x].isOpened;
-    if(chests[x].isOpened)
-        document.getElementById(x).className = "mapspan chest opened";
-    else
-        document.getElementById(x).className = "mapspan chest " + chests[x].isAvailable();
+    rootRef.child('chestsopened').child(x).set(!chestsopened[x]);
 }
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById(x).style.backgroundImage = "url(/images/highlighted.png)";
     document.getElementById("caption").innerHTML = chests[x].name;
 }
 
 function unhighlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/poi.png)";
+    document.getElementById(x).style.backgroundImage = "url(/images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/highlighted.png)";
     document.getElementById("caption").innerHTML = dungeons[x].name;
 }
 
 function unhighlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/poi.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
@@ -398,13 +410,13 @@ function updateGridItem(row, index) {
 
     if (editmode) {
         if (!item || item == 'blank') {
-            itemGrid[row][index]['item'].style.backgroundImage = ("url(images/blank.png)");
+            itemGrid[row][index]['item'].style.backgroundImage = ("url(/images/blank.png)");
         }
         else if((typeof items[item]) == "boolean"){
-            itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + ".png)";
+            itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + ".png)";
         }
         else{
-            itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + itemsMax[item] + ".png)";
+            itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + itemsMax[item] + ".png)";
         }
 
         itemGrid[row][index]['item'].style.border = '1px solid white';
@@ -422,10 +434,10 @@ function updateGridItem(row, index) {
     }
 
     if((typeof items[item]) == "boolean"){
-        itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + ".png)";
+        itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + ".png)";
     }
     else{
-        itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + items[item] + ".png)";
+        itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + items[item] + ".png)";
     }
 
     itemGrid[row][index]['item'].className = "griditem " + (!!items[item]);
@@ -434,19 +446,19 @@ function updateGridItem(row, index) {
         var d = item.substring(4,5);
 
         if (showchests) {
-            itemGrid[row][index][2].style.backgroundImage = "url(images/chest" + dungeonchests[d] + ".png)";
+            itemGrid[row][index][2].style.backgroundImage = "url(/images/chest" + dungeonchests[d] + ".png)";
         } else {
             itemGrid[row][index][2].style.backgroundImage = '';
         }
 
         if (showprizes) {
-            itemGrid[row][index][3].style.backgroundImage = "url(images/dungeon" + prizes[d] + ".png)";
+            itemGrid[row][index][3].style.backgroundImage = "url(/images/dungeon" + prizes[d] + ".png)";
         } else {
             itemGrid[row][index][3].style.backgroundImage = '';
         }
 
         if (showmedals && d >= 8) {
-            itemGrid[row][index][1].style.backgroundImage = "url(images/medallion" + medallions[d] + ".png)";
+            itemGrid[row][index][1].style.backgroundImage = "url(/images/medallion" + medallions[d] + ".png)";
         } else {
             itemGrid[row][index][1].style.backgroundImage = '';
         }
@@ -470,9 +482,6 @@ function setGridItem(item, row, index) {
 }
 
 function initGridRow(itemsets) {
-    prizes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    medallions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
     var r, c;
     var startdraw = false;
     for (r = 7; r >= 0 && !startdraw; r--) {
@@ -573,88 +582,96 @@ function gridItemClick(row, col, corner) {
         var d = item.substring(4,5);
 
         if (corner == 1 && showmedals && d >= 8) {
-            medallions[d]++;
-            if(medallions[d] == 4)
-                medallions[d] = 0;
-            // Update availability of dungeon boss AND chests
-            if(dungeons[d].isBeaten)
-                document.getElementById("bossMap"+d).className = "mapspan boss opened";
-            else
-                document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable();
-
-            if(dungeonchests[d] > 0)
-                document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest();
-            // TRock medallion affects Mimic Cave
-            if(d == 9){
-                chests[4].isOpened = !chests[4].isOpened;
-                toggleChest(4);
-            }
-            // Change the mouseover text on the map
-            var dungeonName;
-            if(d == 8)
-                dungeonName = "Misery Mire";
-            else
-                dungeonName = "Turtle Rock";
-            dungeons[d].name = dungeonName + " <img src='images/medallion"+medallions[d]+".png' class='mini'><img src='images/lantern.png' class='mini'>";
+            rootRef.child('medallions').child(d).set( (medallions[d] + 1) % 4 );
         } 
         else if (corner == 2 && showchests) {
             var chestitem = 'chest' + d;
-            dungeonchests[d]--;
-            if(dungeonchests[d] < 0)
-                dungeonchests[d] = itemsMax[chestitem];
-
-            if(dungeonchests[d] == 0)
-                document.getElementById("dungeon"+d).className = "mapspan dungeon opened";
-            else
-                document.getElementById("dungeon"+d).className = "mapspan dungeon " + dungeons[d].canGetChest();
+            var newVal = dungeonchests[d] - 1;
+            if(newVal < 0) {
+                newVal = itemsMax[chestitem];
+            }
+            rootRef.child('dungeonchests').child(d).set(newVal);
         } 
         else if (corner == 3 && showprizes) {
-            prizes[d]++;
-            if(prizes[d] == 5)
-                prizes[d] = 0;
-            // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
-            var pendantChests = [25, 61, 62];
-            for(k=0; k<pendantChests.length; k++){
-                if(!chests[pendantChests[k]].isOpened)
-                    document.getElementById(pendantChests[k]).className = "mapspan chest " + chests[pendantChests[k]].isAvailable();
-            }
+            rootRef.child('prizes').child(d).set( (prizes[d] + 1) % 5 );
         } 
         else {
-            items[item]++;
-            if(items[item] > itemsMax[item]){
-                items[item] = itemsMin[item];
+            var newVal = items[item] + 1;
+            if(newVal > itemsMax[item]){
+                newVal = itemsMin[item];
             }
-
-            dungeons[d].isBeaten = !dungeons[d].isBeaten;
-            if(dungeons[d].isBeaten)
-                document.getElementById("bossMap"+d).className = "mapspan boss opened";
-            else
-                document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable();
-
+            rootRef.child('items').child(item).set(newVal);
+            rootRef.child('dungeonbeaten').child(d).set(!dungeonbeaten[d]);
         }
     }
     else if((typeof items[item]) == "boolean"){
-        items[item] = !items[item];
+        rootRef.child('items').child(item).set(!items[item]);
     }
     else{
-        items[item]++;
-        if(items[item] > itemsMax[item]){
-            items[item] = itemsMin[item];
+        var newVal = items[item] + 1;
+        if(newVal > itemsMax[item]){
+            newVal = itemsMin[item];
         }
+        rootRef.child('items').child(item).set(newVal);
     }
+}
 
+function updateMedallionsAll() {
+    updateMedallions(8);
+    updateMedallions(9);
+    refreshDungeonsAndChests();
+}
+
+function updateMedallions(d) {
+    // Update availability of dungeon boss AND chests
+    if(dungeonbeaten[d])
+        document.getElementById("bossMap"+d).className = "mapspan boss opened";
+    else
+        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable();
+
+    if(dungeonchests[d] > 0)
+        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest();
+    // TRock medallion affects Mimic Cave
+    if(d == 9){
+        refreshChests();
+    }
+    // Change the mouseover text on the map
+    var dungeonName;
+    if(d == 8)
+        dungeonName = "Misery Mire";
+    else
+        dungeonName = "Turtle Rock";
+    dungeons[d].name = dungeonName + " <img src='images/medallion"+medallions[d]+".png' class='mini'><img src='images/lantern.png' class='mini'>";
+}
+
+function updatePrizesAll() {
+    // Update Sahasralah, Fat Fairy, and Master Sword Pedestal - will be done in chest refresh
+    refreshDungeonsAndChests();
+}
+
+function refreshChests() {
     for(k=0; k<chests.length; k++){
-        if(!chests[k].isOpened)
+        if(chestsopened[k])
+            document.getElementById(k).className = "mapspan chest opened";
+        else
             document.getElementById(k).className = "mapspan chest " + chests[k].isAvailable();
     }
+}
+
+function refreshDungeonsAndChests() {
+    updateGridItemAll();
+    refreshChests();
+
     for(k=0; k<dungeons.length; k++){
-        if(!dungeons[k].isBeaten)
+        if(dungeonbeaten[k])
+            document.getElementById("bossMap"+k).className = "mapspan boss opened";
+        else
             document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[k].isBeatable();
         if(dungeonchests[k])
             document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[k].canGetChest();
+        else
+            document.getElementById("dungeon"+k).className = "mapspan dungeon opened";
     }
-
-    updateGridItem(row,col);
 }
 
 function itemConfigClick (sender) {
@@ -711,7 +728,7 @@ function populateMapdiv() {
     // Initialize all chests on the map
     for(k=0; k<chests.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(/images/poi.png)';
         s.style.color = 'black';
         s.id = k;
         s.onclick = new Function('toggleChest('+k+')');
@@ -719,7 +736,7 @@ function populateMapdiv() {
         s.onmouseout = new Function('unhighlight('+k+')');
         s.style.left = chests[k].x;
         s.style.top = chests[k].y;
-        if(chests[k].isOpened)
+        if(chestsopened[k])
             s.className = "mapspan chest opened";
         else
             s.className = "mapspan chest " + chests[k].isAvailable();
@@ -729,7 +746,7 @@ function populateMapdiv() {
     // Dungeon bosses & chests
     for(k=0; k<dungeons.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/' + dungeons[k].image + ')';
+        s.style.backgroundImage = 'url(/images/' + dungeons[k].image + ')';
         s.id = 'bossMap' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -739,7 +756,7 @@ function populateMapdiv() {
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(/images/poi.png)';
         s.id = 'dungeon' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -770,20 +787,110 @@ function populateItemconfig() {
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof items[key]) == "boolean"){
-            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
         }
         else{
-            rowitem.style.backgroundImage = "url(images/" + key + itemsMax[key] + ".png)";
+            rowitem.style.backgroundImage = "url(/images/" + key + itemsMax[key] + ".png)";
         }
         row.appendChild(rowitem);
     }		
 }
 
+function enterPasscode() {
+    var passcode = document.getElementById('entryPasscodeInput').value;
+    rootRef.child('editors').child(uid).set(passcode, function(error) {
+        if(error) {
+            console.log("Did not add to editors");
+            console.log(error);
+        }
+        else {
+            console.log("Added to editors successfully");
+        }
+    });
+}
+
+function createRoom() {
+    var editors = {};
+    var passcode = document.getElementById('passcodeInput').value;
+    editors[uid] = true;
+    rootRef.set({
+        owner: uid,
+        editors: editors,
+        passcode: passcode,
+        items: itemsInit,
+        dungeonchests: dungeonchestsInit,
+        dungeonbeaten: dungeonbeatenInit,
+        prizes: prizesInit,
+        medallions: medallionsInit,
+        chestsopened: chestsopenedInit
+    });
+}
+
+function resetFirebase() {
+    rootRef.child('items').set(itemsInit);
+    rootRef.child('dungeonchests').set(dungeonchestsInit);
+    rootRef.child('dungeonbeaten').set(dungeonbeatenInit);
+    rootRef.child('prizes').set(prizesInit);
+    rootRef.child('medallions').set(medallionsInit);
+    rootRef.child('chestsopened').set(chestsopenedInit);
+}
+
 function init() {
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        console.log(user);
+        uid = user.uid;
+        initTracker();
+    } else {
+        // User is signed out.
+        // TODO: clean up all
+    }});
+
+    firebase.auth().signInAnonymously().catch(function(error) {
+        console.log(error);
+    });
+}
+
+function initTracker() {
+    rootRef = firebase.database().ref('games/' + roomid);
+
     createItemTracker(document.getElementById('itemdiv'));
     populateMapdiv();
     populateItemconfig();
 
     loadCookie();
-    saveCookie();  
+    saveCookie();
+
+    rootRef.child('items').on('value', function(snapshot) {
+        items = snapshot.val();
+        updateAll();
+        document.getElementById('createRoomPanel').hidden = !!items;
+    });
+    rootRef.child('dungeonchests').on('value', function(snapshot) {
+        dungeonchests = snapshot.val();
+        updateAll();
+    });
+    rootRef.child('dungeonbeaten').on('value', function(snapshot) {
+        dungeonbeaten = snapshot.val();
+        updateAll();
+    });
+    rootRef.child('prizes').on('value', function(snapshot) {
+        prizes = snapshot.val();
+        updateAll();
+    });
+    rootRef.child('medallions').on('value', function(snapshot) {
+        medallions = snapshot.val();
+        updateAll();
+    });
+    rootRef.child('chestsopened').on('value', function(snapshot) {
+        chestsopened = snapshot.val();
+        updateAll();
+    });
+}
+
+function updateAll() {
+    if(items && dungeonchests && dungeonbeaten && prizes && medallions && chestsopened) {
+        updateMedallionsAll();
+    }
 }
