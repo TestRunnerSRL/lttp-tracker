@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="style.css" type="text/css">
 
         <script src="/__/firebase/4.2.0/firebase-app.js"></script>
+        <script src="/__/firebase/4.2.0/firebase-auth.js"></script>
         <script src="/__/firebase/4.2.0/firebase-database.js"></script>
         <script src="/__/firebase/init.js"></script>
         <script src="script/items.js"></script>
@@ -15,6 +16,14 @@
 
     <body>
     
+        <div id='createRoomPanel'>
+            <p>Either the room is still loading or there is not a room here.</p>
+            <p>Click the button below to initialize a room.</p>
+            <p>Be sure to give it a passcode so you can give access to others or yourself on another machine or after a cookie reset.</p>
+            <p>Room Editing Passcode: <input type="text" name="passcode" id="passcodeInput" /></p>
+            <p><button type="button" name="initRoom" id="initRoomButton" onclick="createRoom()">Create Room</button></p>
+        </div>
+
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
             </div>
@@ -54,6 +63,13 @@
                 Orientation:
                 <input type='radio' name='maporientation' value='Horizontal' checked='true' onclick="setMapOrientation(false)">Horizontal
                 <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
+            </fieldset>
+            <fieldset>
+                <legend>Room Controls</legend>
+                <input type="text" name="entryPasscode" id="entryPasscodeInput" />
+                <button type="button" name="enterPasscode" id="enterPasscodeButton" onclick="enterPasscode()">Enter Passcode</button>
+                <br>
+                <button type="button" name="resetRoom" id="resetRoomButton" onclick="resetFirebase()">Reset Room</button>
             </fieldset>
         </fieldset>
         

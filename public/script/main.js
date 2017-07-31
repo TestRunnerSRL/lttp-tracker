@@ -15,6 +15,9 @@ var dungeonbeaten = dungeonbeatenInit;
 var prizes = prizesInit;
 var medallions = medallionsInit;
 
+var uid = undefined;
+var roomid = "default2";
+
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
     chestsopenedInit.push(false);
@@ -793,6 +796,36 @@ function populateItemconfig() {
     }		
 }
 
+function enterPasscode() {
+    var passcode = document.getElementById('entryPasscodeInput').value;
+    rootRef.child('editors').child(uid).set(passcode, function(error) {
+        if(error) {
+            console.log("Did not add to editors");
+            console.log(error);
+        }
+        else {
+            console.log("Added to editors successfully");
+        }
+    });
+}
+
+function createRoom() {
+    var editors = {};
+    var passcode = document.getElementById('passcodeInput').value;
+    editors[uid] = true;
+    rootRef.set({
+        owner: uid,
+        editors: editors,
+        passcode: passcode,
+        items: itemsInit,
+        dungeonchests: dungeonchestsInit,
+        dungeonbeaten: dungeonbeatenInit,
+        prizes: prizesInit,
+        medallions: medallionsInit,
+        chestsopened: chestsopenedInit
+    });
+}
+
 function resetFirebase() {
     rootRef.child('items').set(itemsInit);
     rootRef.child('dungeonchests').set(dungeonchestsInit);
@@ -803,7 +836,24 @@ function resetFirebase() {
 }
 
 function init() {
-    rootRef = firebase.database().ref('games/default');
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        console.log(user);
+        uid = user.uid;
+        initTracker();
+    } else {
+        // User is signed out.
+        // TODO: clean up all
+    }});
+
+    firebase.auth().signInAnonymously().catch(function(error) {
+        console.log(error);
+    });
+}
+
+function initTracker() {
+    rootRef = firebase.database().ref('games/' + roomid);
 
     createItemTracker(document.getElementById('itemdiv'));
     populateMapdiv();
@@ -814,26 +864,33 @@ function init() {
 
     rootRef.child('items').on('value', function(snapshot) {
         items = snapshot.val();
-        if(items) refreshDungeonsAndChests();
+        updateAll();
+        document.getElementById('createRoomPanel').hidden = !!items;
     });
     rootRef.child('dungeonchests').on('value', function(snapshot) {
         dungeonchests = snapshot.val();
-        if(dungeonchests) refreshDungeonsAndChests();
+        updateAll();
     });
     rootRef.child('dungeonbeaten').on('value', function(snapshot) {
         dungeonbeaten = snapshot.val();
-        if(dungeonbeaten) refreshDungeonsAndChests();
+        updateAll();
     });
     rootRef.child('prizes').on('value', function(snapshot) {
         prizes = snapshot.val();
-        if(prizes) updatePrizesAll();
+        updateAll();
     });
     rootRef.child('medallions').on('value', function(snapshot) {
         medallions = snapshot.val();
-        if(medallions) updateMedallionsAll();
+        updateAll();
     });
     rootRef.child('chestsopened').on('value', function(snapshot) {
         chestsopened = snapshot.val();
-        if(chestsopened) refreshChests();
+        updateAll();
     });
+}
+
+function updateAll() {
+    if(items && dungeonchests && dungeonbeaten && prizes && medallions && chestsopened) {
+        updateMedallionsAll();
+    }
 }
