@@ -26,7 +26,6 @@ dungeons[0] = {
     x: "46.8%",
     y: "38.8%",
     image: "boss02.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(items.bow)
             if(items.lantern)
@@ -53,7 +52,6 @@ dungeons[1] = {
     x: "3.8%",
     y: "78.4%",
     image: "boss12.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.glove)
 			return "unavailable";
@@ -81,7 +79,6 @@ dungeons[2] = {
     x: "31.0%",
     y: "5.5%",
     image: "boss22.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.mirror && !(items.hookshot && items.hammer))
 			return "unavailable";
@@ -103,7 +100,6 @@ dungeons[3] = {
     x: "97.0%",
     y: "40.0%",
     image: "boss32.png",
-    isBeaten: false,
     isBeatable: function(){
         if(!items.moonpearl || !(items.bow) || !items.hammer)
             return "unavailable";
@@ -141,7 +137,6 @@ dungeons[4] = {
     x: "73.5%",
     y: "91.0%",
     image: "boss42.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.moonpearl || !items.mirror || !items.flippers)
 			return "unavailable";
@@ -191,7 +186,6 @@ dungeons[5] = {
     x: "53.3%",
     y: "5.4%",
     image: "boss52.png",
-    isBeaten: false,
     isBeatable: function(){
         if(steve() && items.firerod)
             return "available";
@@ -216,7 +210,6 @@ dungeons[6] = {
     x: "56.4%",
     y: "47.9%",
     image: "boss62.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(steve())
 			return "available";
@@ -240,7 +233,6 @@ dungeons[7] = {
     x: "89.8%",
     y: "85.8%",
     image: "boss72.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.moonpearl || items.glove!=2 || !items.hammer)
 			return "unavailable";
@@ -278,7 +270,6 @@ dungeons[8] = {
     x: "55.8%",
     y: "82.9%",
     image: "boss82.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.moonpearl || !items.flute || items.glove!=2 || !items.somaria)
 			return "unavailable";
@@ -329,7 +320,6 @@ dungeons[9] = {
     x: "96.9%",
     y: "7.0%",
     image: "boss92.png",
-    isBeaten: false,
     isBeatable: function(){
 		if(!items.moonpearl || !items.hammer || items.glove!=2 || !items.somaria)
 			return "unavailable";

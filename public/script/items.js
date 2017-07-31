@@ -53,7 +53,7 @@ var defaultItemGrid = [
     ],
 ]
 
-var items = {
+var itemsInit = {
     bow: false,
     boomerang: 0,
     hookshot: false,
@@ -99,7 +99,7 @@ var items = {
     blank: false
 };
 
-var dungeonchests = {
+var dungeonchestsInit = {
     0: 3,
     1: 2,
     2: 2,
@@ -111,6 +111,11 @@ var dungeonchests = {
     8: 2,
     9: 5     
 }
+
+
+var dungeonbeatenInit = [false, false, false, false, false, false, false, false, false, false];
+var prizesInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var medallionsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 var itemsMin = {
