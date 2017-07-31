@@ -2,13 +2,15 @@
   "rules": {
     "games": {
       "$gameid": {
-        ".write": "!data.child('owner').exists()",
+        ".write": "!data.child('owner').exists() && newData.child('owner').val() === auth.uid",
+        ".validate": "!$gameid.contains('.') && !$gameid.contains('/') && !$gameid.contains('\\\\')",
         "owner": {
           ".read": "true"
         },
         "passcode": {
           ".read": "auth.uid === data.parent().child('owner').val()",
-          ".write": "auth.uid == data.parent().child('owner').val()"
+          ".write": "auth.uid == data.parent().child('owner').val()",
+          ".validate": "newData.isString() && newData.val().length >= 1"
         },
         "editors": {
           ".read": "auth.uid === data.parent().child('owner').val()",
