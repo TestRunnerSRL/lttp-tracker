@@ -16,7 +16,7 @@ var prizes = prizesInit;
 var medallions = medallionsInit;
 
 var uid = undefined;
-var roomid = "default2";
+var roomid = location.pathname.replace(/\//g, "");
 
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
@@ -132,23 +132,23 @@ function toggleChest(x){
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById(x).style.backgroundImage = "url(/images/highlighted.png)";
     document.getElementById("caption").innerHTML = chests[x].name;
 }
 
 function unhighlight(x){
-    document.getElementById(x).style.backgroundImage = "url(images/poi.png)";
+    document.getElementById(x).style.backgroundImage = "url(/images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/highlighted.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/highlighted.png)";
     document.getElementById("caption").innerHTML = dungeons[x].name;
 }
 
 function unhighlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/poi.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
@@ -410,13 +410,13 @@ function updateGridItem(row, index) {
 
     if (editmode) {
         if (!item || item == 'blank') {
-            itemGrid[row][index]['item'].style.backgroundImage = ("url(images/blank.png)");
+            itemGrid[row][index]['item'].style.backgroundImage = ("url(/images/blank.png)");
         }
         else if((typeof items[item]) == "boolean"){
-            itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + ".png)";
+            itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + ".png)";
         }
         else{
-            itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + itemsMax[item] + ".png)";
+            itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + itemsMax[item] + ".png)";
         }
 
         itemGrid[row][index]['item'].style.border = '1px solid white';
@@ -434,10 +434,10 @@ function updateGridItem(row, index) {
     }
 
     if((typeof items[item]) == "boolean"){
-        itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + ".png)";
+        itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + ".png)";
     }
     else{
-        itemGrid[row][index]['item'].style.backgroundImage = "url(images/" + item + items[item] + ".png)";
+        itemGrid[row][index]['item'].style.backgroundImage = "url(/images/" + item + items[item] + ".png)";
     }
 
     itemGrid[row][index]['item'].className = "griditem " + (!!items[item]);
@@ -446,19 +446,19 @@ function updateGridItem(row, index) {
         var d = item.substring(4,5);
 
         if (showchests) {
-            itemGrid[row][index][2].style.backgroundImage = "url(images/chest" + dungeonchests[d] + ".png)";
+            itemGrid[row][index][2].style.backgroundImage = "url(/images/chest" + dungeonchests[d] + ".png)";
         } else {
             itemGrid[row][index][2].style.backgroundImage = '';
         }
 
         if (showprizes) {
-            itemGrid[row][index][3].style.backgroundImage = "url(images/dungeon" + prizes[d] + ".png)";
+            itemGrid[row][index][3].style.backgroundImage = "url(/images/dungeon" + prizes[d] + ".png)";
         } else {
             itemGrid[row][index][3].style.backgroundImage = '';
         }
 
         if (showmedals && d >= 8) {
-            itemGrid[row][index][1].style.backgroundImage = "url(images/medallion" + medallions[d] + ".png)";
+            itemGrid[row][index][1].style.backgroundImage = "url(/images/medallion" + medallions[d] + ".png)";
         } else {
             itemGrid[row][index][1].style.backgroundImage = '';
         }
@@ -728,7 +728,7 @@ function populateMapdiv() {
     // Initialize all chests on the map
     for(k=0; k<chests.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(/images/poi.png)';
         s.style.color = 'black';
         s.id = k;
         s.onclick = new Function('toggleChest('+k+')');
@@ -746,7 +746,7 @@ function populateMapdiv() {
     // Dungeon bosses & chests
     for(k=0; k<dungeons.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/' + dungeons[k].image + ')';
+        s.style.backgroundImage = 'url(/images/' + dungeons[k].image + ')';
         s.id = 'bossMap' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -756,7 +756,7 @@ function populateMapdiv() {
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
-        s.style.backgroundImage = 'url(images/poi.png)';
+        s.style.backgroundImage = 'url(/images/poi.png)';
         s.id = 'dungeon' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -787,10 +787,10 @@ function populateItemconfig() {
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof items[key]) == "boolean"){
-            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
         }
         else{
-            rowitem.style.backgroundImage = "url(images/" + key + itemsMax[key] + ".png)";
+            rowitem.style.backgroundImage = "url(/images/" + key + itemsMax[key] + ".png)";
         }
         row.appendChild(rowitem);
     }		
