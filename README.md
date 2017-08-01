@@ -1,6 +1,6 @@
 # lttp-tracker
-Item tracker for link to the past randomizer, with Firebase support. You will need to acquire and set up a Firebase project in order to serve this correctly.
+Item tracker for link to the past randomizer, with Firebase support. 
 
-Use it in action: https://lttp-tracker.firebaseapp.com/
+Use it: https://lttp-tracker.firebaseapp.com/
 
-You will need to enable anonymous authentication on your Firebase project.
+If you want to set up your own instance rather than using the public one above, you will need to acquire and set up a Firebase project. You will need to enable anonymous authentication on that project.
