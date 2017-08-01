@@ -17,6 +17,7 @@ var medallions = medallionsInit;
 
 var uid = undefined;
 var roomid = location.pathname.replace(/\//g, "").toLowerCase();
+var authAttempted = false;
 
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
@@ -847,13 +848,14 @@ function init() {
         uid = user.uid;
         initTracker();
     } else {
-        // User is signed out.
-        // TODO: clean up all
+        console.log("Auth state not logged in");
+        if(authAttempted) return;
+        authAttempted = true;
+        firebase.auth().signInAnonymously().catch(function(error) {
+            console.log(error);
+        });
     }});
 
-    firebase.auth().signInAnonymously().catch(function(error) {
-        console.log(error);
-    });
 }
 
 function initTracker() {
