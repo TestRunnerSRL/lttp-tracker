@@ -2,7 +2,7 @@
   "rules": {
     "games": {
       "$gameid": {
-        ".write": "!data.child('owner').exists() && newData.child('owner').val() === auth.uid",
+        ".write": "(!data.child('owner').exists() && newData.child('owner').val() === auth.uid) || (!newData.exists() && data.child('owner').val() === auth.uid)",
         ".validate": "!$gameid.contains('.') && !$gameid.contains('/') && !$gameid.contains('\\\\')",
         "owner": {
           ".read": "true"
