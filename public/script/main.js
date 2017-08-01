@@ -16,7 +16,7 @@ var prizes = prizesInit;
 var medallions = medallionsInit;
 
 var uid = undefined;
-var roomid = location.pathname.replace(/\//g, "");
+var roomid = location.pathname.replace(/\//g, "").toLowerCase();
 
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
@@ -833,6 +833,10 @@ function resetFirebase() {
     rootRef.child('prizes').set(prizesInit);
     rootRef.child('medallions').set(medallionsInit);
     rootRef.child('chestsopened').set(chestsopenedInit);
+}
+
+function destroyFirebase() {
+    rootRef.set({});
 }
 
 function init() {
