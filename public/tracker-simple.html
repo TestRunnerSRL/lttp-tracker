@@ -375,7 +375,7 @@ function setItemState(item, state) {
 }
 
 function initTracker() {
-  setInterval(timerRun, 50);
+  setInterval(timerRun, 53);
   rootRef.child('items').on('child_added', function(data) {
     setItemState(data.key, data.val());
   });
