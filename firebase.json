@@ -8,6 +8,10 @@
       {
         "source": "/simple/**",
         "destination": "/tracker-simple.html"
+      },
+      {
+        "source": "/**",
+        "destination": "/tracker.html"
       }
     ]
   }
