@@ -3,9 +3,10 @@
     "games": {
       "$gameid": {
         ".write": "(!data.child('owner').exists() && newData.child('owner').val() === auth.uid) || (!newData.exists() && data.child('owner').val() === auth.uid)",
-        ".validate": "!$gameid.contains('.') && !$gameid.contains('/') && !$gameid.contains('\\\\')",
+        ".validate": "!$gameid.contains('.') && !$gameid.contains('/') && !$gameid.contains('\\\\') && (!newData.exists() || data.child('owner').exists() || newData.child('owner').exists())",
         "owner": {
-          ".read": "true"
+          ".read": "true",
+          ".validate": "newData.parent().child('passcode').exists()"
         },
         "passcode": {
           ".read": "auth.uid === data.parent().child('owner').val()",
@@ -41,6 +42,10 @@
           ".write": "data.parent().child('editors').child(auth.uid).exists()"
         },
         "chestsopened": {
+          ".read": "true",
+          ".write": "data.parent().child('editors').child(auth.uid).exists()"
+        },
+        "timer": {
           ".read": "true",
           ".write": "data.parent().child('editors').child(auth.uid).exists()"
         },

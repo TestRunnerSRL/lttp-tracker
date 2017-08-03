@@ -15,17 +15,11 @@ var dungeonbeaten = dungeonbeatenInit;
 var prizes = prizesInit;
 var medallions = medallionsInit;
 
-var uid = undefined;
-var roomid = location.pathname.replace(/\//g, "").toLowerCase();
-var authAttempted = false;
-
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
     chestsopenedInit.push(false);
 }
 var chestsopened = chestsopenedInit;
-
-var rootRef = {};
 
 function setCookie(obj) {
     var d = new Date();
@@ -836,31 +830,8 @@ function resetFirebase() {
     rootRef.child('chestsopened').set(chestsopenedInit);
 }
 
-function destroyFirebase() {
-    rootRef.set({});
-}
-
-function init() {
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // User is signed in.
-        console.log(user);
-        uid = user.uid;
-        initTracker();
-    } else {
-        console.log("Auth state not logged in");
-        if(authAttempted) return;
-        authAttempted = true;
-        firebase.auth().signInAnonymously().catch(function(error) {
-            console.log(error);
-        });
-    }});
-
-}
 
 function initTracker() {
-    rootRef = firebase.database().ref('games/' + roomid);
-
     createItemTracker(document.getElementById('itemdiv'));
     populateMapdiv();
     populateItemconfig();
