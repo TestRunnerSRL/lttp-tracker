@@ -23,6 +23,7 @@ var dungeons = new Array;
 
 dungeons[0] = {
     name: "Eastern Palace",
+    label: "EP",
     x: "46.8%",
     y: "38.8%",
     image: "boss02.png",
@@ -49,6 +50,7 @@ dungeons[0] = {
 
 dungeons[1] = {
     name: "Desert Palace",
+    label: "DP",
     x: "3.8%",
     y: "78.4%",
     image: "boss12.png",
@@ -76,6 +78,7 @@ dungeons[1] = {
 
 dungeons[2] = {
     name: "Tower of Hera",
+    label: "TH",
     x: "31.0%",
     y: "5.5%",
     image: "boss22.png",
@@ -97,6 +100,7 @@ dungeons[2] = {
 
 dungeons[3] = {
     name: "Palace of Darkness <img src='/images/lantern.png' class='mini'>",
+    label: "PD",
     x: "97.0%",
     y: "40.0%",
     image: "boss32.png",
@@ -134,6 +138,7 @@ dungeons[3] = {
 
 dungeons[4] = {
     name: "Swamp Palace <img src='/images/mirror.png' class='mini'>",
+    label: "SP",
     x: "73.5%",
     y: "91.0%",
     image: "boss42.png",
@@ -183,6 +188,7 @@ dungeons[4] = {
 
 dungeons[5] = {
     name: "Skull Woods",
+    label: "SW",
     x: "53.3%",
     y: "5.4%",
     image: "boss52.png",
@@ -207,6 +213,7 @@ dungeons[5] = {
 
 dungeons[6] = {
     name: "Thieves' Town",
+    label: "TT",
     x: "56.4%",
     y: "47.9%",
     image: "boss62.png",
@@ -230,6 +237,7 @@ dungeons[6] = {
 
 dungeons[7] = {
     name: "Ice Palace (yellow=must bomb jump)",
+    label: "IP",
     x: "89.8%",
     y: "85.8%",
     image: "boss72.png",
@@ -267,6 +275,7 @@ dungeons[7] = {
 
 dungeons[8] = {
     name: "Misery Mire <img src='/images/medallion0.png' class='mini'><img src='/images/lantern.png' class='mini'>",
+    label: "MM",
     x: "55.8%",
     y: "82.9%",
     image: "boss82.png",
@@ -317,6 +326,7 @@ dungeons[8] = {
 
 dungeons[9] = {
     name: "Turtle Rock <img src='/images/medallion0.png' class='mini'><img src='/images/lantern.png' class='mini'>",
+    label: "TR",
     x: "96.9%",
     y: "7.0%",
     image: "boss92.png",

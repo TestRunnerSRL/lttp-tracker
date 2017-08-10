@@ -4,6 +4,7 @@
         <title>LttP Networked Item Tracker</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/style.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
         <script src="/__/firebase/4.2.0/firebase-app.js"></script>
         <script src="/__/firebase/4.2.0/firebase-auth.js"></script>
@@ -51,6 +52,7 @@
                     <input type="checkbox" name="showchest" checked='true' onchange="showChest(this)">Chests
                     <input type="checkbox" name="showcrystal" checked='true' onchange="showCrystal(this)">Prizes
                     <input type="checkbox" name="showmedallion" checked='true' onchange="showMedallion(this)">Medals<br>
+                    <input type="checkbox" name="showlabel" checked='true' onchange="showLabel(this)">Dungeon Labels
                 </fieldset>
             </fieldset>
             <fieldset>
@@ -65,14 +67,17 @@
                 <input type='radio' name='maporientation' value='Horizontal' checked='true' onclick="setMapOrientation(false)">Horizontal
                 <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
             </fieldset>
-            <fieldset>
+            <fieldset id="roomControls">
                 <legend>Room Controls</legend>
                 <input type="text" name="entryPasscode" id="entryPasscodeInput" />
                 <button type="button" name="enterPasscode" id="enterPasscodeButton" onclick="enterPasscode()">Enter Passcode</button>
-                <br>
-                <button type="button" name="resetRoom" id="resetRoomButton" onclick="resetFirebase()">Reset Room</button>
-                <br>
-                <button type="button" name="destroyRoom" id="destroyRoomButton" onclick="destroyFirebase()">Destroy Room</button>
+                <div id="editorControls">
+                    <button type="button" name="resetRoom" id="resetRoomButton" onclick="confirmSaveConfigToFirebase()">Push Configuration</button>
+                    <br><br>
+                    <button type="button" name="resetRoom" id="resetRoomButton" onclick="resetFirebase()">Reset Room</button>
+                    <br><br>
+                    <button type="button" name="destroyRoom" id="destroyRoomButton" onclick="destroyFirebase()">Destroy Room</button>
+                </div>
             </fieldset>
         </fieldset>
         

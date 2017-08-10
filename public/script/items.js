@@ -61,7 +61,7 @@ var itemsInit = {
     firerod: false,
     glove: 0,
     moonpearl: false,
-    sword: 1,
+    sword: 0,
     tunic: 1,
     shield: 0,
     bombos: false,

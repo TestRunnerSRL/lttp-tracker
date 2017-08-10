@@ -49,6 +49,10 @@
           ".read": "true",
           ".write": "data.parent().child('editors').child(auth.uid).exists()"
         },
+        "config": {
+          ".read": "true",
+          ".write": "data.parent().child('editors').child(auth.uid).exists()"
+        },
         "$other": {
           ".read": "false",
           ".write": "false"

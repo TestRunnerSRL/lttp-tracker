@@ -94,6 +94,14 @@ label {
 .corner{
     width: 32px;
     height: 32px;
+    color: lightgray;
+    font: 26px 'VT323', monospace;
+    text-shadow: 0 0 3px black;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .true{

@@ -5,6 +5,7 @@ var itemLayout = [];
 var showchests = true;
 var showprizes = true;
 var showmedals = true;
+var showlabels = true;
 
 var editmode = false;
 var selected = {};
@@ -44,8 +45,9 @@ function getCookie() {
     return {};
 }
 
-var cookiekeys = ['map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', 'medal', 'items'];
+var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
+    ts:94,
     map:1,
     iZoom:100,
     mZoom:50,
@@ -54,6 +56,7 @@ var cookieDefault = {
     chest:1,
     prize:1,
     medal:1,
+    label:1,
     items:defaultItemGrid
 }
 
@@ -62,35 +65,49 @@ function loadCookie() {
     if (cookielock)
         return;
     cookielock = true;
+    cookieobj = getConfigObjectFromCookie();
+    setConfigObject(cookieobj);
+    cookielock = false;
+}
 
-    cookieobj = getCookie();
+function setConfigObject(configobj) {
+    initGridRow(JSON.parse(JSON.stringify(configobj.items)));
 
-    cookiekeys.forEach(function (key) {
-        if (cookieobj[key] === undefined) {
-            cookieobj[key] = cookieDefault[key];
-        }
-    });
-
-    initGridRow(JSON.parse(JSON.stringify(cookieobj.items)));
-
-    document.getElementsByName('showmap')[0].checked = !!cookieobj.map;
+    document.getElementsByName('showmap')[0].checked = !!configobj.map;
     document.getElementsByName('showmap')[0].onchange();
-    document.getElementsByName('itemdivsize')[0].value = cookieobj.iZoom;
+    document.getElementsByName('itemdivsize')[0].value = configobj.iZoom;
     document.getElementsByName('itemdivsize')[0].onchange();
-    document.getElementsByName('mapdivsize')[0].value = cookieobj.mZoom;
+    document.getElementsByName('mapdivsize')[0].value = configobj.mZoom;
     document.getElementsByName('mapdivsize')[0].onchange();
 
-    document.getElementsByName('maporientation')[cookieobj.mOrien].click();
-    document.getElementsByName('mapposition')[cookieobj.mPos].click();
+    document.getElementsByName('maporientation')[configobj.mOrien].click();
+    document.getElementsByName('mapposition')[configobj.mPos].click();
 
-    document.getElementsByName('showchest')[0].checked = !!cookieobj.chest;
+    document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
-    document.getElementsByName('showcrystal')[0].checked = !!cookieobj.prize;
+    document.getElementsByName('showcrystal')[0].checked = !!configobj.prize;
     document.getElementsByName('showcrystal')[0].onchange();
-    document.getElementsByName('showmedallion')[0].checked = !!cookieobj.medal;
+    document.getElementsByName('showmedallion')[0].checked = !!configobj.medal;
     document.getElementsByName('showmedallion')[0].onchange();
+    document.getElementsByName('showlabel')[0].checked = !!configobj.label;
+    document.getElementsByName('showlabel')[0].onchange();
+}
 
-    cookielock = false;
+function updateConfigFromFirebase(configobj) {
+    var existingConfig = getConfigObjectFromCookie();
+    if(existingConfig.ts < configobj.ts) {
+        console.log("Overwriting config with Firebase values");
+        setConfigObject(configobj);
+        saveCookie();
+    }
+    else {
+        console.log("Ignoring Firebase config values due to older timestamp");
+    }
+}
+
+function saveConfigToFirebase() {
+    var existingConfig = getConfigObject();
+    rootRef.child('config').set(existingConfig);
 }
 
 function saveCookie() {
@@ -98,26 +115,42 @@ function saveCookie() {
         return;
     cookielock = true;
 
-    cookieobj = {};
-
-    cookieobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
-    cookieobj.iZoom = document.getElementsByName('itemdivsize')[0].value;
-    cookieobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
-
-
-    cookieobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
-    cookieobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
-
-
-    cookieobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
-    cookieobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
-    cookieobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
-
-    cookieobj.items = JSON.parse(JSON.stringify(itemLayout));
-
+    cookieobj = getConfigObject();
     setCookie(cookieobj);
 
     cookielock = false;
+}
+
+function getConfigObjectFromCookie() {
+    configobj = getCookie();
+
+    cookiekeys.forEach(function (key) {
+        if (configobj[key] === undefined) {
+            configobj[key] = cookieDefault[key];
+        }
+    });
+    return configobj;
+}
+
+function getConfigObject() {
+    configobj = {};
+    configobj.ts = (new Date()).getTime();
+
+    configobj.map = document.getElementsByName('showmap')[0].checked ? 1 : 0;
+    configobj.iZoom = document.getElementsByName('itemdivsize')[0].value;
+    configobj.mZoom = document.getElementsByName('mapdivsize')[0].value;
+
+    configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
+    configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
+
+    configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
+    configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
+    configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
+    configobj.medal = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+
+    configobj.items = JSON.parse(JSON.stringify(itemLayout));
+
+    return configobj;
 }
 
 // Event of clicking a chest on the map
@@ -161,6 +194,12 @@ function showCrystal(sender) {
 
 function showMedallion(sender) {
     showmedals = sender.checked;
+    updateGridItemAll();
+    saveCookie();
+}
+
+function showLabel(sender) {
+    showlabels = sender.checked;
     updateGridItemAll();
     saveCookie();
 }
@@ -267,6 +306,7 @@ function showSettings(sender) {
         showchests = document.getElementsByName('showchest')[0].checked;
         showprizes = document.getElementsByName('showcrystal')[0].checked;
         showmedals = document.getElementsByName('showmedallion')[0].checked;
+        showlabels = document.getElementsByName('showlabel')[0].checked;
         editmode = false;
         updateGridItemAll();
         showTracker('mapdiv', document.getElementsByName('showmap')[0]);
@@ -325,6 +365,7 @@ function EditMode() {
     showchests = false;
     showprizes = false;
     showmedals = false;
+    showlabels = false;
     updateGridItemAll();
     editmode = true;
     updateGridItemAll();
@@ -439,6 +480,12 @@ function updateGridItem(row, index) {
 
     if (item.substring(0,4) == "boss"){
         var d = item.substring(4,5);
+
+        if (showlabels) {
+            itemGrid[row][index][0].innerText = dungeons[d].label;
+        } else {
+            itemGrid[row][index][0].innerText = '';
+        }
 
         if (showchests) {
             itemGrid[row][index][2].style.backgroundImage = "url(/images/chest" + dungeonchests[d] + ".png)";
@@ -864,10 +911,20 @@ function initTracker() {
         chestsopened = snapshot.val();
         updateAll();
     });
+    rootRef.child('config').on('value', function(snapshot) {
+        updateConfigFromFirebase(snapshot.val());
+    });
 }
 
 function updateAll() {
     if(items && dungeonchests && dungeonbeaten && prizes && medallions && chestsopened) {
         updateMedallionsAll();
+    }
+}
+
+function confirmSaveConfigToFirebase() {
+    var confirm = window.confirm("Do you want to push your configuration to all other users of your tracker? This will overwrite their settings. (Use this to get a remote browser to match how this browser appears.)");
+    if(confirm) {
+        saveConfigToFirebase();
     }
 }
