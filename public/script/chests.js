@@ -61,6 +61,8 @@ dungeons[1] = {
 			return "unavailable";
 		if(!items.lantern && !items.firerod)
 			return "unavailable";
+		if(items.sword==0 && !items.hammer && !items.bow && !items.firerod && !items.icerod && !items.byrna && !items.somaria)
+			return "unavailable";
 		if(!items.boots)
 			return "possible";
 		return "available";
@@ -86,6 +88,8 @@ dungeons[2] = {
 		if(!items.mirror && !(items.hookshot && items.hammer))
 			return "unavailable";
         if(!deathmountain() && !deathmountaindarkness())
+            return "unavailable";
+        if(items.sword==0 && !items.hammer)
             return "unavailable";
         if(!deathmountain())
             return "glitchavailable";
@@ -193,6 +197,8 @@ dungeons[5] = {
     y: "5.4%",
     image: "boss52.png",
     isBeatable: function(){
+        if(items.sword==0)
+            return "unavailable";
         if(steve() && items.firerod)
             return "available";
         if(stevelight() && items.firerod)
@@ -218,6 +224,8 @@ dungeons[6] = {
     y: "47.9%",
     image: "boss62.png",
     isBeatable: function(){
+        if(items.sword==0 && !items.hammer && !items.byrna && !items.somaria)
+            return "unavailable";
 		if(steve())
 			return "available";
         if(stevelight())
@@ -284,7 +292,9 @@ dungeons[8] = {
 			return "unavailable";
 		if(!items.boots && !items.hookshot)
 			return "unavailable";
-		// Medallion Check
+        // Medallion Check
+        if(items.sword==0)
+            return "unavailable";
 		if(!items.bombos && !items.ether && !items.quake)
 			return "unavailable";
 		if((medallions[8]==1 && !items.bombos) || (medallions[8]==2 && !items.ether) || (medallions[8]==3 && !items.quake))
@@ -304,6 +314,8 @@ dungeons[8] = {
 		if(!items.boots && !items.hookshot)
 			return "unavailable";
 		// Medallion Check
+        if(items.sword==0)
+            return "unavailable";
 		if(!items.bombos && !items.ether && !items.quake)
 			return "unavailable";
 		if((medallions[8]==1 && !items.bombos) || (medallions[8]==2 && !items.ether) || (medallions[8]==3 && !items.quake))
@@ -338,6 +350,8 @@ dungeons[9] = {
 		if(!items.icerod || !items.firerod)
 			return "unavailable";
 		// Medallion Check
+        if(items.sword==0)
+            return "unavailable";
 		if(!items.bombos && !items.ether && !items.quake)
 			return "unavailable";
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
@@ -357,6 +371,8 @@ dungeons[9] = {
 		if(!items.hookshot && !items.mirror)
 			return "unavailable";
 		// Medallion Check
+        if(items.sword==0)
+            return "unavailable";
 		if(!items.bombos && !items.ether && !items.quake)
 			return "unavailable";
 		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
