@@ -155,7 +155,7 @@ var itemsMax = {
 	boss1: 2,
 	boss2: 2,
 
-    agahnim:1,
+    agahnim:3,
 
 	boss3: 2,
 	boss4: 2,
