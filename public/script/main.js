@@ -146,7 +146,7 @@ function getConfigObject() {
     configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
     configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
     configobj.medal = document.getElementsByName('showmedallion')[0].checked ? 1 : 0;
-    configobj.medal = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
+    configobj.label = document.getElementsByName('showlabel')[0].checked ? 1 : 0;
 
     configobj.items = JSON.parse(JSON.stringify(itemLayout));
 
