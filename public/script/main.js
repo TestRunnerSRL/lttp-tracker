@@ -312,25 +312,6 @@ function showTracker(target, sender) {
     }
 }
 
-function clickRowButton(row) {
-    if (itemLayout[row].length % 2 == 0) {
-        itemGrid[row]['button'].innerHTML = '-';
-        itemGrid[row]['button'].style.backgroundColor = 'red';
-        itemGrid[row][6]['item'].style.display = '';
-        itemGrid[row]['half'].style.display = 'none';	
-        itemLayout[row][6] = 'blank';
-    } else {
-        itemGrid[row]['button'].innerHTML = '+';
-        itemGrid[row]['button'].style.backgroundColor = 'green';
-        itemGrid[row][6]['item'].style.display = 'none';
-        itemGrid[row]['half'].style.display = '';	
-        document.getElementById(itemLayout[row][6]).style.opacity = 1;
-        itemLayout[row].splice(-1, 1);
-    }
-    updateGridItem(row, 6);
-}
-
-
 function EditMode() {
     trackerOptions.showchests = false;
     trackerOptions.showprizes = false;
@@ -627,6 +608,18 @@ Vue.component('tracker-table', {
     itemFor: function(itemName) {
       if(!this.trackerData || !this.trackerData.items) return null;
       return this.trackerData.items[itemName];
+    },
+    addRow: function(e) {
+      vm.itemRows.push(['blank']);
+    },
+    addItem: function(rowIndex) {
+      vm.itemRows[rowIndex].push('blank');
+    },
+    removeItem: function(rowIndex) {
+      vm.itemRows[rowIndex].pop();
+      if(vm.itemRows[rowIndex].length == 0) {
+        vm.itemRows.splice(rowIndex,1);
+      }
     }
   }
 });
@@ -715,7 +708,7 @@ Vue.component('tracker-cell', {
     },
     clickPrize: function(e) {
       rootRef.child('prizes').child(this.bossNum).set( (this.trackerData.prizes[this.bossNum] + 1) % 5 );
-    },
+    }
   }
 });
 

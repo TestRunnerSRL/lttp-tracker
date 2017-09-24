@@ -96,10 +96,12 @@
                     <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
                     :column-index="itemColumnIndex" :row-index="itemRowIndex"
                     :tracker-data="trackerData" :tracker-options="trackerOptions" :key="itemColumnIndex + '-' + itemRowIndex"></tracker-cell>
-                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
-                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
+                    <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="removeItem(itemRowIndex)"
+                        :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
+                    <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="addItem(itemRowIndex)" 
+                        :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
                 </div>
-                <button v-if="trackerOptions && trackerOptions.editmode">Add row</button>
+                <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="addRow">Add row</button>
             </div>
         </script>
 
