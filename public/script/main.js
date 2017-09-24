@@ -525,6 +525,15 @@ function resetFirebase() {
     rootRef.child('chestsopened').set(chestsopenedInit);
 }
 
+function useTourneyConfig() {
+  firebase.database().ref('games/tourney-layout/config').once('value', function(snapshot) {
+    let val = snapshot.val();
+    val.ts = 99999999999999;
+    updateConfigFromFirebase(val);
+    saveConfigToFirebase();
+  });
+}
+
 
 function initTracker() {
     //createItemTracker(document.getElementById('itemdiv'));
