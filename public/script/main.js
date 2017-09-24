@@ -640,7 +640,10 @@ Vue.component('tracker-cell', {
       return this.itemName.substring(4,5);
     },
     dungeonLabel: function() {
-      return 'RD';
+      if(this.bossNum && this.trackerOptions && this.trackerOptions.showlabels) {
+        return dungeons[this.bossNum].label;
+      }
+      return null;
     },
     backgroundImage: function() {
       if(this.itemName == 'blank') {

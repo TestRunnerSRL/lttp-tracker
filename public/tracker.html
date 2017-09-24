@@ -108,7 +108,7 @@
         <script type="text/x-template" id="tracker-cell">
             <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative' }"
              :class="isActive ? 'true' : 'false'" @click.stop="clickCell">
-                <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ itemName }}</span>
+                <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
                 <span v-if="chestImage" @click.stop="clickChest" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage }"></span>
                 <span v-if="prizeImage" @click.stop="clickPrize" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage }"></span>
                 <span v-if="medallionImage" @click.stop="clickMedallion" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage }"></span>
