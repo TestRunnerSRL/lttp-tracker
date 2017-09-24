@@ -13,7 +13,7 @@
         <script src="/script/shared.js"></script>
         <script src="/script/items.js"></script>
         <script src="/script/chests.js"></script>
-        <script src="/script/main.js"></script>
+        <script src="https://unpkg.com/vue"></script>
     </head>
 
     <body>
@@ -28,6 +28,7 @@
 
         <div id='layoutdiv'>
             <div id='itemdiv' class='itemdiv'>
+                <tracker-table :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
             </div>
             <div id='mapdiv' class='mapdiv'>
             </div>
@@ -83,13 +84,38 @@
         
         <table id='itemconfig' class='itemconfig' style='display:none'></table>
         
-        <script>
-            init(initTracker);
-        </script>
         
         <footer style='bottom:0; width:100%; text-align: center; position: absolute; color:grey'>Lttp Networked Rando Tracker -
             @pickfifteen (Based on crossproduct, SRL, marcmagus)
         </footer>
+
+        <script type="text/x-template" id="tracker-table">
+            <div class="vueTrackerTable">
+                <div v-for="(itemRow, itemRowIndex) in itemRows" :key="itemRowIndex">
+                    <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
+                    <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
+                    :column-index="itemColumnIndex" :row-index="itemRowIndex"
+                    :tracker-data="trackerData" :tracker-options="trackerOptions" :key="item"></tracker-cell>
+                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'red', color: 'white'}">-</button>
+                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'green', color: 'white'}">+</button>
+                </div>
+                <button v-if="trackerOptions && trackerOptions.editmode">Add row</button>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="tracker-cell">
+            <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative' }"
+             :class="isActive ? 'true' : 'false'" @click.stop="clickCell">
+                <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ itemName }}</span>
+                <span v-if="chestImage" @click.stop="clickChest" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage }"></span>
+                <span v-if="prizeImage" @click.stop="clickPrize" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage }"></span>
+                <span v-if="medallionImage" @click.stop="clickMedallion" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage }"></span>
+            </div>
+        </script>
     </body>
+    <script src="/script/main.js"></script>
+    <script>
+        init(initTracker);
+    </script>
 </html>
 

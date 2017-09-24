@@ -1,21 +1,21 @@
 function steve(){
-    if(!items.moonpearl)
+    if(!trackerData.items.moonpearl)
 	return false;
-    if(items.glove==2 || (items.glove && items.hammer))
+    if(trackerData.items.glove==2 || (trackerData.items.glove && trackerData.items.hammer))
 	return true;
-    return items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers);
+    return trackerData.items.agahnim && trackerData.items.hookshot && (trackerData.items.hammer || trackerData.items.glove || trackerData.items.flippers);
 }
 
 function stevelight(){
-    return items.moonpearl && items.hookshot && (items.hammer || items.glove || items.flippers) && (items.sword>=2 || items.cape);
+    return trackerData.items.moonpearl && trackerData.items.hookshot && (trackerData.items.hammer || trackerData.items.glove || trackerData.items.flippers) && (trackerData.items.sword>=2 || trackerData.items.cape);
 }
 
 function deathmountain(){
-    return items.flute || (items.glove && items.lantern);
+    return trackerData.items.flute || (trackerData.items.glove && trackerData.items.lantern);
 }
 
 function deathmountaindarkness(){
-    return items.glove;
+    return trackerData.items.glove;
 }
 
 // define dungeon chests
@@ -28,8 +28,8 @@ dungeons[0] = {
     y: "38.8%",
     image: "boss02.png",
     isBeatable: function(){
-		if(items.bow)
-            if(items.lantern)
+		if(trackerData.items.bow)
+            if(trackerData.items.lantern)
                 return "available";
             else
                 return "glitchavailable";
@@ -37,10 +37,10 @@ dungeons[0] = {
 			return "unavailable";
     },
     canGetChest: function(){
-        if(dungeonchests[0]>2)
+        if(trackerData.dungeonchests[0]>2)
             return "available";
-        if(dungeonchests[0]>1 || items.bow)
-            if(items.lantern)
+        if(trackerData.dungeonchests[0]>1 || trackerData.items.bow)
+            if(trackerData.items.lantern)
                 return "available";
             else
                 return "glitchavailable";
@@ -55,24 +55,24 @@ dungeons[1] = {
     y: "78.4%",
     image: "boss12.png",
     isBeatable: function(){
-		if(!items.glove)
+		if(!trackerData.items.glove)
 			return "unavailable";
-		if(!items.book && !(items.flute && items.glove==2 && items.mirror))
+		if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
 			return "unavailable";
-		if(!items.lantern && !items.firerod)
+		if(!trackerData.items.lantern && !trackerData.items.firerod)
 			return "unavailable";
-		if(items.sword==0 && !items.hammer && !items.bow && !items.firerod && !items.icerod && !items.byrna && !items.somaria)
+		if(trackerData.items.sword==0 && !trackerData.items.hammer && !trackerData.items.bow && !trackerData.items.firerod && !trackerData.items.icerod && !trackerData.items.byrna && !trackerData.items.somaria)
 			return "unavailable";
-		if(!items.boots)
+		if(!trackerData.items.boots)
 			return "possible";
 		return "available";
     },
     canGetChest: function(){
-		if(!items.book && !(items.flute && items.glove==2 && items.mirror))
+		if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
 			return "unavailable";
-		if(items.boots && (items.firerod || items.lantern) && items.glove)
+		if(trackerData.items.boots && (trackerData.items.firerod || trackerData.items.lantern) && trackerData.items.glove)
 			return "available";
-		if(dungeonchests[1]>1 && items.boots)
+		if(trackerData.dungeonchests[1]>1 && trackerData.items.boots)
 			return "available"
 		return "possible";
     }
@@ -85,15 +85,15 @@ dungeons[2] = {
     y: "5.5%",
     image: "boss22.png",
     isBeatable: function(){
-		if(!items.mirror && !(items.hookshot && items.hammer))
+		if(!trackerData.items.mirror && !(trackerData.items.hookshot && trackerData.items.hammer))
 			return "unavailable";
         if(!deathmountain() && !deathmountaindarkness())
             return "unavailable";
-        if(items.sword==0 && !items.hammer)
+        if(trackerData.items.sword==0 && !trackerData.items.hammer)
             return "unavailable";
         if(!deathmountain())
             return "glitchavailable";
-		if(items.firerod || items.lantern)
+		if(trackerData.items.firerod || trackerData.items.lantern)
 			return "available";
 		return "possible";
     },
@@ -109,31 +109,31 @@ dungeons[3] = {
     y: "40.0%",
     image: "boss32.png",
     isBeatable: function(){
-        if(!items.moonpearl || !(items.bow) || !items.hammer)
+        if(!trackerData.items.moonpearl || !(trackerData.items.bow) || !trackerData.items.hammer)
             return "unavailable";
-        if(!items.agahnim && !items.glove)
-            if(!(items.sword>=2 || items.cape))
+        if(!trackerData.items.agahnim && !trackerData.items.glove)
+            if(!(trackerData.items.sword>=2 || trackerData.items.cape))
                 return "unavailable";
             else
                 return "agahnim";
-        if(!items.lantern)
+        if(!trackerData.items.lantern)
             return "glitchavailable";
         return "available";
     },
     canGetChest: function(){
-		if(!items.moonpearl)
+		if(!trackerData.items.moonpearl)
 			return "unavailable";
-        if(!items.agahnim && !(items.hammer&&items.glove) && !(items.glove==2 && items.flippers))
-            if(!(items.sword>=2 || items.cape))
+        if(!trackerData.items.agahnim && !(trackerData.items.hammer&&trackerData.items.glove) && !(trackerData.items.glove==2 && trackerData.items.flippers))
+            if(!(trackerData.items.sword>=2 || trackerData.items.cape))
                 return "unavailable";
             else
                 return "agahnim";
-		if(items.bow && (dungeonchests[3]>1 || items.hammer))
-            if(items.lantern)
+		if(trackerData.items.bow && (trackerData.dungeonchests[3]>1 || trackerData.items.hammer))
+            if(trackerData.items.lantern)
                 return "available";
             else
                 return "glitchavailable";
-        if(items.lantern)
+        if(trackerData.items.lantern)
             return "possible";
         else
             return "glitchpossible";
@@ -147,44 +147,44 @@ dungeons[4] = {
     y: "91.0%",
     image: "boss42.png",
     isBeatable: function(){
-		if(!items.moonpearl || !items.mirror || !items.flippers)
+		if(!trackerData.items.moonpearl || !trackerData.items.mirror || !trackerData.items.flippers)
 			return "unavailable";
-		if(!items.hammer || !items.hookshot)
+		if(!trackerData.items.hammer || !trackerData.items.hookshot)
 			return "unavailable";
-		if(!items.glove && !items.agahnim)
-            if(!(items.sword>=2 || items.cape))
+		if(!trackerData.items.glove && !trackerData.items.agahnim)
+            if(!(trackerData.items.sword>=2 || trackerData.items.cape))
                 return "unavailable";
             else
                 return "agahnim";
 		return "available";
 	},
     canGetChest: function(){
-		if(!items.moonpearl || !items.mirror || !items.flippers)
+		if(!trackerData.items.moonpearl || !trackerData.items.mirror || !trackerData.items.flippers)
 			return "unavailable";
-        if(!steve() && (!items.agahnim && (stevelight() || (items.hammer && (items.sword>=2 || items.cape)))))
+        if(!steve() && (!trackerData.items.agahnim && (stevelight() || (trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape)))))
             return "agahnim";
-		if(!steve() && !(items.agahnim && items.hammer))
+		if(!steve() && !(trackerData.items.agahnim && trackerData.items.hammer))
 			return "unavailable";
 
 		// Here we go...
-		if(dungeonchests[4]<=2)
-			if(items.hookshot && items.hammer)
+		if(trackerData.dungeonchests[4]<=2)
+			if(trackerData.items.hookshot && trackerData.items.hammer)
 				return "available";
 			else
 				return "unavailable";
-		if(dungeonchests[4]<=4){
-			if(!items.hammer)
+		if(trackerData.dungeonchests[4]<=4){
+			if(!trackerData.items.hammer)
 				return "unavailable";
-			if(items.hookshot)
+			if(trackerData.items.hookshot)
 				return "available";
 			return "possible";
 		}
-		if(dungeonchests[4]==5)
-			if(items.hammer)
+		if(trackerData.dungeonchests[4]==5)
+			if(trackerData.items.hammer)
 				return "available";
 			else
 				return "unavailable";
-		if(items.hammer)
+		if(trackerData.items.hammer)
 			return "available";
 		return "possible";
     }
@@ -197,17 +197,17 @@ dungeons[5] = {
     y: "5.4%",
     image: "boss52.png",
     isBeatable: function(){
-        if(items.sword==0)
+        if(trackerData.items.sword==0)
             return "unavailable";
-        if(steve() && items.firerod)
+        if(steve() && trackerData.items.firerod)
             return "available";
-        if(stevelight() && items.firerod)
+        if(stevelight() && trackerData.items.firerod)
             return "agahnim";
         return "unavailable";
     },
     canGetChest: function(){
         if(steve())
-            if(items.firerod)
+            if(trackerData.items.firerod)
                 return "available";
             else
                 return "possible";
@@ -224,7 +224,7 @@ dungeons[6] = {
     y: "47.9%",
     image: "boss62.png",
     isBeatable: function(){
-        if(items.sword==0 && !items.hammer && !items.byrna && !items.somaria)
+        if(trackerData.items.sword==0 && !trackerData.items.hammer && !trackerData.items.byrna && !trackerData.items.somaria)
             return "unavailable";
 		if(steve())
 			return "available";
@@ -237,7 +237,7 @@ dungeons[6] = {
 			return "unavailable";
         if(!steve())
             return "agahnim";
-		if(dungeonchests[6]==1 && !items.hammer)
+		if(trackerData.dungeonchests[6]==1 && !trackerData.items.hammer)
 			return "possible";
 		return "available";
     }
@@ -250,31 +250,31 @@ dungeons[7] = {
     y: "85.8%",
     image: "boss72.png",
     isBeatable: function(){
-		if(!items.moonpearl || items.glove!=2 || !items.hammer)
+		if(!trackerData.items.moonpearl || trackerData.items.glove!=2 || !trackerData.items.hammer)
 			return "unavailable";
-		if(!items.firerod && !items.bombos)
+		if(!trackerData.items.firerod && !trackerData.items.bombos)
 			return "unavailable";
-		if(items.hookshot || items.somaria)
-            if(items.flippers)
+		if(trackerData.items.hookshot || trackerData.items.somaria)
+            if(trackerData.items.flippers)
                 return "available";
             else
                 return "glitchavailable";
-        if(items.flippers)
+        if(trackerData.items.flippers)
             return "possible";
         else
             return "glitchpossible";
     },
     canGetChest: function(){
-		if(!items.moonpearl || items.glove!=2)
+		if(!trackerData.items.moonpearl || trackerData.items.glove!=2)
 			return "unavailable";
-		if(!items.firerod && !items.bombos)
+		if(!trackerData.items.firerod && !trackerData.items.bombos)
 			return "unavailable";
-		if(items.hammer)
-            if(items.flippers)
+		if(trackerData.items.hammer)
+            if(trackerData.items.flippers)
                 return "available";
             else
                 return "glitchavailable";
-        if(items.flippers)
+        if(trackerData.items.flippers)
             return "possible";
         else
             return "glitchpossible";
@@ -288,47 +288,47 @@ dungeons[8] = {
     y: "82.9%",
     image: "boss82.png",
     isBeatable: function(){
-		if(!items.moonpearl || !items.flute || items.glove!=2 || !items.somaria)
+		if(!trackerData.items.moonpearl || !trackerData.items.flute || trackerData.items.glove!=2 || !trackerData.items.somaria)
 			return "unavailable";
-		if(!items.boots && !items.hookshot)
+		if(!trackerData.items.boots && !trackerData.items.hookshot)
 			return "unavailable";
         // Medallion Check
-        if(items.sword==0)
+        if(trackerData.items.sword==0)
             return "unavailable";
-		if(!items.bombos && !items.ether && !items.quake)
+		if(!trackerData.items.bombos && !trackerData.items.ether && !trackerData.items.quake)
 			return "unavailable";
-		if((medallions[8]==1 && !items.bombos) || (medallions[8]==2 && !items.ether) || (medallions[8]==3 && !items.quake))
+		if((trackerData.medallions[8]==1 && !trackerData.items.bombos) || (trackerData.medallions[8]==2 && !trackerData.items.ether) || (trackerData.medallions[8]==3 && !trackerData.items.quake))
 			return "unavailable";
-		if(medallions[8]==0 && !(items.bombos && items.ether && items.quake))
+		if(trackerData.medallions[8]==0 && !(trackerData.items.bombos && trackerData.items.ether && trackerData.items.quake))
 			return "possible";
 
-		if(items.lantern)
+		if(trackerData.items.lantern)
 			return "available";
-        if(items.firerod)
+        if(trackerData.items.firerod)
             return "glitchavailable";
 		return "glitchpossible";
     },
     canGetChest: function(){
-		if(!items.moonpearl || !items.flute || items.glove!=2)
+		if(!trackerData.items.moonpearl || !trackerData.items.flute || trackerData.items.glove!=2)
 			return "unavailable";
-		if(!items.boots && !items.hookshot)
+		if(!trackerData.items.boots && !trackerData.items.hookshot)
 			return "unavailable";
 		// Medallion Check
-        if(items.sword==0)
+        if(trackerData.items.sword==0)
             return "unavailable";
-		if(!items.bombos && !items.ether && !items.quake)
+		if(!trackerData.items.bombos && !trackerData.items.ether && !trackerData.items.quake)
 			return "unavailable";
-		if((medallions[8]==1 && !items.bombos) || (medallions[8]==2 && !items.ether) || (medallions[8]==3 && !items.quake))
+		if((trackerData.medallions[8]==1 && !trackerData.items.bombos) || (trackerData.medallions[8]==2 && !trackerData.items.ether) || (trackerData.medallions[8]==3 && !trackerData.items.quake))
 			return "unavailable";
-		if(medallions[8]==0 && !(items.bombos && items.ether && items.quake))
+		if(trackerData.medallions[8]==0 && !(trackerData.items.bombos && trackerData.items.ether && trackerData.items.quake))
 			return "possible";
 		
-		if(!items.firerod && !items.lantern)
+		if(!trackerData.items.firerod && !trackerData.items.lantern)
 			return "possible";
-        if(dungeonchests[8]>1)
+        if(trackerData.dungeonchests[8]>1)
             return "available"
-		if(items.somaria)
-            if(items.lantern)
+		if(trackerData.items.somaria)
+            if(trackerData.items.lantern)
                 return "available";
             else
                 return "glitchavailable";
@@ -343,65 +343,65 @@ dungeons[9] = {
     y: "7.0%",
     image: "boss92.png",
     isBeatable: function(){
-		if(!items.moonpearl || !items.hammer || items.glove!=2 || !items.somaria)
+		if(!trackerData.items.moonpearl || !trackerData.items.hammer || trackerData.items.glove!=2 || !trackerData.items.somaria)
 			return "unavailable";
-		if(!items.hookshot && !items.mirror)
+		if(!trackerData.items.hookshot && !trackerData.items.mirror)
 			return "unavailable";
-		if(!items.icerod || !items.firerod)
+		if(!trackerData.items.icerod || !trackerData.items.firerod)
 			return "unavailable";
 		// Medallion Check
-        if(items.sword==0)
+        if(trackerData.items.sword==0)
             return "unavailable";
-		if(!items.bombos && !items.ether && !items.quake)
+		if(!trackerData.items.bombos && !trackerData.items.ether && !trackerData.items.quake)
 			return "unavailable";
-		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
+		if((trackerData.medallions[9]==1 && !trackerData.items.bombos) || (trackerData.medallions[9]==2 && !trackerData.items.ether) || (trackerData.medallions[9]==3 && !trackerData.items.quake))
 			return "unavailable";
-		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-            if(!items.lantern)
+		if(trackerData.medallions[9]==0 && !(trackerData.items.bombos && trackerData.items.ether && trackerData.items.quake))
+            if(!trackerData.items.lantern)
                 return "glitchpossible";
             else
                 return "possible";
-        if(!items.lantern)
+        if(!trackerData.items.lantern)
             return "glitchavailable";
 		return "available";
     },
     canGetChest: function(){
-		if(!items.moonpearl || !items.hammer || items.glove!=2 || !items.somaria)
+		if(!trackerData.items.moonpearl || !trackerData.items.hammer || trackerData.items.glove!=2 || !trackerData.items.somaria)
 			return "unavailable";
-		if(!items.hookshot && !items.mirror)
+		if(!trackerData.items.hookshot && !trackerData.items.mirror)
 			return "unavailable";
 		// Medallion Check
-        if(items.sword==0)
+        if(trackerData.items.sword==0)
             return "unavailable";
-		if(!items.bombos && !items.ether && !items.quake)
+		if(!trackerData.items.bombos && !trackerData.items.ether && !trackerData.items.quake)
 			return "unavailable";
-		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
+		if((trackerData.medallions[9]==1 && !trackerData.items.bombos) || (trackerData.medallions[9]==2 && !trackerData.items.ether) || (trackerData.medallions[9]==3 && !trackerData.items.quake))
 			return "unavailable";
-		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-            if(!items.flute && !items.lantern) // dark navigation to DM
+		if(trackerData.medallions[9]==0 && !(trackerData.items.bombos && trackerData.items.ether && trackerData.items.quake))
+            if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchpossible";
             else
                 return "possible";
 
-		if(!items.firerod)
-            if(!items.flute && !items.lantern) // dark navigation to DM
+		if(!trackerData.items.firerod)
+            if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchpossible";
             else
                 return "possible";
 
-		if(dungeonchests[9]>1)
-            if(!items.flute && !items.lantern) // dark navigation to DM
+		if(trackerData.dungeonchests[9]>1)
+            if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchavailable";
             else
                 return "available";
 
-        if(items.icerod) // Last item on Trinexx
-            if(!items.lantern)
+        if(trackerData.items.icerod) // Last item on Trinexx
+            if(!trackerData.items.lantern)
                 return "glitchavailable";
             else
                 return "available";
 
-        if(!items.flute && !items.lantern)
+        if(!trackerData.items.flute && !trackerData.items.lantern)
             return "glitchpossible";
         else
             return "possible";
@@ -417,11 +417,11 @@ chests[0] = {
     y: "29.6%",
     isOpened: false,
     isAvailable: function(){
-		if(!items["boots"])
+		if(!trackerData.items["boots"])
 			return "unavailable";
-		if ( (steve() && items["mirror"]) || items["glove"]==2 )
+		if ( (steve() && trackerData.items["mirror"]) || trackerData.items["glove"]==2 )
 			return "available";
-        if (stevelight() && items.mirror)
+        if (stevelight() && trackerData.items.mirror)
             return "agahnim";
 		return "unavailable";
     }
@@ -453,7 +453,7 @@ chests[3] = {
     y: "9.3%",
     isOpened: false,
     isAvailable: function(){
-	if ( (items["hookshot"] || (items["mirror"]&&items["hammer"])))
+	if ( (trackerData.items["hookshot"] || (trackerData.items["mirror"]&&trackerData.items["hammer"])))
         if (deathmountain())
             return "available";
         else if (deathmountaindarkness())
@@ -468,25 +468,25 @@ chests[4] = {
     y: "9.3%",
     isOpened: false,
     isAvailable: function(){
-		if(!items.moonpearl || !items.hammer || items.glove!=2 || !items.somaria || !items.mirror)
+		if(!trackerData.items.moonpearl || !trackerData.items.hammer || trackerData.items.glove!=2 || !trackerData.items.somaria || !trackerData.items.mirror)
 			return "unavailable";
 		// Medallion Check
-		if(!items.bombos && !items.ether && !items.quake)
+		if(!trackerData.items.bombos && !trackerData.items.ether && !trackerData.items.quake)
 			return "unavailable";
-		if((medallions[9]==1 && !items.bombos) || (medallions[9]==2 && !items.ether) || (medallions[9]==3 && !items.quake))
+		if((trackerData.medallions[9]==1 && !trackerData.items.bombos) || (trackerData.medallions[9]==2 && !trackerData.items.ether) || (trackerData.medallions[9]==3 && !trackerData.items.quake))
 			return "unavailable";
-		if(medallions[9]==0 && !(items.bombos && items.ether && items.quake))
-            if(!items.flute && !items.lantern)
+		if(trackerData.medallions[9]==0 && !(trackerData.items.bombos && trackerData.items.ether && trackerData.items.quake))
+            if(!trackerData.items.flute && !trackerData.items.lantern)
                 return "glitchpossible";
             else
                 return "possible";
 
-		if(items.firerod)
-            if(!items.flute && !items.lantern)
+		if(trackerData.items.firerod)
+            if(!trackerData.items.flute && !trackerData.items.lantern)
                 return "glitchavailable";
             else
                 return "available";
-        if(!items.flute && !items.lantern)
+        if(!trackerData.items.flute && !trackerData.items.lantern)
             return "glitchpossible";
         else
             return "possible";
@@ -557,7 +557,7 @@ chests[10] = {
     y: "79.5%",
     isOpened: false,
     isAvailable: function(){
-		if( items["flute"] && items["moonpearl"] && items["glove"]==2 )
+		if( trackerData.items["flute"] && trackerData.items["moonpearl"] && trackerData.items["glove"]==2 )
 			return "available";
 		return "unavailable";
     }
@@ -569,8 +569,8 @@ chests[11] = {
     y: "14.7%",
     isOpened: false,
     isAvailable: function(){
-		if( items["glove"]==2 && (items["hookshot"] || (items["mirror"]&&items["hammer"])) )
-            if (deathmountain() && items.moonpearl)
+		if( trackerData.items["glove"]==2 && (trackerData.items["hookshot"] || (trackerData.items["mirror"]&&trackerData.items["hammer"])) )
+            if (deathmountain() && trackerData.items.moonpearl)
                 return "available";
             else
                 return "glitchavailable";
@@ -594,7 +594,7 @@ chests[13] = {
     y: "14.9%",
     isOpened: false,
     isAvailable: function(){
-	if( items["moonpearl"] && items["glove"] && items["hammer"] )
+	if( trackerData.items["moonpearl"] && trackerData.items["glove"] && trackerData.items["hammer"] )
         if (deathmountain())
             return "available";
         else if (deathmountaindarkness())
@@ -629,9 +629,9 @@ chests[16] = {
     y: "77.1%",
     isOpened: false,
     isAvailable: function(){
-	if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
+	if( steve() || (trackerData.items.agahnim && trackerData.items.moonpearl && trackerData.items.hammer) )
 		return "available";
-    if( stevelight() ||  (items.moonpearl && items.hammer && (items.sword>=2 || items.cape)) )
+    if( stevelight() ||  (trackerData.items.moonpearl && trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape)) )
         return "agahnim";
 	return "unavailable";
     }
@@ -643,7 +643,7 @@ chests[17] = {
     y: "17.1%",
     isOpened: false,
     isAvailable: function(){
-	if( (items["hookshot"] || (items["mirror"]&&items["hammer"])) )
+	if( (trackerData.items["hookshot"] || (trackerData.items["mirror"]&&trackerData.items["hammer"])) )
         if( deathmountain())
             return "available";
         else if( deathmountaindarkness())
@@ -659,7 +659,7 @@ chests[18] = {
     y: "29.3%",
     isOpened: false,
     isAvailable: function(){
-	if(items.boots)
+	if(trackerData.items.boots)
 			return "available";
 		return "unavailable";
 
@@ -692,7 +692,7 @@ chests[21] = {
     y: "8.6%",
     isOpened: false,
     isAvailable: function(){
-	if(items.moonpearl && items.glove==2 && (items.hookshot || (items.mirror&&items.hammer&&items.boots)))
+	if(trackerData.items.moonpearl && trackerData.items.glove==2 && (trackerData.items.hookshot || (trackerData.items.mirror&&trackerData.items.hammer&&trackerData.items.boots)))
         if (deathmountain())
             return "available";
         else
@@ -707,7 +707,7 @@ chests[22] = {
     y: "3.4%",
     isOpened: false,
     isAvailable: function(){
-	if( items.moonpearl && items.glove==2 && items.hookshot)
+	if( trackerData.items.moonpearl && trackerData.items.glove==2 && trackerData.items.hookshot)
         if (deathmountain())
             return "available";
         else
@@ -748,7 +748,7 @@ chests[25] = {
     isOpened: false,
     isAvailable: function(){
 		for(var k=0; k<10; k++)
-			if(prizes[k]==1 && items["boss"+k]==2)
+			if(trackerData.prizes[k]==1 && trackerData.items["boss"+k]==2)
 				return "available";
 		return "unavailable";
     }
@@ -760,9 +760,9 @@ chests[26] = {
     y: "68.6%",
     isOpened: false,
     isAvailable: function(){
-	if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
+	if( steve() || (trackerData.items.agahnim && trackerData.items.moonpearl && trackerData.items.hammer) )
 		return "available";
-    if( stevelight() || (items.moonpearl && items.hammer && (items.sword>=2 || items.cape)) )
+    if( stevelight() || (trackerData.items.moonpearl && trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape)) )
         return "agahnim";
 	return "unavailable";
     }
@@ -774,7 +774,7 @@ chests[27] = {
     y: "52.1%",
     isOpened: false,
     isAvailable: function(){
-	if(items.bottle)
+	if(trackerData.items.bottle)
 		return "available";
 	return "unavailable";
     }
@@ -786,7 +786,7 @@ chests[28] = {
     y: "52.2%",
     isOpened: false,
     isAvailable: function(){
-	if(items.moonpearl && items.glove==2)
+	if(trackerData.items.moonpearl && trackerData.items.glove==2)
 		return "available";
 	return "unavailable";
     }
@@ -798,7 +798,7 @@ chests[29] = {
     y: "69.7%",
     isOpened: false,
     isAvailable: function(){
-	if(items.flippers)
+	if(trackerData.items.flippers)
 		return "available";
 	return "glitchavailable";
     }
@@ -810,9 +810,9 @@ chests[30] = {
     y: "3.0%",
     isOpened: false,
     isAvailable: function(){
-	if( items.sword>=2 && items.book && (deathmountain()) && (items.mirror || (items.hookshot&&items.hammer)) )
+	if( trackerData.items.sword>=2 && trackerData.items.book && (deathmountain()) && (trackerData.items.mirror || (trackerData.items.hookshot&&trackerData.items.hammer)) )
 		return "available";
-	if( items.sword>=2 && items.book && (deathmountaindarkness()) && (items.mirror || (items.hookshot&&items.hammer)) )
+	if( trackerData.items.sword>=2 && trackerData.items.book && (deathmountaindarkness()) && (trackerData.items.mirror || (trackerData.items.hookshot&&trackerData.items.hammer)) )
         return "glitchavailable";
 	return "unavailable";
     }
@@ -824,9 +824,9 @@ chests[31] = {
     y: "92.2%",
     isOpened: false,
     isAvailable: function(){
-	if( (steve() || (items.agahnim && items.moonpearl && items.hammer)) && items.mirror && items.sword>=2 && items.book )
+	if( (steve() || (trackerData.items.agahnim && trackerData.items.moonpearl && trackerData.items.hammer)) && trackerData.items.mirror && trackerData.items.sword>=2 && trackerData.items.book )
 		return "available";
-	if( (stevelight() || (items.moonpearl && items.hammer && (items.sword>=2 || items.cape))) && items.mirror && items.sword>=2 && items.book )
+	if( (stevelight() || (trackerData.items.moonpearl && trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape))) && trackerData.items.mirror && trackerData.items.sword>=2 && trackerData.items.book )
         return "agahnim";
 	return "unavailable";
     }
@@ -838,9 +838,9 @@ chests[32] = {
     y: "17.2%",
     isOpened: false,
     isAvailable: function(){
-	if( items.moonpearl && items.glove && (items.agahnim || items.hammer || (items.glove==2 && items.flippers)) )
+	if( trackerData.items.moonpearl && trackerData.items.glove && (trackerData.items.agahnim || trackerData.items.hammer || (trackerData.items.glove==2 && trackerData.items.flippers)) )
 		return "available";
-	if( items.moonpearl && items.glove  && (items.sword>=2 || items.cape))
+	if( trackerData.items.moonpearl && trackerData.items.glove  && (trackerData.items.sword>=2 || trackerData.items.cape))
         return "agahnim";
 	return "unavailable";
     }
@@ -852,7 +852,7 @@ chests[33] = {
     y: "12.1%",
     isOpened: false,
     isAvailable: function(){
-	if( items.flippers || items.glove )
+	if( trackerData.items.flippers || trackerData.items.glove )
 		return "available";
 	return "glitchavailable";
     }
@@ -878,7 +878,7 @@ chests[35] = {
     y: "32.5%",
     isOpened: false,
     isAvailable: function(){
-	if(items.mushroom)
+	if(trackerData.items.mushroom)
 		return "available";
 	return "unavailable";
     }
@@ -900,9 +900,9 @@ chests[37] = {
     y: "7.6%",
     isOpened: false,
     isAvailable: function(){
-	if( items.agahnim && items.boots )
+	if( trackerData.items.agahnim && trackerData.items.boots )
 		return "available";
-    if( items.boots && (items.sword>=2 || items.cape) )
+    if( trackerData.items.boots && (trackerData.items.sword>=2 || trackerData.items.cape) )
         return "agahnim";
 	return "possible";
     }
@@ -928,9 +928,9 @@ chests[39] = {
     y: "84.1%",
     isOpened: false,
     isAvailable: function(){
-	if( items.mirror && (steve() || (items.agahnim && items.moonpearl && items.hammer)) )
+	if( trackerData.items.mirror && (steve() || (trackerData.items.agahnim && trackerData.items.moonpearl && trackerData.items.hammer)) )
 		return "available";
-    if( items.mirror && (stevelight() || (items.moonpearl && items.hammer && (items.sword>=2 || items.cape) )))
+    if( trackerData.items.mirror && (stevelight() || (trackerData.items.moonpearl && trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape) )))
         return "agahnim";
 	return "unavailable";
     }
@@ -942,9 +942,9 @@ chests[40] = {
     y: "27.0%",
     isOpened: false,
     isAvailable: function(){
-	if( steve() && items.mirror )
+	if( steve() && trackerData.items.mirror )
 		return "available";
-    if(stevelight() && items.mirror )
+    if(stevelight() && trackerData.items.mirror )
         return "agahnim";
 	return "unavailable";
     }
@@ -956,7 +956,7 @@ chests[41] = {
     y: "77.3%",
     isOpened: false,
     isAvailable: function(){
-	if( items.flute && items.glove==2 && items.mirror )
+	if( trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror )
 		return "available";
 	return "unavailable";
     }
@@ -968,7 +968,7 @@ chests[42] = {
     y: "60.1%",
     isOpened: false,
     isAvailable: function(){
-	if( items.moonpearl && items.glove==2 && items.hammer )
+	if( trackerData.items.moonpearl && trackerData.items.glove==2 && trackerData.items.hammer )
 		return "available";
 	return "unavailable";
     }
@@ -980,7 +980,7 @@ chests[43] = {
     y: "65.9%",
     isOpened: false,
     isAvailable: function(){
-	if(items.boots)
+	if(trackerData.items.boots)
 		return "available";
 	return "possible";
     }
@@ -1003,12 +1003,12 @@ chests[45] = {
     isOpened: false,
     isAvailable: function(){
 	if( deathmountain() )
-		if(items.mirror)
+		if(trackerData.items.mirror)
 			return "available";
 		else
 			return "possible";
     if( deathmountaindarkness() )
-        if(items.mirror)
+        if(trackerData.items.mirror)
             return "glitchavailable";
         else
             return "glitchpossible";
@@ -1022,11 +1022,11 @@ chests[46] = {
     y: "3.0%",
     isOpened: false,
     isAvailable: function(){
-		if((items.glove || items.flute) && (items.hookshot || (items.hammer && items.mirror)) )
-			if(items.mirror && items.moonpearl && items.glove==2)
+		if((trackerData.items.glove || trackerData.items.flute) && (trackerData.items.hookshot || (trackerData.items.hammer && trackerData.items.mirror)) )
+			if(trackerData.items.mirror && trackerData.items.moonpearl && trackerData.items.glove==2)
 				return "available";
 			else
-                if(!items.flute && !items.lantern)
+                if(!trackerData.items.flute && !trackerData.items.lantern)
                     return "glitchpossible";
                 else
                     return "possible";
@@ -1050,7 +1050,7 @@ chests[48] = {
     y: "91.0%",
     isOpened: false,
     isAvailable: function(){
-	if( items.book || (items.flute && items.glove==2 && items.mirror) )
+	if( trackerData.items.book || (trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror) )
 		return "available";
 	return "possible";
     }
@@ -1062,10 +1062,10 @@ chests[49] = {
     y: "82.9%",
     isOpened: false,
     isAvailable: function(){
-		if(items.flippers)
-			if( items.moonpearl && items.mirror && (items.agahnim || items.glove==2 || (items.glove&&items.hammer)) )
+		if(trackerData.items.flippers)
+			if( trackerData.items.moonpearl && trackerData.items.mirror && (trackerData.items.agahnim || trackerData.items.glove==2 || (trackerData.items.glove&&trackerData.items.hammer)) )
 				return "available";
-            else if( items.moonpearl && items.mirror && (items.sword>=2 || items.cape) )
+            else if( trackerData.items.moonpearl && trackerData.items.mirror && (trackerData.items.sword>=2 || trackerData.items.cape) )
                 return "agahnim";
 			else
 				return "possible";
@@ -1080,11 +1080,11 @@ chests[50] = {
     isOpened: false,
     isAvailable: function(){
 		if(steve())
-			if(items.cape && items.glove)
+			if(trackerData.items.cape && trackerData.items.glove)
 				return "available";
 			else
 				return "possible";
-        if(stevelight() && items.cape && items.glove)
+        if(stevelight() && trackerData.items.cape && trackerData.items.glove)
             return "agahnim";
 		return "unavailable";
     }
@@ -1096,9 +1096,9 @@ chests[51] = {
     y: "43.5%",
     isOpened: false,
     isAvailable: function(){
-	if( items.agahnim || (items.glove&&items.hammer&&items.moonpearl) || (items.glove==2&&items.moonpearl&&items.flippers) )
+	if( trackerData.items.agahnim || (trackerData.items.glove&&trackerData.items.hammer&&trackerData.items.moonpearl) || (trackerData.items.glove==2&&trackerData.items.moonpearl&&trackerData.items.flippers) )
 			return "available";
-    if (items.sword>=2 || items.cape)
+    if (trackerData.items.sword>=2 || trackerData.items.cape)
 		return "agahnim";
     return "unavailable";
     }
@@ -1110,9 +1110,9 @@ chests[52] = {
     y: "69.2%",
     isOpened: false,
     isAvailable: function(){
-		if( steve() || (items.agahnim && items.moonpearl && items.hammer) )
+		if( steve() || (trackerData.items.agahnim && trackerData.items.moonpearl && trackerData.items.hammer) )
 			return "available";
-        if( stevelight() || items.moonpearl && items.hammer && (items.sword>=2 || items.cape))
+        if( stevelight() || trackerData.items.moonpearl && trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape))
             return "agahnim";
 		return "unavailable";
     }
@@ -1124,9 +1124,9 @@ chests[53] = {
     y: "17.3%",
     isOpened: false,
     isAvailable: function(){
-		if(items.flippers)
+		if(trackerData.items.flippers)
 			return "available";
-		if(items.glove)
+		if(trackerData.items.glove)
 			return "possible";
 		return "unavailable";
     }
@@ -1138,7 +1138,7 @@ chests[54] = {
     y: "66.2%",
     isOpened: false,
     isAvailable: function(){
-		if(items.shovel)
+		if(trackerData.items.shovel)
 			return "available";
 		return "unavailable";
 	}
@@ -1190,7 +1190,7 @@ chests[59] = {
     y: "58.0%",
     isOpened: false,
     isAvailable: function(){
-		if(items.powder && (items.hammer || (items.glove==2 && items.mirror && items.moonpearl)))
+		if(trackerData.items.powder && (trackerData.items.hammer || (trackerData.items.glove==2 && trackerData.items.mirror && trackerData.items.moonpearl)))
 			return "available";
 		return "unavailable";
     }
@@ -1202,14 +1202,14 @@ chests[60] = {
     y: "51.8%",
     isOpened: false,
     isAvailable: function(){
-		if(items.moonpearl && items.glove==2)
+		if(trackerData.items.moonpearl && trackerData.items.glove==2)
 			return "available";
 		return "unavailable";
     }
 };
 
 chests[61] = {
-    name: "Fat Fairy: Buy OJ bomb from Dark Link's House after <img src='/images/crystal0.png' class='mini'>5 <img src='/images/crystal0.png' class='mini'>6 (2 items)",
+    name: "Fat Fairy: Buy OJ bomb from Dark Link's House after <img src='/images/crystal0.png' class='mini'>5 <img src='/images/crystal0.png' class='mini'>6 (2 trackerData.items)",
     x: "73.5%",
     y: "48.5%",
     isOpened: false,
@@ -1217,16 +1217,16 @@ chests[61] = {
 		//crystal check
 		var crystalCount = 0;
 		for(var k=0; k<10; k++)
-			if(prizes[k]==4 && items["boss"+k]==2)
+			if(trackerData.prizes[k]==4 && trackerData.items["boss"+k]==2)
 				crystalCount++;
 		
-		if(!items.moonpearl || crystalCount<2)
+		if(!trackerData.items.moonpearl || crystalCount<2)
 			return "unavailable";
-		if(items.hammer && (items.agahnim || items.glove))
+		if(trackerData.items.hammer && (trackerData.items.agahnim || trackerData.items.glove))
 			return "available";
-		if(items.agahnim && items.mirror && steve())
+		if(trackerData.items.agahnim && trackerData.items.mirror && steve())
 			return "available";
-        if((items.hammer && (items.sword>=2 || items.cape)) || (items.mirror && (steve() || stevelight())))
+        if((trackerData.items.hammer && (trackerData.items.sword>=2 || trackerData.items.cape)) || (trackerData.items.mirror && (steve() || stevelight())))
             return "agahnim";
 		return "unavailable";
     }
@@ -1241,10 +1241,10 @@ chests[62] = {
     isAvailable: function(){
 		var pendantCount = 0;
 		for(var k=0; k<10; k++)
-			if((prizes[k]==1 || prizes[k]==2) && items["boss"+k]==2)
+			if((trackerData.prizes[k]==1 || trackerData.prizes[k]==2) && trackerData.items["boss"+k]==2)
 				if(++pendantCount==3)
 					return "available";
-        if (items.book)
+        if (trackerData.items.book)
           return "possible";
         else 
           return "unavailable";            
@@ -1258,9 +1258,9 @@ chests[63] = {
     y: "14.7%",
     isOpened: false,
     isAvailable: function(){
-		if(items.flippers)
+		if(trackerData.items.flippers)
             return "available";
-        if(items.moonpearl)
+        if(trackerData.items.moonpearl)
             return "glitchavailable";
 		return "unavailable";
     }
