@@ -95,9 +95,9 @@
                     <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
                     <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
                     :column-index="itemColumnIndex" :row-index="itemRowIndex"
-                    :tracker-data="trackerData" :tracker-options="trackerOptions" :key="item"></tracker-cell>
-                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'red', color: 'white'}">-</button>
-                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'green', color: 'white'}">+</button>
+                    :tracker-data="trackerData" :tracker-options="trackerOptions" :key="itemColumnIndex + '-' + itemRowIndex"></tracker-cell>
+                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
+                    <button v-if="trackerOptions && trackerOptions.editmode" :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
                 </div>
                 <button v-if="trackerOptions && trackerOptions.editmode">Add row</button>
             </div>

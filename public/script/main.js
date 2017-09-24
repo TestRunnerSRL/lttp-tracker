@@ -651,15 +651,15 @@ Vue.component('tracker-cell', {
     },
     backgroundImage: function() {
       if(this.itemName == 'blank') {
-        return 'none';
+        return this.trackerOptions.editmode ? 'url(/images/blank.png)' :'none';
       }
       else if((typeof this.itemValue) == "boolean") {
         return 'url(/images/' + this.itemName + '.png)';
       }
-      return 'url(/images/' + this.itemName + this.itemValue + '.png)';
+      return 'url(/images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : this.itemValue) + '.png)';
     },
     isActive: function() {
-      return this.itemValue;
+      return this.trackerOptions.editmode || this.itemValue;
     },
     chestImage: function() {
       if(this.bossNum && this.trackerOptions && this.trackerOptions.showchests) {
@@ -682,6 +682,11 @@ Vue.component('tracker-cell', {
   },
   methods: {
     clickCell: function(e) {
+      if(this.trackerOptions.editmode) {
+          Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions.selected.item || 'blank');
+        return;
+      }
+      // Non-edit mode clicks
       if(this.bossNum) {
         // Do both this and the below for bosses
         rootRef.child('dungeonbeaten').child(this.bossNum).set(!this.trackerData.dungeonbeaten[this.bossNum])
