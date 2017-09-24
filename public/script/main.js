@@ -545,7 +545,6 @@ function initTracker() {
     populateItemconfig();
 
     loadCookie();
-    saveCookie();
 
     rootRef.child('items').on('value', function(snapshot) {
       trackerData.items = snapshot.val();
