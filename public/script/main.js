@@ -23,26 +23,13 @@ var trackerData = {
 };
 
 function setCookie(obj) {
-    var d = new Date();
-    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    var val = JSON.stringify(obj);
-    document.cookie = "key=" + val + ";" + expires + ";path=/";
+    window.localStorage.setItem(roomid, JSON.stringify(obj));
 }
 
 function getCookie() {
-    var name = "key=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return JSON.parse(c.substring(name.length, c.length));
-        }
-    }
-    return {};
+    var str = window.localStorage.getItem(roomid);
+    if(!str) return {};
+    return JSON.parse(str);
 }
 
 var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', 'medal', 'label', 'items'];
@@ -578,7 +565,8 @@ function initTracker() {
 
 function updateAll() {
     if(trackerData.items && trackerData.dungeonchests && trackerData.dungeonbeaten && trackerData.prizes && trackerData.medallions && trackerData.chestsopened) {
-        refreshMap();
+      vm.displayVueMap = true;
+      refreshMap();
     }
 }
 
@@ -718,7 +706,8 @@ var vm = new Vue({
   data:{
       itemRows: [],
       trackerData: window.trackerData,
-      trackerOptions: window.trackerOptions
+      trackerOptions: window.trackerOptions,
+      displayVueMap: false
   },
   el: '#layoutdiv'
 })
