@@ -80,7 +80,7 @@ dungeons[1] = {
 
 dungeons[2] = {
     name: "Tower of Hera",
-    label: "TH",
+    label: "ToH",
     x: "31.0%",
     y: "5.5%",
     image: "boss22.png",
@@ -104,7 +104,7 @@ dungeons[2] = {
 
 dungeons[3] = {
     name: "Palace of Darkness <img src='/images/lantern.png' class='mini'>",
-    label: "PD",
+    label: "PoD",
     x: "97.0%",
     y: "40.0%",
     image: "boss32.png",
@@ -438,7 +438,7 @@ chests[1] = {
 };
 
 chests[2] = {
-    name: "Stoops Lonk's Hoose",
+    name: "Link's Hoose",
     x: "27.4%",
     y: "67.9%",
     isOpened: true,
@@ -614,7 +614,7 @@ chests[14] = {
 };
 
 chests[15] = {
-    name: "Thieve's Hut (4 + <img src='/images/bomb.png' class='mini'>)",
+    name: "Thieves' Hut (4 + <img src='/images/bomb.png' class='mini'>)",
     x: "6.4%",
     y: "41.0%",
     isOpened: false,
@@ -755,7 +755,7 @@ chests[25] = {
 };
 
 chests[26] = {
-    name: "Ol' Stumpy",
+    name: "Stump Kid",
     x: "65.5%",
     y: "68.6%",
     isOpened: false,
@@ -769,7 +769,7 @@ chests[26] = {
 };
 
 chests[27] = {
-    name: "Dying Boy: Distract him with <img src='/images/bottle0.png' class='mini'> so that you can rob his family!",
+    name: "Bug Kid <img src='/images/bottle0.png' class='mini'>",
     x: "7.8%",
     y: "52.1%",
     isOpened: false,
@@ -781,7 +781,7 @@ chests[27] = {
 };
 
 chests[28] = {
-    name: "Reunite the Hammer Brothers and show the Purple Chest to Gary",
+    name: "Show the Purple Chest to Gary",
     x: "65.2%",
     y: "52.2%",
     isOpened: false,
@@ -865,7 +865,7 @@ chests[34] = {
     isOpened: false,
     isAvailable: function(){
 	if( deathmountain() )
-		return "available";
+		return trackerData.items.lantern ? "available" : "glitchavailable";
     if( deathmountaindarkness() )
         return "glitchavailable";
 	return "unavailable";
@@ -1105,7 +1105,7 @@ chests[51] = {
 };
 
 chests[52] = {
-    name: "Alec Baldwin's Dig-a-Thon: Pay 80 rupees",
+    name: "Dig Game: Pay 80 rupees",
     x: "52.9%",
     y: "69.2%",
     isOpened: false,
@@ -1155,7 +1155,7 @@ chests[55] = {
 };
 
 chests[56] = {
-    name: "Castle Secret Entrance",
+    name: "Castle Secret Entrance (2)",
     x: "29.8%",
     y: "41.8%",
     isOpened: false,
