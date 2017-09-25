@@ -1197,7 +1197,7 @@ chests[59] = {
 };
 
 chests[60] = {
-    name: "Take the frog home <img src='/images/mirror.png' class='mini'>",
+    name: "Take the frog home (<img src='/images/mirror.png' class='mini'> or save and quit)",
     x: "15.2%",
     y: "51.8%",
     isOpened: false,
