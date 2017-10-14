@@ -649,7 +649,7 @@ Vue.component('tracker-cell', {
       else if((typeof this.itemValue) == "boolean") {
         return 'url(/images/' + this.itemName + '.png)';
       }
-      return 'url(/images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : this.itemValue) + '.png)';
+      return 'url(/images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0')) + '.png)';
     },
     isActive: function() {
       return this.trackerOptions.editmode || this.itemValue;
@@ -688,7 +688,7 @@ Vue.component('tracker-cell', {
         rootRef.child('items').child(this.itemName).set(!this.itemValue);
       }
       else{
-        var newVal = this.itemValue + 1;
+        var newVal = (this.itemValue || 0) + 1;
         if(newVal > itemsMax[this.itemName]){
           newVal = itemsMin[this.itemName];
         }

@@ -83,6 +83,8 @@ var itemsInit = {
     byrna: false,
     net: false,
     silvers: false,
+    mpupgrade: 0,
+    bomb: 0,
 
     boss0: 1,
     boss1: 1,
@@ -126,6 +128,8 @@ var itemsMin = {
     bottle:0,
     boomerang:0,
     glove:0,
+    mpupgrade: 0,
+    bomb: 0,
 
 	boss0: 1,
 	boss1: 1,
@@ -150,6 +154,8 @@ var itemsMax = {
     bottle:4,
     boomerang:3,
     glove:2,
+    mpupgrade: 2,
+    bomb: 2,
 
 	boss0: 2,
 	boss1: 2,
