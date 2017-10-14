@@ -541,6 +541,7 @@ function initTracker() {
     populateItemconfig();
 
     loadCookie();
+    window.document.title = roomid + " - " + window.document.title
 
     rootRef.child('items').on('value', function(snapshot) {
       trackerData.items = snapshot.val();
