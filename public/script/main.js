@@ -715,7 +715,8 @@ Vue.component('tracker-cell', {
     },
     clickChest: function(amt) {
       var chestitem = 'chest' + this.bossNum;
-      var newVal = (this.trackerData.dungeonchests[this.bossNum] + amt + itemsMax[chestitem]) % itemsMax[chestitem];
+      var modamt = itemsMax[chestitem] + 1;
+      var newVal = (this.trackerData.dungeonchests[this.bossNum] + amt + modamt) % modamt;
       rootRef.child('dungeonchests').child(this.bossNum).set(newVal);
     },
     clickChestForward: function(e) {
