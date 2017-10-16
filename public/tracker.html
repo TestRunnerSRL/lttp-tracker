@@ -3,7 +3,7 @@
     <head>
         <title>LttP Networked Item Tracker</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/style.css" type="text/css">
+        <link rel="stylesheet" href="/style.css?4232" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
         <script src="/__/firebase/4.2.0/firebase-app.js"></script>
@@ -11,7 +11,7 @@
         <script src="/__/firebase/4.2.0/firebase-database.js"></script>
         <script src="/__/firebase/init.js"></script>
         <script src="/script/shared.js?3457"></script>
-        <script src="/script/items.js?2435"></script>
+        <script src="/script/items.js?2382"></script>
         <script src="/script/chests.js?5932"></script>
         <script src="https://unpkg.com/vue"></script>
     </head>
@@ -111,13 +111,14 @@
             <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative' }"
              :class="isActive ? 'true' : 'false'" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
                 <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
+                <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
                 <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage }"></span>
                 <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage }"></span>
                 <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage }"></span>
             </div>
         </script>
     </body>
-    <script src="/script/main.js?5342"></script>
+    <script src="/script/main.js?1496"></script>
     <script>
         init(initTracker);
     </script>

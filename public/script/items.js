@@ -85,6 +85,8 @@ var itemsInit = {
     silvers: false,
     mpupgrade: 0,
     bomb: 0,
+    heartcontainer: 0,
+    heartpiece: 0,
 
     boss0: 1,
     boss1: 1,
@@ -130,6 +132,8 @@ var itemsMin = {
     glove:0,
     mpupgrade: 0,
     bomb: 0,
+    heartcontainer: 0,
+    heartpiece: 0,
 
 	boss0: 1,
 	boss1: 1,
@@ -156,6 +160,8 @@ var itemsMax = {
     glove:2,
     mpupgrade: 2,
     bomb: 2,
+    heartcontainer: 11,
+    heartpiece: 24,
 
 	boss0: 2,
 	boss1: 2,

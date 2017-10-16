@@ -104,6 +104,17 @@ label {
     user-select: none;
 }
 
+.textCounter {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font: 40px 'VT323', monospace;
+    color: #fdd549;
+    user-select: none;
+    text-shadow: -2px -2px 1px black;
+}
+
 .true{
     opacity: 1;
 }

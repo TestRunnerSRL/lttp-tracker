@@ -479,6 +479,9 @@ function populateItemconfig() {
         if((typeof trackerData.items[key]) == "boolean"){
             rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
         }
+        else if(key.indexOf("heart") === 0){
+            rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
+        }
         else{
             rowitem.style.backgroundImage = "url(/images/" + key + itemsMax[key] + ".png)";
         }
@@ -642,11 +645,20 @@ Vue.component('tracker-cell', {
       }
       return null;
     },
+    textCounter: function() {
+      if(this.itemName.indexOf('heart') === 0) {
+        return this.itemValue;
+      }
+      return null;
+    },
     backgroundImage: function() {
       if(this.itemName == 'blank') {
         return this.trackerOptions.editmode ? 'url(/images/blank.png)' :'none';
       }
       else if((typeof this.itemValue) == "boolean") {
+        return 'url(/images/' + this.itemName + '.png)';
+      }
+      else if(this.textCounter !== null) {
         return 'url(/images/' + this.itemName + '.png)';
       }
       return 'url(/images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0')) + '.png)';
