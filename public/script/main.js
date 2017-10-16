@@ -674,7 +674,7 @@ Vue.component('tracker-cell', {
     }
   },
   methods: {
-    clickCell: function(e) {
+    clickCell: function(amt) {
       if(this.trackerOptions.editmode) {
           Vue.set(vm.itemRows[this.rowIndex], this.columnIndex, this.trackerOptions.selected.item || 'blank');
         return;
@@ -688,27 +688,51 @@ Vue.component('tracker-cell', {
         rootRef.child('items').child(this.itemName).set(!this.itemValue);
       }
       else{
-        var newVal = (this.itemValue || 0) + 1;
+        var newVal = (this.itemValue || 0) + amt;
         if(newVal > itemsMax[this.itemName]){
           newVal = itemsMin[this.itemName];
+        }
+        if(newVal < itemsMin[this.itemName]){
+          newVal = itemsMax[this.itemName];
         }
         rootRef.child('items').child(this.itemName).set(newVal);
       }
     },
-    clickMedallion: function(e) {
-      rootRef.child('medallions').child(this.bossNum).set( (this.trackerData.medallions[this.bossNum] + 1) % 4 );
+    clickCellForward: function(e) {
+      this.clickCell(1);
     },
-    clickChest: function(e) {
+    clickCellBack: function(e) {
+      this.clickCell(-1);
+    },
+    clickMedallion: function(amt) {
+      rootRef.child('medallions').child(this.bossNum).set( (this.trackerData.medallions[this.bossNum] + amt + 4) % 4 );
+    },
+    clickMedallionForward: function(e) {
+      this.clickMedallion(1);
+    },
+    clickMedallionBack: function(e) {
+      this.clickMedallion(-1);
+    },
+    clickChest: function(amt) {
       var chestitem = 'chest' + this.bossNum;
-      var newVal = this.trackerData.dungeonchests[this.bossNum] - 1;
-      if(newVal < 0) {
-        newVal = itemsMax[chestitem];
-      }
+      var newVal = (this.trackerData.dungeonchests[this.bossNum] + amt + itemsMax[chestitem]) % itemsMax[chestitem];
       rootRef.child('dungeonchests').child(this.bossNum).set(newVal);
     },
-    clickPrize: function(e) {
-      rootRef.child('prizes').child(this.bossNum).set( (this.trackerData.prizes[this.bossNum] + 1) % 5 );
-    }
+    clickChestForward: function(e) {
+      this.clickChest(1);
+    },
+    clickChestBack: function(e) {
+      this.clickChest(-1);
+    },
+    clickPrize: function(amt) {
+      rootRef.child('prizes').child(this.bossNum).set( (this.trackerData.prizes[this.bossNum] + amt + 5) % 5 );
+    },
+    clickPrizeForward: function(e) {
+        this.clickPrize(1);
+    },
+    clickPrizeBack: function(e) {
+        this.clickPrize(-1);
+    },
   }
 });
 
