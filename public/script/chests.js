@@ -1029,14 +1029,17 @@ chests[46] = {
     isOpened: false,
     isAvailable: function(){
 		if((trackerData.items.glove || trackerData.items.flute) && (trackerData.items.hookshot || (trackerData.items.hammer && trackerData.items.mirror)) )
-			if(trackerData.items.mirror && trackerData.items.moonpearl && trackerData.items.glove==2)
-				return "available";
-			else
+            if(trackerData.items.mirror && trackerData.items.moonpearl && trackerData.items.glove==2)
+                if(!trackerData.items.flute && !trackerData.items.lantern)
+                    return "glitchavailable"
+                else
+                    return "available";
+            else
                 if(!trackerData.items.flute && !trackerData.items.lantern)
                     return "glitchpossible";
                 else
                     return "possible";
-		return "unavailable";
+        return "unavailable";
 	}
 };
 
