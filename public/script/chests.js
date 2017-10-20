@@ -44,7 +44,12 @@ dungeons[0] = {
                 return "available";
             else
                 return "glitchavailable";
-		return "unavailable";
+        if(trackerData.dungeonchests[0]>0)
+            if(trackerData.items.lantern)
+                return "possible"
+            else
+                return "glitchpossible"
+        return "unavailable";
     }
 };
 
