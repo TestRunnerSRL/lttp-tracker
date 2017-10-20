@@ -73,13 +73,16 @@ dungeons[1] = {
 		return "available";
     },
     canGetChest: function(){
-		if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
-			return "unavailable";
-		if(trackerData.items.boots && (trackerData.items.firerod || trackerData.items.lantern) && trackerData.items.glove)
-			return "available";
-		if(trackerData.dungeonchests[1]>1 && trackerData.items.boots)
-			return "available"
-		return "possible";
+        if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
+            return "unavailable";
+        if(trackerData.dungeonchests[1]>1 && trackerData.items.boots)
+            return "available"
+        if(trackerData.items.boots && (trackerData.items.firerod || trackerData.items.lantern) && trackerData.items.glove)
+            if(trackerData.items.sword==0 && !trackerData.items.hammer && !trackerData.items.bow && !trackerData.items.firerod && !trackerData.items.icerod && !trackerData.items.byrna && !trackerData.items.somaria)
+                return "possible"
+            else
+                return "available"
+        return "possible";
     }
 };
 
