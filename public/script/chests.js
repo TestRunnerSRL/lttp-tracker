@@ -409,13 +409,19 @@ dungeons[9] = {
             if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchpossible";
             else
-                return "possible";
+                if(trackerData.items.lantern)
+                    return "possible";
+                else
+                    return "glitchpossible"
 
-		if(trackerData.dungeonchests[9]>1)
+        if(trackerData.dungeonchests[9]>1)
             if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchavailable";
             else
-                return "available";
+                if(trackerData.items.lantern)
+                    return "available";
+                else
+                    return "glitchavailable"
 
         if(trackerData.items.icerod) // Last item on Trinexx
             if(!trackerData.items.lantern)
@@ -426,7 +432,10 @@ dungeons[9] = {
         if(!trackerData.items.flute && !trackerData.items.lantern)
             return "glitchpossible";
         else
-            return "possible";
+            if(trackerData.items.lantern)
+                    return "possible";
+                else
+                    return "glitchpossible"
     }
 };
 
