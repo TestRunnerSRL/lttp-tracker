@@ -229,7 +229,7 @@ dungeons[5] = {
     },
     canGetChest: function(){
         if(steve())
-            if(trackerData.items.firerod)
+            if(trackerData.items.firerod && (trackerData.dungeonchests[5]>1 || trackerData.items.sword>0))
                 return "available";
             else
                 return "possible";
