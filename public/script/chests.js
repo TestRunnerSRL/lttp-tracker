@@ -106,7 +106,21 @@ dungeons[2] = {
 		return "possible";
     },
     canGetChest: function(){
-		return this.isBeatable();
+        if(!trackerData.items.mirror && !(trackerData.items.hookshot && trackerData.items.hammer))
+            return "unavailable";
+        if(!deathmountain() && !deathmountaindarkness())
+            return "unavailable";
+        if(!deathmountain())
+            if(trackerData.dungeonchests[2]<2 && (trackerData.items.sword==0 && !trackerData.items.hammer))
+                return "glitchpossible";
+            else
+                return "glitchavailable";
+        if(trackerData.items.firerod || trackerData.items.lantern)
+            if(trackerData.dungeonchests[2]<2 && (trackerData.items.sword==0 && !trackerData.items.hammer))
+                return "possible";
+            else
+                return "available";
+        return "possible";
     }
 };
 
