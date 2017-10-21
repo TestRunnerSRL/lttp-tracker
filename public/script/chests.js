@@ -151,7 +151,7 @@ dungeons[3] = {
             else
                 return "agahnim";
 		if(trackerData.items.bow && (trackerData.dungeonchests[3]>1 || trackerData.items.hammer))
-            if(trackerData.items.lantern || trackerData.dungeonchests[3]>4)
+            if(trackerData.items.lantern)
                 return "available";
             else
                 return "glitchavailable";
