@@ -44,7 +44,12 @@ dungeons[0] = {
                 return "available";
             else
                 return "glitchavailable";
-		return "unavailable";
+        if(trackerData.dungeonchests[0]>0)
+            if(trackerData.items.lantern)
+                return "possible"
+            else
+                return "glitchpossible"
+        return "unavailable";
     }
 };
 
@@ -68,13 +73,16 @@ dungeons[1] = {
 		return "available";
     },
     canGetChest: function(){
-		if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
-			return "unavailable";
-		if(trackerData.items.boots && (trackerData.items.firerod || trackerData.items.lantern) && trackerData.items.glove)
-			return "available";
-		if(trackerData.dungeonchests[1]>1 && trackerData.items.boots)
-			return "available"
-		return "possible";
+        if(!trackerData.items.book && !(trackerData.items.flute && trackerData.items.glove==2 && trackerData.items.mirror))
+            return "unavailable";
+        if(trackerData.dungeonchests[1]>1 && trackerData.items.boots)
+            return "available"
+        if(trackerData.items.boots && (trackerData.items.firerod || trackerData.items.lantern) && trackerData.items.glove)
+            if(trackerData.items.sword==0 && !trackerData.items.hammer && !trackerData.items.bow && !trackerData.items.firerod && !trackerData.items.icerod && !trackerData.items.byrna && !trackerData.items.somaria)
+                return "possible"
+            else
+                return "available"
+        return "possible";
     }
 };
 
@@ -98,7 +106,21 @@ dungeons[2] = {
 		return "possible";
     },
     canGetChest: function(){
-		return this.isBeatable();
+        if(!trackerData.items.mirror && !(trackerData.items.hookshot && trackerData.items.hammer))
+            return "unavailable";
+        if(!deathmountain() && !deathmountaindarkness())
+            return "unavailable";
+        if(!deathmountain())
+            if(trackerData.dungeonchests[2]<2 && (trackerData.items.sword==0 && !trackerData.items.hammer))
+                return "glitchpossible";
+            else
+                return "glitchavailable";
+        if(trackerData.items.firerod || trackerData.items.lantern)
+            if(trackerData.dungeonchests[2]<2 && (trackerData.items.sword==0 && !trackerData.items.hammer))
+                return "possible";
+            else
+                return "available";
+        return "possible";
     }
 };
 
@@ -207,7 +229,7 @@ dungeons[5] = {
     },
     canGetChest: function(){
         if(steve())
-            if(trackerData.items.firerod)
+            if(trackerData.items.firerod && (trackerData.dungeonchests[5]>1 || trackerData.items.sword>0))
                 return "available";
             else
                 return "possible";
@@ -387,13 +409,19 @@ dungeons[9] = {
             if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchpossible";
             else
-                return "possible";
+                if(trackerData.items.lantern)
+                    return "possible";
+                else
+                    return "glitchpossible"
 
-		if(trackerData.dungeonchests[9]>1)
+        if(trackerData.dungeonchests[9]>1)
             if(!trackerData.items.flute && !trackerData.items.lantern) // dark navigation to DM
                 return "glitchavailable";
             else
-                return "available";
+                if(trackerData.items.lantern)
+                    return "available";
+                else
+                    return "glitchavailable"
 
         if(trackerData.items.icerod) // Last item on Trinexx
             if(!trackerData.items.lantern)
@@ -404,7 +432,10 @@ dungeons[9] = {
         if(!trackerData.items.flute && !trackerData.items.lantern)
             return "glitchpossible";
         else
-            return "possible";
+            if(trackerData.items.lantern)
+                    return "possible";
+                else
+                    return "glitchpossible"
     }
 };
 
