@@ -49,9 +49,9 @@ var defaultItemGrid = [
         "boss1",
         "boss2",
         "agahnim",
-        "blank",
+        "boss10",
     ],
-]
+];
 
 var itemsInit = {
     bow: false,
@@ -98,6 +98,7 @@ var itemsInit = {
     boss7: 1,
     boss8: 1,
     boss9: 1,
+    boss10: 1,
     agahnim: 0,
 
     blank: false
@@ -113,13 +114,14 @@ var dungeonchestsInit = {
     6: 4,
     7: 3,
     8: 2,
-    9: 5     
-}
+    9: 5,
+    10: 20
+};
 
 
-var dungeonbeatenInit = [false, false, false, false, false, false, false, false, false, false];
-var prizesInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var medallionsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var dungeonbeatenInit = [false, false, false, false, false, false, false, false, false, false, false];
+var prizesInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var medallionsInit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 var itemsMin = {
@@ -147,7 +149,8 @@ var itemsMin = {
 	boss6: 1,
 	boss7: 1,
 	boss8: 1,
-	boss9: 1
+	boss9: 1,
+    boss10: 1
 };
 
 var itemsMax = {
@@ -176,6 +179,7 @@ var itemsMax = {
 	boss7: 2,
 	boss8: 2,
 	boss9: 2,
+    boss10: 2,
 	
 	chest0: 3,
     chest1: 2,
@@ -186,5 +190,6 @@ var itemsMax = {
     chest6: 4,
     chest7: 3,
     chest8: 2,
-    chest9: 5 
+    chest9: 5,
+    chest10: 20
 };
