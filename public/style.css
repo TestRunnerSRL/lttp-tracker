@@ -1,7 +1,7 @@
 
 body{
     background-color: rgb(0,0,0);
-    margin: 0px;
+    margin: 0;
     color: white;
 }
 
@@ -30,17 +30,17 @@ body{
 .tracker{
     background-color: rgb(0,0,0);
     position: relative;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     empty-cells: show;
-    border-spacing: 0px;
-    border: 0px;
+    border-spacing: 0;
+    border: 0;
 }
 
 .tracker td{
     width: 64px;
     height: 64px;
-    padding: 0px;
+    padding: 0;
     background-repeat: no-repeat;
 }
 
@@ -50,7 +50,7 @@ body{
 }
 
 .itemconfig {
-    border-spacing: 0px;
+    border-spacing: 0;
     border: 1px solid white;	
 }
 
@@ -59,8 +59,8 @@ body{
 }
 
 .stoops{
-    width: 128;
-    height: 128;
+    width: 128px;
+    height: 128px;
     background-size: 200% 200%;
 }
 
@@ -87,8 +87,8 @@ label {
 .lonk{
     width: 64px;
     height: 64px;
-    border-spacing: 0px;
-    border: 0px;
+    border-spacing: 0;
+    border: 0;
 }
 
 .corner{
@@ -124,17 +124,16 @@ label {
 }
 
 .mini{
-    width: 16;
-    height: 16;
+    width: 16px;
+    height: 16px;
     vertical-align: text-bottom;
 }
 
 .boss{
-    width: 24;
-    height: 24;
+    width: 24px;
+    height: 24px;
 
-    background-repeat: no-repeat;
-    background-position: center;
+    background: no-repeat center;
     background-size: 75% 75%;
 
     position: absolute;
@@ -145,8 +144,8 @@ label {
 }
 
 .dungeon{
-    width: 48;
-    height: 48;
+    width: 48px;
+    height: 48px;
     background-size: 100% 100%;
 
     position: absolute;
@@ -156,34 +155,32 @@ label {
 
 .itemdiv{
     position: relative;
-    left: 0px;
+    left: 0;
 }
 
 .mapdiv{
-    background-image: url("/images/map.png");
     background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background: url("/images/map.png") no-repeat;
 
     position: relative;
     width: 884px;
     height: 442px;
-    left: 0px;
+    left: 0;
 }
 
 .mapvdiv{
-    background-image: url("/images/mapv.png");
     background-size: cover;
-    background-repeat: no-repeat;
+    background: url("/images/mapv.png") no-repeat;
 
     position: relative;
     width: 438px;
     height: 888px;
-    left: 0px;
+    left: 0;
 }
 
 .chest{
-    width: 24;
-    height: 24;
+    width: 24px;
+    height: 24px;
     background-size: 100% 100%;
 
     position: absolute;
@@ -213,6 +210,10 @@ label {
 
 .glitchpossible{
     background-color: rgb(192,192,0);
+}
+
+.glitchagahnim {
+    background-color: rgb(0,160,160);
 }
 
 .opened{

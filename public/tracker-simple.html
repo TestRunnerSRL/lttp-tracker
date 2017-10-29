@@ -324,7 +324,7 @@ millisToTime = function(ms) {
     hours = ('00' + Math.floor(x % 24)).slice(-2);
 
     return {hours: hours, minutes: minutes, seconds: seconds, ms: ms};
-}
+};
 
 function cycle(e) {
   e.preventDefault();
@@ -345,7 +345,7 @@ function cycle(e) {
 
 function toggle(e) {
   e.preventDefault();
-  var curState = !(this.classList.contains("false"))
+  var curState = !(this.classList.contains("false"));
   var curItem = this.classList.item(0);
   rootRef.child("items").child(curItem).set(!curState);
 }

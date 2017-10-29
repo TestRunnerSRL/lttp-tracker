@@ -13,7 +13,7 @@
         <script src="/script/shared.js?3457"></script>
         <script src="/script/items.js?2382"></script>
         <script src="/script/chests.js?9357"></script>
-        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     </head>
 
     <body>
@@ -50,32 +50,38 @@
                 <span id='itemdivsize'>100%</span><br>
                 <fieldset>
                     <legend>Dungeon Display</legend>
-                    <input type="checkbox" name="showchest" checked='true' onchange="showChest(this)">Chests
-                    <input type="checkbox" name="showcrystal" checked='true' onchange="showCrystal(this)">Prizes
-                    <input type="checkbox" name="showmedallion" checked='true' onchange="showMedallion(this)">Medals<br>
-                    <input type="checkbox" name="showlabel" checked='true' onchange="showLabel(this)">Dungeon Labels
+                    <input type="checkbox" name="showchest" checked='checked' onchange="showChest(this)">Chests
+                    <input type="checkbox" name="showcrystal" checked='checked' onchange="showCrystal(this)">Prizes
+                    <input type="checkbox" name="showmedallion" checked='checked' onchange="showMedallion(this)">Medals<br>
+                    <input type="checkbox" name="showlabel" checked='checked' onchange="showLabel(this)">Dungeon Labels
                 </fieldset>
             </fieldset>
             <fieldset>
                 <legend>Map Tracker</legend>
-                <input type="checkbox" name="showmap" checked='true' onchange="showTracker('mapdiv', this)">Enabled<br>
+                <input type="checkbox" name="showmap" checked='checked' onchange="showTracker('mapdiv', this)">Enabled<br>
                 Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)">
                 <span id='mapdivsize'>100%</span><br>
                 Position:
-                <input type='radio' name='mapposition' value='Below' checked='true' onclick="setOrder(true)">Below
+                <input type='radio' name='mapposition' value='Below' checked='checked' onclick="setOrder(true)">Below
                 <input type='radio' name='mapposition' value='Side' onclick="setOrder(false)">Side<br>
                 Orientation:
-                <input type='radio' name='maporientation' value='Horizontal' checked='true' onclick="setMapOrientation(false)">Horizontal
+                <input type='radio' name='maporientation' value='Horizontal' checked='checked' onclick="setMapOrientation(false)">Horizontal
                 <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
+                <fieldset>
+                    <legend>Logic Options</legend>
+                    <input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless<br>
+                    <input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches<br>
+                    <input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches
+                </fieldset>
             </fieldset>
             <fieldset id="roomControls">
                 <legend>Room Controls</legend>
                 <input type="text" name="entryPasscode" id="entryPasscodeInput" />
                 <button type="button" name="enterPasscode" id="enterPasscodeButton" onclick="enterPasscode()">Enter Passcode</button>
                 <div id="editorControls">
-                    <button type="button" name="resetRoom" id="resetRoomButton" onclick="confirmSaveConfigToFirebase()">Push Configuration</button>
+                    <button type="button" name="resetRoom" id="pushConfigButton" onclick="confirmSaveConfigToFirebase()">Push Configuration</button>
                     <br><br>
-                    <button type="button" name="destroyRoom" id="destroyRoomButton" onclick="useTourneyConfig()">Use Tourney Configuration</button>
+                    <button type="button" name="destroyRoom" id="useTourneyConfigButton" onclick="useTourneyConfig()">Use Tourney Configuration</button>
                     <br><br>
                     <button type="button" name="resetRoom" id="resetRoomButton" onclick="resetFirebase()">Reset Room</button>
                     <br><br>
@@ -117,10 +123,10 @@
                 <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage }"></span>
             </div>
         </script>
+        <script src="/script/main.js?1496"></script>
+        <script>
+            init(initTracker);
+        </script>
     </body>
-    <script src="/script/main.js?1496"></script>
-    <script>
-        init(initTracker);
-    </script>
 </html>
 

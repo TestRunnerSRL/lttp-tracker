@@ -4,9 +4,10 @@ var trackerOptions = {
   showprizes: true,
   showmedals: true,
   showlabels: true,
+  mapLogic: 'glitchless',
   editmode: false,
   selected: {}
-}
+};
 
 var chestsopenedInit = [];
 for(var i = 0; i < chests.length; i++) {
@@ -32,20 +33,21 @@ function getCookie() {
     return JSON.parse(str);
 }
 
-var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'chest', 'prize', 'medal', 'label', 'items'];
+var cookiekeys = ['ts', 'map', 'iZoom', 'mZoom', 'mOrien', 'mPos', 'mapLogic', 'chest', 'prize', 'medal', 'label', 'items'];
 var cookieDefault = {
     ts:94,
     map:1,
     iZoom:100,
     mZoom:50,
     mOrien:0,
+    mapLogic:'glitchless',
     mPos:0,
     chest:1,
     prize:1,
     medal:1,
     label:1,
     items:defaultItemGrid
-}
+};
 
 var cookielock = false;
 function loadCookie() {
@@ -73,6 +75,7 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
+    document.querySelector('input[value="' + configobj.mapLogic + '"]').click();
 
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
@@ -133,6 +136,7 @@ function getConfigObject() {
 
     configobj.mOrien = document.getElementsByName('maporientation')[1].checked ? 1 : 0;
     configobj.mPos = document.getElementsByName('mapposition')[1].checked ? 1 : 0;
+    configobj.mapLogic = document.querySelector('input[name="maplogic"]:checked').value;
 
     configobj.chest = document.getElementsByName('showchest')[0].checked ? 1 : 0;
     configobj.prize = document.getElementsByName('showcrystal')[0].checked ? 1 : 0;
@@ -205,10 +209,6 @@ function setOrder(H) {
     saveCookie();
 }
 
-function setOrientation() {
-    
-}
-
 function setZoom(target, sender) {
     document.getElementById(target).style.zoom = sender.value / 100;
 
@@ -220,7 +220,7 @@ function setZoom(target, sender) {
 
 var prevH = false;
 function setMapOrientation(H) {
-    if (H == prevH) {
+    if (H === prevH) {
         return;
     }
     prevH = H;
@@ -266,6 +266,12 @@ function setMapOrientation(H) {
     saveCookie();
 }
 
+function setLogic(logic) {
+    trackerOptions.mapLogic = logic;
+    refreshMap();
+    saveCookie();
+}
+
 function showSettings(sender) {
     if (trackerOptions.editmode) {
         trackerOptions.showchests = document.getElementsByName('showchest')[0].checked;
@@ -280,7 +286,7 @@ function showSettings(sender) {
         saveCookie();
     } else {
         var x = document.getElementById("settings");
-        if (!x.style.display || x.style.display == 'none') {
+        if (!x.style.display || x.style.display === 'none') {
             x.style.display = 'initial';
             sender.innerHTML = 'X';
         } else {
@@ -322,17 +328,17 @@ function refreshMapMedallion(d) {
     if(trackerData.dungeonbeaten[d])
         document.getElementById("bossMap"+d).className = "mapspan boss opened";
     else
-        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable();
+        document.getElementById("bossMap"+d).className = "mapspan boss " + dungeons[d].isBeatable().getClassName();
 
     if(trackerData.dungeonchests[d] > 0)
-        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest();
+        document.getElementById("dungeon"+d).className = "mapspan 1dungeon " + dungeons[d].canGetChest().getClassName();
     // TRock medallion affects Mimic Cave
-    if(d == 9){
+    if(d === 9){
         refreshChests();
     }
     // Change the mouseover text on the map
     var dungeonName;
-    if(d == 8)
+    if(d === 8)
         dungeonName = "Misery Mire";
     else
         dungeonName = "Turtle Rock";
@@ -344,7 +350,7 @@ function refreshChests() {
         if(trackerData.chestsopened[k])
             document.getElementById(k).className = "mapspan chest opened";
         else
-            document.getElementById(k).className = "mapspan chest " + chests[k].isAvailable();
+            document.getElementById(k).className = "mapspan chest " + chests[k].isAvailable().getClassName();
     }
 }
 
@@ -356,9 +362,9 @@ function refreshMap() {
       if(trackerData.dungeonbeaten[k])
           document.getElementById("bossMap"+k).className = "mapspan boss opened";
       else
-          document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[k].isBeatable();
+          document.getElementById("bossMap"+k).className = "mapspan boss " + dungeons[k].isBeatable().getClassName();
       if(trackerData.dungeonchests[k])
-          document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[k].canGetChest();
+          document.getElementById("dungeon"+k).className = "mapspan dungeon " + dungeons[k].canGetChest().getClassName();
       else
           document.getElementById("dungeon"+k).className = "mapspan dungeon opened";
   }
@@ -375,19 +381,19 @@ function itemConfigClick (sender) {
         itemGrid[selected.row][selected.col]['item'].style.border = '1px solid white';
         var old = itemLayout[selected.row][selected.col];
 
-        if (old == item) {
+        if (old === item) {
             selected = {};
             return;
         }
 
-        if (item != 'blank') {
+        if (item !== 'blank') {
             sender.style.opacity = 0.25;
 
             var r,c;
             var found = false;
             for (r = 0; r < 8; r++) {
                 for (c = 0; c < 7; c++) {
-                    if (itemLayout[r][c] == item) {
+                    if (itemLayout[r][c] === item) {
                         itemLayout[r][c] = 'blank';
                         updateGridItem(r, c);
                         found = true;
@@ -429,7 +435,7 @@ function populateMapdiv() {
         if(trackerData.chestsopened[k])
             s.className = "mapspan chest opened";
         else
-            s.className = "mapspan chest " + chests[k].isAvailable();
+            s.className = "mapspan chest " + chests[k].isAvailable().getClassName();
         mapdiv.appendChild(s);
     }
 
@@ -442,7 +448,7 @@ function populateMapdiv() {
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[k].x;
         s.style.top = dungeons[k].y;
-        s.className = "mapspan boss " + dungeons[k].isBeatable();
+        s.className = "mapspan boss " + dungeons[k].isBeatable().getClassName();
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
@@ -452,7 +458,7 @@ function populateMapdiv() {
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
         s.style.left = dungeons[k].x;
         s.style.top = dungeons[k].y;
-        s.className = "mapspan dungeon " + dungeons[k].canGetChest();
+        s.className = "mapspan dungeon " + dungeons[k].canGetChest().getClassName();
         mapdiv.appendChild(s);
     }
 }
@@ -465,7 +471,7 @@ function populateItemconfig() {
     var row;
 
     for (var key in trackerData.items) {
-        if (i % 10 == 0){
+        if (i % 10 === 0){
             row = document.createElement('tr');
             grid.appendChild(row);
         }
@@ -476,7 +482,7 @@ function populateItemconfig() {
         rowitem.id = key;
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
-        if((typeof trackerData.items[key]) == "boolean"){
+        if((typeof trackerData.items[key]) === "boolean"){
             rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
         }
         else if(key.indexOf("heart") === 0){
@@ -544,7 +550,7 @@ function initTracker() {
     populateItemconfig();
 
     loadCookie();
-    window.document.title = roomid + " - " + window.document.title
+    window.document.title = roomid + " - " + window.document.title;
 
     rootRef.child('items').on('value', function(snapshot) {
       trackerData.items = snapshot.val();
@@ -617,7 +623,7 @@ Vue.component('tracker-table', {
     },
     removeItem: function(rowIndex) {
       vm.itemRows[rowIndex].pop();
-      if(vm.itemRows[rowIndex].length == 0) {
+      if(vm.itemRows[rowIndex].length === 0) {
         vm.itemRows.splice(rowIndex,1);
       }
     }
@@ -636,8 +642,8 @@ Vue.component('tracker-cell', {
   ],
   computed: {
     bossNum: function() {
-      if(this.itemName.indexOf("boss") == -1) { return null; }
-      return this.itemName.substring(4,5);
+      if(this.itemName.indexOf("boss") === -1) { return null; }
+      return this.itemName.substring(4);
     },
     dungeonLabel: function() {
       if(this.bossNum && this.trackerOptions && this.trackerOptions.showlabels) {
@@ -652,10 +658,10 @@ Vue.component('tracker-cell', {
       return null;
     },
     backgroundImage: function() {
-      if(this.itemName == 'blank') {
+      if(this.itemName === 'blank') {
         return this.trackerOptions.editmode ? 'url(/images/blank.png)' :'none';
       }
-      else if((typeof this.itemValue) == "boolean") {
+      else if((typeof this.itemValue) === "boolean") {
         return 'url(/images/' + this.itemName + '.png)';
       }
       else if(this.textCounter !== null) {
@@ -673,13 +679,13 @@ Vue.component('tracker-cell', {
       return null;
     },
     prizeImage: function() {
-      if(this.bossNum && this.trackerOptions && this.trackerOptions.showprizes) {
+      if(this.bossNum && this.bossNum !== "10" && this.trackerOptions && this.trackerOptions.showprizes) {
         return "url(/images/dungeon" + this.trackerData.prizes[this.bossNum] + ".png)";
       }
       return null;
     },
     medallionImage: function() {
-      if((this.bossNum == "8" || this.bossNum == "9") && this.trackerOptions && this.trackerOptions.showmedals) {
+      if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions && this.trackerOptions.showmedals) {
         return "url(/images/medallion" + this.trackerData.medallions[this.bossNum] + ".png)";
       }
       return null;
@@ -696,7 +702,7 @@ Vue.component('tracker-cell', {
         // Do both this and the below for bosses
         rootRef.child('dungeonbeaten').child(this.bossNum).set(!this.trackerData.dungeonbeaten[this.bossNum])
       }
-      if((typeof this.itemValue) == "boolean"){
+      if((typeof this.itemValue) === "boolean"){
         rootRef.child('items').child(this.itemName).set(!this.itemValue);
       }
       else{
@@ -757,4 +763,4 @@ var vm = new Vue({
       displayVueMap: false
   },
   el: '#layoutdiv'
-})
+});
