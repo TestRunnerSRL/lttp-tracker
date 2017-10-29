@@ -96,6 +96,7 @@ label {
     height: 32px;
     color: lightgray;
     font: 26px 'VT323', monospace;
+    cursor: default;
     text-shadow: 0 0 3px black;
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -104,12 +105,17 @@ label {
     user-select: none;
 }
 
+.editcell {
+    font-size: 20px;
+}
+
 .textCounter {
     display: block;
     position: absolute;
     right: 0;
     bottom: 0;
     font: 40px 'VT323', monospace;
+    cursor: default;
     color: #fdd549;
     user-select: none;
     text-shadow: -2px -2px 1px black;

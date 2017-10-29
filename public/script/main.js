@@ -478,7 +478,7 @@ function populateItemconfig() {
         i++;
 
         var rowitem = document.createElement('td');
-        rowitem.className = 'corner';
+        rowitem.className = 'corner editcell';
         rowitem.id = key;
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
@@ -490,6 +490,9 @@ function populateItemconfig() {
         }
         else{
             rowitem.style.backgroundImage = "url(/images/" + key + itemsMax[key] + ".png)";
+        }
+        if(key.indexOf("boss") === 0){
+            rowitem.innerText = dungeons[key.substring(4)].label;
         }
         row.appendChild(rowitem);
     }		
