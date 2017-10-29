@@ -75,7 +75,7 @@ function setConfigObject(configobj) {
 
     document.getElementsByName('maporientation')[configobj.mOrien].click();
     document.getElementsByName('mapposition')[configobj.mPos].click();
-    document.querySelector('input[value="' + configobj.mapLogic + '"]').click();
+    document.querySelector('input[value="' + (configobj.mapLogic || 'glitchless') + '"]').click();
 
     document.getElementsByName('showchest')[0].checked = !!configobj.chest;
     document.getElementsByName('showchest')[0].onchange();
