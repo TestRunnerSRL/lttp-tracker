@@ -4033,7 +4033,10 @@ chests[59] = {
                         || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks()))) {
             availability.glitchless = 'available';
         }
-        else if (trackerData.items.powder && trackerData.items.boots) {
+        else if (trackerData.items.somaria && trackerData.items.mushroom) {
+            availability.glitchless = 'glitchavailable';
+        }
+        if (trackerData.items.powder && trackerData.items.boots) {
             availability.owGlitches = 'available';
         }
         else if (trackerData.items.powder && trackerData.items.mirror) {
@@ -4190,6 +4193,9 @@ chests[63] = {
         else if (trackerData.items.moonpearl) {
             availability.glitchless = 'glitchavailable';
             availability.owGlitches = 'available';
+        }
+        else if (trackerData.items.flippers) {
+            availability.glitchless = 'glitchavailable';
         }
         return availability;
     }
