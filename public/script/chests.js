@@ -4194,7 +4194,7 @@ chests[63] = {
             availability.glitchless = 'glitchavailable';
             availability.owGlitches = 'available';
         }
-        else if (trackerData.items.flippers) {
+        else if (trackerData.items.boots) {
             availability.glitchless = 'glitchavailable';
         }
         return availability;
