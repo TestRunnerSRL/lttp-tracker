@@ -3,12 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title>LttP Networked Item Tracker</title>
+  <link rel="stylesheet" type="text/css" href="/style.css" />
 </head>
 
 <body>
+	<div id="legend">
+		<table border="0" cellspacing="0">
+			<tr>
+				<th class="available">Available</th>
+				<th class="possible">Possible</th>
+				<th class="agahnim">Agahnim Defeated</th>
+				<th class="unavailable">Unavailable</th>
+			</tr>
+			<tr>
+				<th class="glitchavailable">Glitch Available</th>
+				<th class="glitchpossible">Glitch Possible</th>
+				<th class="glitchagahnim">Glitch Agahnim</th>
+				<th class="opened">Opened</th>
+			</tr>
+		</table>
+	</div>
     <h1>LttP Networked Item Tracker</h1>
-    <p style="font-size: 1.4em;">Go to <span id="loc"></span>/[NAME] to view a tracker. If the name does not 
-        already exist, you will be able to create the tracker. If it does exist, you will be able to watch the 
+    <p style="font-size: 1.4em;">Go to <span id="loc"></span>/[NAME] to view a tracker. If the name does not
+        already exist, you will be able to create the tracker. If it does exist, you will be able to watch the
         tracker and, if the room creator gives you the passcode, update the tracker as well.</p>
     <p>If you have been given a passcode, you can enter it in the "Settings" panel by clicking the button in the
         lower-right hand side. There is no indication when you've entered the correct passcode, but you'll be
@@ -28,7 +45,7 @@
         </li>
         <li><strong>2017-10-29:</strong>
             <ul>
-                <li>Logic rebuilt from scratch. Added options for Overworld Glitches and Major Glitches logics. 
+                <li>Logic rebuilt from scratch. Added options for Overworld Glitches and Major Glitches logics.
                     Major thanks to emerald000! Please report if you encounter any new issues, but most things
                     should be much improved now. The new logic options may have more bugs currently, though.
                 </li>
@@ -39,13 +56,13 @@
         </li>
         <li><strong>2017-10-22:</strong>
             <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/pull/15">Logic bugs</a> fixed. Thanks to 
+                <li><a href="https://github.com/pickfifteen/lttp-tracker/pull/15">Logic bugs</a> fixed. Thanks to
                     Carouelle.</li>
             </ul>
         </li>
         <li><strong>2017-10-19:</strong>
             <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/issues/11">Logic bug</a> fixed. Thanks to 
+                <li><a href="https://github.com/pickfifteen/lttp-tracker/issues/11">Logic bug</a> fixed. Thanks to
                     miketrethewey, TotallyABot, and Carouelle.</li>
             </ul>
         </li>
@@ -68,7 +85,7 @@
                     layouts has changed slightly but it should be obvious enough.
                 </li>
                 <li>Bug fix for pushing a configuration: now, if you push a configuration, any browser going to
-                    your tracker for the first time should use it. Configurations are also unique per room, 
+                    your tracker for the first time should use it. Configurations are also unique per room,
                     if you visit a large number of tracker rooms.</li>
                 <li>"Use Tourney Configuration" button for tournament restreamers.</li>
                 <li>Bug fix involving dungeon labels.</li>
@@ -76,7 +93,7 @@
         </li>
         <li><strong>2017-09-06:</strong>
             <ul>
-                <li>Agahnim now supports multiple modes for Aga 1, Aga 2, both, or neither defeated, to support 
+                <li>Agahnim now supports multiple modes for Aga 1, Aga 2, both, or neither defeated, to support
                     Entrance Randomizer users. Obviously chest logic doesn't account for every ER possibility but
                     this was an easy request to fulfill.
                 </li>
