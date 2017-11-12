@@ -4028,13 +4028,14 @@ chests[59] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.items.powder
-                && (trackerData.items.hammer
-                        || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks()))) {
-            availability.glitchless = 'available';
-        }
-        else if (trackerData.items.somaria && trackerData.items.mushroom) {
-            availability.glitchless = 'glitchavailable';
+        if (trackerData.items.hammer
+                || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks())) {
+            if (trackerData.items.powder) {
+                availability.glitchless = 'available';
+            }
+            else if (trackerData.items.somaria && trackerData.items.mushroom) {
+                availability.glitchless = 'glitchavailable';
+            }
         }
         if (trackerData.items.powder && trackerData.items.boots) {
             availability.owGlitches = 'available';
