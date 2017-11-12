@@ -24,6 +24,8 @@ a {
     bottom:0;
     z-index : 10;
     display: none;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 #settingsbutton{

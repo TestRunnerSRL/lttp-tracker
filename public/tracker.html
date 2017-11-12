@@ -17,24 +17,6 @@
     </head>
 
     <body>
-
-		<div id="legend">
-			<table border="0" cellspacing="0">
-				<tr>
-					<th class="available">Available</th>
-					<th class="possible">Possible</th>
-					<th class="agahnim">Agahnim Defeated</th>
-					<th class="unavailable">Unavailable</th>
-				</tr>
-				<tr>
-					<th class="glitchavailable">Glitch Available</th>
-					<th class="glitchpossible">Glitch Possible</th>
-					<th class="glitchagahnim">Glitch Agahnim</th>
-					<th class="opened">Opened</th>
-				</tr>
-			</table>
-		</div>
-
         <div id='createRoomPanel'>
             <p>Either the room is still loading or there is not a room here.</p>
             <p>Click the button below to initialize a room.</p>
@@ -89,6 +71,27 @@
                     <input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless<br>
                     <input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches<br>
                     <input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches
+                </fieldset>
+                <fieldset>
+                    <legend>Chest Legend</legend>
+                    <table border="0" cellspacing="0">
+                        <tr>
+                            <th class="available">Available</th>
+                            <th class="glitchavailable">Glitch Available</th>
+                        </tr>
+                        <tr>
+                            <th class="possible">Possible</th>
+                            <th class="glitchpossible">Glitch Possible</th>
+                        </tr>
+                        <tr>
+                            <th class="agahnim">Agahnim Defeated</th>
+                            <th class="glitchagahnim">Glitch Agahnim</th>
+                        </tr>
+                        <tr>
+                            <th class="unavailable">Unavailable</th>
+                            <th class="opened">Opened</th>
+                        </tr>
+                    </table>
                 </fieldset>
             </fieldset>
             <fieldset id="roomControls">
