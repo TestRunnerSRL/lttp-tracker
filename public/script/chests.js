@@ -2518,30 +2518,33 @@ chests[10] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (canEnterMireArea('glitchless', false, false) && trackerData.items.moonpearl) {
-            availability.glitchless = 'available';
+        if (canEnterMireArea('glitchless', false, false)) {
+            if (trackerData.items.moonpearl) {
+                availability.glitchless = 'available';
+            }
+            else if (trackerData.items.mirror) {
+                availability.glitchless = 'glitchavailable';
+            }
         }
-        else {
-            if (trackerData.items.moonpearl || trackerData.items.mirror) {
-                if (canEnterMireArea('owGlitches', false, false)) {
-                    availability.owGlitches = 'available';
-                }
-                else if (canEnterMireArea('owGlitches', true, false)) {
-                    availability.owGlitches = 'agahnim';
-                }
-                else if (canEnterMireArea('owGlitches', true, true)) {
-                    availability.owGlitches = 'glitchagahnim';
-                }
+        if (trackerData.items.moonpearl || trackerData.items.mirror) {
+            if (canEnterMireArea('owGlitches', false, false)) {
+                availability.owGlitches = 'available';
             }
-            if (canEnterMireArea('majorGlitches', false, false)) {
-                availability.majorGlitches = 'available';
+            else if (canEnterMireArea('owGlitches', true, false)) {
+                availability.owGlitches = 'agahnim';
             }
-            else if (canEnterMireArea('majorGlitches', true, false)) {
-                availability.majorGlitches = 'agahnim';
+            else if (canEnterMireArea('owGlitches', true, true)) {
+                availability.owGlitches = 'glitchagahnim';
             }
-            else if (canEnterMireArea('majorGlitches', true, true)) {
-                availability.majorGlitches = 'glitchagahnim';
-            }
+        }
+        if (canEnterMireArea('majorGlitches', false, false)) {
+            availability.majorGlitches = 'available';
+        }
+        else if (canEnterMireArea('majorGlitches', true, false)) {
+            availability.majorGlitches = 'agahnim';
+        }
+        else if (canEnterMireArea('majorGlitches', true, true)) {
+            availability.majorGlitches = 'glitchagahnim';
         }
         return availability;
     }
@@ -4028,13 +4031,14 @@ chests[59] = {
     isOpened: false,
     isAvailable: function () {
         const availability = new Availability();
-        if (trackerData.items.powder
-                && (trackerData.items.hammer
-                        || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks()))) {
-            availability.glitchless = 'available';
-        }
-        else if (trackerData.items.somaria && trackerData.items.mushroom) {
-            availability.glitchless = 'glitchavailable';
+        if (trackerData.items.hammer
+                || (trackerData.items.moonpearl && trackerData.items.mirror && canLiftDarkRocks())) {
+            if (trackerData.items.powder) {
+                availability.glitchless = 'available';
+            }
+            else if (trackerData.items.somaria && trackerData.items.mushroom) {
+                availability.glitchless = 'glitchavailable';
+            }
         }
         if (trackerData.items.powder && trackerData.items.boots) {
             availability.owGlitches = 'available';
