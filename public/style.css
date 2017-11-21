@@ -176,7 +176,7 @@ label {
 
 .mapdiv{
     background-size: 100% 100%;
-    background: url("/images/map.png") no-repeat;
+    background: url("images/map.png") no-repeat;
 
     position: relative;
     width: 884px;
@@ -186,7 +186,7 @@ label {
 
 .mapvdiv{
     background-size: cover;
-    background: url("/images/mapv.png") no-repeat;
+    background: url("images/mapv.png") no-repeat;
 
     position: relative;
     width: 438px;

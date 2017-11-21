@@ -100,8 +100,6 @@ function updateConfigFromFirebase(configobj) {
 }
 
 function saveConfigToFirebase() {
-    var existingConfig = getConfigObject();
-    rootRef.child('config').set(existingConfig);
 }
 
 function saveCookie() {
@@ -150,28 +148,29 @@ function getConfigObject() {
 
 // Event of clicking a chest on the map
 function toggleChest(x){
-    rootRef.child('chestsopened').child(x).set(!trackerData.chestsopened[x]);
+    trackerData.chestsopened[x] = !trackerData.chestsopened[x];
+    updateAll();
 }
 
 // Highlights a chest location and shows the name as caption
 function highlight(x){
-    document.getElementById(x).style.backgroundImage = "url(/images/highlighted.png)";
+    document.getElementById(x).style.backgroundImage = "url(images/highlighted.png)";
     document.getElementById("caption").innerHTML = chests[x].name;
 }
 
 function unhighlight(x){
-    document.getElementById(x).style.backgroundImage = "url(/images/poi.png)";
+    document.getElementById(x).style.backgroundImage = "url(images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
 // Highlights a chest location and shows the name as caption (but for dungeons)
 function highlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/highlighted.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/highlighted.png)";
     document.getElementById("caption").innerHTML = dungeons[x].name;
 }
 
 function unhighlightDungeon(x){
-    document.getElementById("dungeon"+x).style.backgroundImage = "url(/images/poi.png)";
+    document.getElementById("dungeon"+x).style.backgroundImage = "url(images/poi.png)";
     document.getElementById("caption").innerHTML = "&nbsp;";
 }
 
@@ -424,7 +423,7 @@ function populateMapdiv() {
     // Initialize all chests on the map
     for(k=0; k<chests.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(/images/poi.png)';
+        s.style.backgroundImage = 'url(images/poi.png)';
         s.style.color = 'black';
         s.id = k;
         s.onclick = new Function('toggleChest('+k+')');
@@ -442,7 +441,7 @@ function populateMapdiv() {
     // Dungeon bosses & chests
     for(k=0; k<dungeons.length; k++){
         var s = document.createElement('span');
-        s.style.backgroundImage = 'url(/images/' + dungeons[k].image + ')';
+        s.style.backgroundImage = 'url(images/' + dungeons[k].image + ')';
         s.id = 'bossMap' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -452,7 +451,7 @@ function populateMapdiv() {
         mapdiv.appendChild(s);
 
         s = document.createElement('span');
-        s.style.backgroundImage = 'url(/images/poi.png)';
+        s.style.backgroundImage = 'url(images/poi.png)';
         s.id = 'dungeon' + k;
         s.onmouseover = new Function('highlightDungeon('+k+')');
         s.onmouseout = new Function('unhighlightDungeon('+k+')');
@@ -483,13 +482,13 @@ function populateItemconfig() {
         rowitem.style.backgroundSize = '100% 100%';
         rowitem.onclick = new Function('itemConfigClick(this)');
         if((typeof trackerData.items[key]) === "boolean"){
-            rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
         }
         else if(key.indexOf("heart") === 0){
-            rowitem.style.backgroundImage = "url(/images/" + key + ".png)";
+            rowitem.style.backgroundImage = "url(images/" + key + ".png)";
         }
         else{
-            rowitem.style.backgroundImage = "url(/images/" + key + itemsMax[key] + ".png)";
+            rowitem.style.backgroundImage = "url(images/" + key + itemsMax[key] + ".png)";
         }
         if(key.indexOf("boss") === 0){
             rowitem.innerText = dungeons[key.substring(4)].label;
@@ -499,51 +498,26 @@ function populateItemconfig() {
 }
 
 function enterPasscode() {
-    var passcode = document.getElementById('entryPasscodeInput').value;
-    rootRef.child('editors').child(uid).set(passcode, function(error) {
-        if(error) {
-            console.log("Did not add to editors");
-            console.log(error);
-        }
-        else {
-            console.log("Added to editors successfully");
-        }
-    });
+    
 }
 
 function createRoom() {
     var editors = {};
     var passcode = document.getElementById('passcodeInput').value;
-    editors[uid] = true;
-    rootRef.set({
-        owner: uid,
-        editors: editors,
-        passcode: passcode,
-        items: itemsInit,
-        dungeonchests: dungeonchestsInit,
-        dungeonbeaten: dungeonbeatenInit,
-        prizes: prizesInit,
-        medallions: medallionsInit,
-        chestsopened: chestsopenedInit
-    });
 }
 
 function resetFirebase() {
-    rootRef.child('items').set(itemsInit);
-    rootRef.child('dungeonchests').set(dungeonchestsInit);
-    rootRef.child('dungeonbeaten').set(dungeonbeatenInit);
-    rootRef.child('prizes').set(prizesInit);
-    rootRef.child('medallions').set(medallionsInit);
-    rootRef.child('chestsopened').set(chestsopenedInit);
+    trackerData.items = itemsInit;
+    trackerData.dungeonchests = dungeonchestsInit;
+    trackerData.dungeonbeaten = dungeonbeatenInit;
+    trackerData.prizes = prizesInit;
+    trackerData.medallions = medallionsInit;
+    trackerData.chestsopened = chestsopenedInit;
+    updateAll();
 }
 
 function useTourneyConfig() {
-  firebase.database().ref('games/tourney-layout/config').once('value', function(snapshot) {
-    let val = snapshot.val();
-    val.ts = 99999999999999;
-    updateConfigFromFirebase(val);
-    saveConfigToFirebase();
-  });
+
 }
 
 
@@ -553,36 +527,7 @@ function initTracker() {
     populateItemconfig();
 
     loadCookie();
-    window.document.title = roomid + " - " + window.document.title;
-
-    rootRef.child('items').on('value', function(snapshot) {
-      trackerData.items = snapshot.val();
-        updateAll();
-        document.getElementById('createRoomPanel').hidden = !!trackerData.items;
-    });
-    rootRef.child('dungeonchests').on('value', function(snapshot) {
-        trackerData.dungeonchests = snapshot.val();
-        updateAll();
-    });
-    rootRef.child('dungeonbeaten').on('value', function(snapshot) {
-        trackerData.dungeonbeaten = snapshot.val();
-        updateAll();
-    });
-    rootRef.child('prizes').on('value', function(snapshot) {
-      trackerData.prizes = snapshot.val();
-        updateAll();
-    });
-    rootRef.child('medallions').on('value', function(snapshot) {
-      trackerData.medallions = snapshot.val();
-        updateAll();
-    });
-    rootRef.child('chestsopened').on('value', function(snapshot) {
-      trackerData.chestsopened = snapshot.val();
-        updateAll();
-    });
-    rootRef.child('config').on('value', function(snapshot) {
-       if(snapshot.val()) updateConfigFromFirebase(snapshot.val());
-    });
+    updateAll();
 }
 
 function updateAll() {
@@ -662,34 +607,34 @@ Vue.component('tracker-cell', {
     },
     backgroundImage: function() {
       if(this.itemName === 'blank') {
-        return this.trackerOptions.editmode ? 'url(/images/blank.png)' :'none';
+        return this.trackerOptions.editmode ? 'url(images/blank.png)' :'none';
       }
       else if((typeof this.itemValue) === "boolean") {
-        return 'url(/images/' + this.itemName + '.png)';
+        return 'url(images/' + this.itemName + '.png)';
       }
       else if(this.textCounter !== null) {
-        return 'url(/images/' + this.itemName + '.png)';
+        return 'url(images/' + this.itemName + '.png)';
       }
-      return 'url(/images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0')) + '.png)';
+      return 'url(images/' + this.itemName + (this.trackerOptions.editmode ? itemsMax[this.itemName] : (this.itemValue || '0')) + '.png)';
     },
     isActive: function() {
       return this.trackerOptions.editmode || this.itemValue;
     },
     chestImage: function() {
       if(this.bossNum && this.trackerOptions && this.trackerOptions.showchests) {
-        return "url(/images/chest" + this.trackerData.dungeonchests[this.bossNum] + ".png)";
+        return "url(images/chest" + this.trackerData.dungeonchests[this.bossNum] + ".png)";
       }
       return null;
     },
     prizeImage: function() {
       if(this.bossNum && this.bossNum !== "10" && this.trackerOptions && this.trackerOptions.showprizes) {
-        return "url(/images/dungeon" + this.trackerData.prizes[this.bossNum] + ".png)";
+        return "url(images/dungeon" + this.trackerData.prizes[this.bossNum] + ".png)";
       }
       return null;
     },
     medallionImage: function() {
       if((this.bossNum === "8" || this.bossNum === "9") && this.trackerOptions && this.trackerOptions.showmedals) {
-        return "url(/images/medallion" + this.trackerData.medallions[this.bossNum] + ".png)";
+        return "url(images/medallion" + this.trackerData.medallions[this.bossNum] + ".png)";
       }
       return null;
     }
@@ -703,10 +648,12 @@ Vue.component('tracker-cell', {
       // Non-edit mode clicks
       if(this.bossNum) {
         // Do both this and the below for bosses
-        rootRef.child('dungeonbeaten').child(this.bossNum).set(!this.trackerData.dungeonbeaten[this.bossNum])
+        this.trackerData.dungeonbeaten[this.bossNum] = !this.trackerData.dungeonbeaten[this.bossNum];
+        updateAll();
       }
-      if((typeof this.itemValue) === "boolean"){
-        rootRef.child('items').child(this.itemName).set(!this.itemValue);
+      if((typeof this.itemValue) === "boolean"){        
+        this.trackerData.items[this.itemName] = !this.itemValue;
+        updateAll();
       }
       else{
         var newVal = (this.itemValue || 0) + amt;
@@ -716,7 +663,8 @@ Vue.component('tracker-cell', {
         if(newVal < itemsMin[this.itemName]){
           newVal = itemsMax[this.itemName];
         }
-        rootRef.child('items').child(this.itemName).set(newVal);
+        this.trackerData.items[this.itemName] = newVal;
+        updateAll();
       }
     },
     clickCellForward: function(e) {
@@ -725,8 +673,9 @@ Vue.component('tracker-cell', {
     clickCellBack: function(e) {
       this.clickCell(-1);
     },
-    clickMedallion: function(amt) {
-      rootRef.child('medallions').child(this.bossNum).set( (this.trackerData.medallions[this.bossNum] + amt + 4) % 4 );
+    clickMedallion: function(amt) {      
+      this.trackerData.medallions[this.bossNum] = (this.trackerData.medallions[this.bossNum] + amt + 4) % 4;
+      updateAll();
     },
     clickMedallionForward: function(e) {
       this.clickMedallion(1);
@@ -738,7 +687,8 @@ Vue.component('tracker-cell', {
       var chestitem = 'chest' + this.bossNum;
       var modamt = itemsMax[chestitem] + 1;
       var newVal = (this.trackerData.dungeonchests[this.bossNum] + amt + modamt) % modamt;
-      rootRef.child('dungeonchests').child(this.bossNum).set(newVal);
+      this.trackerData.dungeonchests[this.bossNum] = newVal;
+      updateAll();
     },
     clickChestForward: function(e) {
       this.clickChest(1);
@@ -747,7 +697,8 @@ Vue.component('tracker-cell', {
       this.clickChest(-1);
     },
     clickPrize: function(amt) {
-      rootRef.child('prizes').child(this.bossNum).set( (this.trackerData.prizes[this.bossNum] + amt + 5) % 5 );
+      this.trackerData.prizes[this.bossNum] = (this.trackerData.prizes[this.bossNum] + amt + 5) % 5;
+      updateAll(); 
     },
     clickPrizeForward: function(e) {
         this.clickPrize(1);
