@@ -1,7 +1,7 @@
 
 <html lang="en">
     <head>
-        <title>LttP Networked Item Tracker</title>
+        <title>LttP Item Tracker</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
@@ -82,22 +82,8 @@
                     </table>
                 </fieldset>
             </fieldset>
-            <fieldset id="roomControls">
-                <legend>Room Controls</legend>
-                <input type="text" name="entryPasscode" id="entryPasscodeInput" />
-                <button type="button" name="enterPasscode" id="enterPasscodeButton" onclick="enterPasscode()">Enter Passcode</button>
-                <div id="editorControls">
-                    <button type="button" name="resetRoom" id="pushConfigButton" onclick="confirmSaveConfigToFirebase()">Push Configuration</button>
-                    <br><br>
-                    <button type="button" name="destroyRoom" id="useTourneyConfigButton" onclick="useTourneyConfig()">Use Tourney Configuration</button>
-                    <br><br>
-                    <button type="button" name="resetRoom" id="resetRoomButton" onclick="resetFirebase()">Reset Room</button>
-                    <br><br>
-                    <button type="button" name="destroyRoom" id="destroyRoomButton" onclick="destroyFirebase()">Destroy Room</button>
-                </div>
-            </fieldset>
-            <footer style='text-align: center; color:grey'>Lttp Networked Rando Tracker -
-                @pickfifteen (Based on crossproduct, SRL, marcmagus)
+            <footer style='text-align: center; color:grey'>Lttp Rando Tracker - hyphen's version
+                (major credits: pickfifteen, crossproduct, marcmagus)
             </footer>
         </fieldset>
 
