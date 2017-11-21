@@ -1,117 +1,124 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>LttP Networked Item Tracker</title>
-</head>
 
-<body>
-    <h1>LttP Networked Item Tracker</h1>
-    <p style="font-size: 1.4em;">Go to <span id="loc"></span>/[NAME] to view a tracker. If the name does not
-        already exist, you will be able to create the tracker. If it does exist, you will be able to watch the
-        tracker and, if the room creator gives you the passcode, update the tracker as well.</p>
-    <p>If you have been given a passcode, you can enter it in the "Settings" panel by clicking the button in the
-        lower-right hand side. There is no indication when you've entered the correct passcode, but you'll be
-        able to update the tracker successfully if you did.</p>
-    <p>Remember the passcode when you create a tracker. If your cookies clear, you will not be able to update
-        the tracker without putting in the passcode.</p>
-    <p>If you prefer a simpler version of the tracker, you can access one at <span id="loc2"></span>/simple/[NAME]
-        that does not have map or chest tracking but does have a timer.</p>
-    <hr>
-    <h2>Changelog</h2>
-    <ul>
-        <li><strong>2017-11-12:</strong>
-            <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/pull/19">Small logic fixes</a>.
-                    Thanks to emerald000.</li>
-            </ul>
-            <ul>
-                <li>Legend added for chest colors. Thanks to miketrethewey.</li>
-            </ul>
-        </li>
-        <li><strong>2017-11-02:</strong>
-            <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/pull/17">New glitches logic</a>
-                    added. Thanks to emerald000.</li>
-            </ul>
-        </li>
-        <li><strong>2017-10-29:</strong>
-            <ul>
-                <li>Logic rebuilt from scratch. Added options for Overworld Glitches and Major Glitches logics.
-                    Major thanks to emerald000! Please report if you encounter any new issues, but most things
-                    should be much improved now. The new logic options may have more bugs currently, though.
-                </li>
-                <li>Ganon's Tower tracker item [20 chests] added. (Agahnim tracker item reverted to only
-                    tracking Agahnim 1 due to this change.)
-                </li>
-            </ul>
-        </li>
-        <li><strong>2017-10-22:</strong>
-            <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/pull/15">Logic bugs</a> fixed. Thanks to
-                    Carouelle.</li>
-            </ul>
-        </li>
-        <li><strong>2017-10-19:</strong>
-            <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/issues/11">Logic bug</a> fixed. Thanks to
-                    miketrethewey, TotallyABot, and Carouelle.</li>
-            </ul>
-        </li>
-        <li><strong>2017-10-15:</strong>
-            <ul>
-                <li>Right click to go backwards on items, chests, medallions, prizes.</li>
-                <li>Heart container and heart piece trackable items added.</li>
-            </ul>
-        </li>
-        <li><strong>2017-10-14:</strong>
-            <ul>
-                <li><a href="https://github.com/pickfifteen/lttp-tracker/issues/6">Corner case logic issues</a> fixed.
-                </li>
-                <li>MP Upgrade and Bomb trackable items added.</li>
-            </ul>
-        </li>
-        <li><strong>2017-09-24:</strong>
-            <ul>
-                <li>Tracker now supports any number or rows or columns for your layout. The method of modifying
-                    layouts has changed slightly but it should be obvious enough.
-                </li>
-                <li>Bug fix for pushing a configuration: now, if you push a configuration, any browser going to
-                    your tracker for the first time should use it. Configurations are also unique per room,
-                    if you visit a large number of tracker rooms.</li>
-                <li>"Use Tourney Configuration" button for tournament restreamers.</li>
-                <li>Bug fix involving dungeon labels.</li>
-            </ul>
-        </li>
-        <li><strong>2017-09-06:</strong>
-            <ul>
-                <li>Agahnim now supports multiple modes for Aga 1, Aga 2, both, or neither defeated, to support
-                    Entrance Randomizer users. Obviously chest logic doesn't account for every ER possibility but
-                    this was an easy request to fulfill.
-                </li>
-            </ul>
-        </li>
-        <li><strong>2017-08-14:</strong>
-            <ul>
-                <li>v26: Waterfall of the Wishing added.</li>
-                <li>v26: Logic for not having a sword added to various dungeons.</li>
-                <li>There is currently no support for 'swordless' mode in the chest tracking. I assume most people
-                    doing this mode don't need chest trackers anymore. If this is a feature you would use however,
-                    feel free to let me know.
-                </li>
-            </ul>
-        </li>
-        <li><strong>2017-08-10:</strong>
-            <ul>
-                <li>You can now push your configuration to other instances of your tracker.</li>
-                <li>Dungeon labels exist. You can turn them off in settings.</li>
-                <li>Default now no sword. Swordless-specific logic to be added at v26 release.</li>
-            </ul>
-        </li>
-    </ul>
-    <script>
-        document.getElementById('loc').innerText = location.origin;
-        document.getElementById('loc2').innerText = location.origin;
-    </script>
-</body>
+<html lang="en">
+    <head>
+        <title>LttP Item Tracker</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+        
+        <script src="script/shared.js"></script>
+        <script src="script/items.js"></script>
+        <script src="script/chests.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    </head>
+
+    <body>
+        <div id='layoutdiv'>
+            <div id='itemdiv' class='itemdiv'>
+                <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData" :tracker-options="trackerOptions"></tracker-table>
+            </div>
+            <div id='mapdiv' class='mapdiv'>
+            </div>
+        </div>
+        <div width='100%' id="caption" align='center'>
+            &nbsp;
+        </div>
+
+        <!-- Setting panel-->
+
+        <button id='settingsbutton' type='button' onclick='showSettings(this)'>🔧</button>
+        <fieldset id='settings' class='settings'>
+            <legend>Settings</legend>
+            <fieldset>
+                <legend>Item Tracker</legend>
+                <button type="button" onclick="EditMode()">Edit Mode</button>
+                <br>
+                Size<input type="range" name='itemdivsize' value='100' max='200' min='1' onchange="setZoom('itemdiv', this)">
+                <span id='itemdivsize'>100%</span><br>
+                <fieldset>
+                    <legend>Dungeon Display</legend>
+                    <input type="checkbox" name="showchest" checked='checked' onchange="showChest(this)">Chests
+                    <input type="checkbox" name="showcrystal" checked='checked' onchange="showCrystal(this)">Prizes
+                    <input type="checkbox" name="showmedallion" checked='checked' onchange="showMedallion(this)">Medals<br>
+                    <input type="checkbox" name="showlabel" checked='checked' onchange="showLabel(this)">Dungeon Labels
+                </fieldset>
+            </fieldset>
+            <fieldset>
+                <legend>Map Tracker</legend>
+                <input type="checkbox" name="showmap" checked='checked' onchange="showTracker('mapdiv', this)">Enabled<br>
+                Size<input type="range" name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)">
+                <span id='mapdivsize'>100%</span><br>
+                Position:
+                <input type='radio' name='mapposition' value='Below' checked='checked' onclick="setOrder(true)">Below
+                <input type='radio' name='mapposition' value='Side' onclick="setOrder(false)">Side<br>
+                Orientation:
+                <input type='radio' name='maporientation' value='Horizontal' checked='checked' onclick="setMapOrientation(false)">Horizontal
+                <input type='radio' name='maporientation' value='Verical' onclick="setMapOrientation(true)">Vertical<br>
+                <fieldset>
+                    <legend>Logic Options</legend>
+                    <input type='radio' name='maplogic' value='glitchless' checked='checked' onclick='setLogic("glitchless")'>Glitchless<br>
+                    <input type='radio' name='maplogic' value='owGlitches' onclick='setLogic("owGlitches")'>Overworld Glitches<br>
+                    <input type='radio' name='maplogic' value='majorGlitches' onclick='setLogic("majorGlitches")'>Major Glitches
+                </fieldset>
+                <fieldset>
+                    <legend>Chest Legend</legend>
+                    <table border="0" cellspacing="0">
+                        <tr>
+                            <th class="available">Available</th>
+                            <th class="glitchavailable">Glitch Available</th>
+                        </tr>
+                        <tr>
+                            <th class="possible">Possible</th>
+                            <th class="glitchpossible">Glitch Possible</th>
+                        </tr>
+                        <tr>
+                            <th class="agahnim">Agahnim Defeated</th>
+                            <th class="glitchagahnim">Glitch Agahnim</th>
+                        </tr>
+                        <tr>
+                            <th class="unavailable">Unavailable</th>
+                            <th class="opened">Opened</th>
+                        </tr>
+                    </table>
+                </fieldset>
+            </fieldset>
+            <footer style='text-align: center; color:grey'>Lttp Rando Tracker - <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>'s version
+                (major credits: <a href="https://twitter.com/pickfifteen">pickfifteen</a>, <a href="https://www.twitch.tv/crossproduct">crossproduct</a>, <a href="https://www.twitch.tv/testrunner">testrunner</a>, <a href="https://www.twitch.tv/marcmagus">marcmagus</a>a)
+            </footer>
+        </fieldset>
+
+        <table id='itemconfig' class='itemconfig' style='display:none'></table>
+
+        <script type="text/x-template" id="tracker-table">
+            <div class="vueTrackerTable" :style="{ backgroundColor: 'black'}">
+                <div v-for="(itemRow, itemRowIndex) in itemRows" :key="itemRowIndex">
+                    <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
+                    <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
+                    :column-index="itemColumnIndex" :row-index="itemRowIndex"
+                    :tracker-data="trackerData" :tracker-options="trackerOptions" :key="itemColumnIndex + '-' + itemRowIndex"></tracker-cell>
+                    <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="removeItem(itemRowIndex)"
+                        :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
+                    <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="addItem(itemRowIndex)"
+                        :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
+                </div>
+                <button v-if="trackerOptions && trackerOptions.editmode" @click.prevent.stop="addRow">Add row</button>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="tracker-cell">
+            <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative' }"
+             :class="isActive ? 'true' : 'false'" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
+                <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
+                <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
+                <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage }"></span>
+                <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage }"></span>
+                <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage }"></span>
+            </div>
+        </script>
+        <script src="script/main.js"></script>
+        <script>
+            init(initTracker);
+        </script>
+    </body>
 </html>
+

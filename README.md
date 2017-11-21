@@ -1,6 +1,4 @@
 # lttp-tracker
-Item tracker for link to the past randomizer, with Firebase support. 
+This is a fork of the tracker at https://lttp-tracker.firebaseapp.com/
 
-Use it: https://lttp-tracker.firebaseapp.com/
-
-If you want to set up your own instance rather than using the public one above, you will need to acquire and set up a Firebase project. You will need to enable anonymous authentication on that project. The "Use Tourney Configuration" button expects a room called 'tourney-layout' to exist, and just uses the layout of that room, so you will also need to create that room and push a layout to it.
+If you want to modify that version, you need to re-host it yourself on firebase, which is a big hassle. This version can easily be tweaked and changed locally. This meant taking out the networking features that let you do things like have a stream viewer run your tracker for you.
