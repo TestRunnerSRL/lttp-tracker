@@ -221,6 +221,11 @@ label {
     color: rgb(0,0,0);
 }
 
+.partial{
+    background-color: rgb(0,255,0);
+    color: rgb(0,0,0);
+}
+
 .agahnim{
     background-color: rgb(0,255,255);
     color: rgb(0,0,0);
@@ -232,6 +237,11 @@ label {
 
 .glitchpossible{
     background-color: rgb(192,192,0);
+}
+
+.glitchpartial{
+    background-color: rgb(0,127,0);
+    color: rgb(0,0,0);
 }
 
 .glitchagahnim {

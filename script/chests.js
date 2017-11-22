@@ -265,14 +265,14 @@ dungeons[0] = {
                 availability.glitchless = 'available';
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (trackerData.dungeonchests[0] === 3) {
             availability.glitchless = 'available';
         }
         else {
-            availability.glitchless = 'possible';
+            availability.glitchless = 'partial';
         }
         return availability;
     }
@@ -392,7 +392,7 @@ dungeons[1] = {
                 availability.glitchless = 'available';
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         if (this.canEnter('owGlitches', false, false)) {
@@ -400,7 +400,7 @@ dungeons[1] = {
                 availability.owGlitches = 'available';
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', true, false)) {
@@ -414,7 +414,7 @@ dungeons[1] = {
                 availability.majorGlitches = 'available';
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', true, false)) {
@@ -532,7 +532,7 @@ dungeons[2] = {
                 availability.glitchless = 'available';
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', false, true)) {
@@ -540,7 +540,7 @@ dungeons[2] = {
                 availability.glitchless = 'glitchavailable';
             }
             else {
-                availability.glitchless = 'glitchpossible';
+                availability.glitchless = 'glitchpartial';
             }
         }
         if (this.canEnter('owGlitches', false, false)) {
@@ -548,7 +548,7 @@ dungeons[2] = {
                 availability.owGlitches = 'available';
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -556,7 +556,7 @@ dungeons[2] = {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         if (this.canEnter('majorGlitches', false, false)) {
@@ -565,7 +565,7 @@ dungeons[2] = {
                 availability.majorGlitches = 'available';
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -574,14 +574,14 @@ dungeons[2] = {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.mayEnter('majorGlitches', false, false)) {
-            availability.majorGlitches = 'possible';
+            availability.majorGlitches = 'partial';
         }
         else if (this.mayEnter('majorGlitches', false, true)) {
-            availability.majorGlitches = 'glitchpossible';
+            availability.majorGlitches = 'glitchpartial';
         }
         else if (this.mayEnter('majorGlitches', true, false)) {
             availability.majorGlitches = 'agahnim';
@@ -658,14 +658,14 @@ dungeons[3] = {
                     availability.glitchless = 'available';
                 }
                 else {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
             }
             else if (trackerData.items.lantern) {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
             else {
-                availability.glitchless = 'glitchpossible';
+                availability.glitchless = 'glitchpartial';
             }
         }
         else if (this.canEnter('glitchless', true, false)) {
@@ -680,14 +680,14 @@ dungeons[3] = {
                     availability.owGlitches = 'available';
                 }
                 else {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
             }
             else if (trackerData.items.lantern) {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -695,7 +695,7 @@ dungeons[3] = {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('owGlitches', true, false)) {
@@ -710,14 +710,14 @@ dungeons[3] = {
                     availability.majorGlitches = 'available';
                 }
                 else {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
             }
             else if (trackerData.items.lantern) {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -725,7 +725,7 @@ dungeons[3] = {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('majorGlitches', true, false)) {
@@ -818,11 +818,11 @@ dungeons[4] = {
                     availability.glitchless = 'available';
                 }
                 else if (trackerData.dungeonchests[4] >= 3) {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
             }
             else if (trackerData.dungeonchests[4] === 6) {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', true, false)) {
@@ -837,11 +837,11 @@ dungeons[4] = {
                     availability.owGlitches = 'available';
                 }
                 else if (trackerData.dungeonchests[4] >= 3) {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
             }
             else if (trackerData.dungeonchests[4] === 6) {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -850,11 +850,11 @@ dungeons[4] = {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else if (trackerData.dungeonchests[4] >= 3) {
-                    availability.owGlitches = 'glitchpossible';
+                    availability.owGlitches = 'glitchpartial';
                 }
             }
             else if (trackerData.dungeonchests[4] === 6) {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('owGlitches', true, false)) {
@@ -870,11 +870,11 @@ dungeons[4] = {
                     availability.majorGlitches = 'available';
                 }
                 else if (trackerData.dungeonchests[4] >= 3) {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
             }
             else if (trackerData.dungeonchests[4] >= 5) {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -884,11 +884,11 @@ dungeons[4] = {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else if (trackerData.dungeonchests[4] >= 3) {
-                    availability.majorGlitches = 'glitchpossible';
+                    availability.majorGlitches = 'glitchpartial';
                 }
             }
             else if (trackerData.dungeonchests[4] >= 5) {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('majorGlitches', true, false)) {
@@ -964,7 +964,7 @@ dungeons[5] = {
                 availability.glitchless = 'available';
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', true, false)) {
@@ -980,7 +980,7 @@ dungeons[5] = {
                 availability.owGlitches = 'available';
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -990,7 +990,7 @@ dungeons[5] = {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('owGlitches', true, false)) {
@@ -1006,7 +1006,7 @@ dungeons[5] = {
                 availability.majorGlitches = 'available';
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -1016,7 +1016,7 @@ dungeons[5] = {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('majorGlitches', true, false)) {
@@ -1098,7 +1098,7 @@ dungeons[6] = {
                 availability.glitchless = 'available';
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', true, false)) {
@@ -1114,7 +1114,7 @@ dungeons[6] = {
                 availability.owGlitches = 'available';
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -1124,7 +1124,7 @@ dungeons[6] = {
                 availability.owGlitches = 'glitchavailable';
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('owGlitches', true, false)) {
@@ -1140,7 +1140,7 @@ dungeons[6] = {
                 availability.majorGlitches = 'available';
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -1150,7 +1150,7 @@ dungeons[6] = {
                 availability.majorGlitches = 'glitchavailable';
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.canEnter('majorGlitches', true, false)) {
@@ -1242,15 +1242,15 @@ dungeons[7] = {
                         availability.glitchless = 'available';
                     }
                     else {
-                        availability.glitchless = 'possible';
+                        availability.glitchless = 'partial';
                     }
                 }
                 else {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', false, true)) {
@@ -1263,12 +1263,12 @@ dungeons[7] = {
                         availability.glitchless = 'glitchavailable';
                     }
                     else {
-                        availability.glitchless = 'glitchpossible';
+                        availability.glitchless = 'glitchpartial';
                     }
                 }
             }
             else {
-                availability.glitchless = 'glitchpossible';
+                availability.glitchless = 'glitchpartial';
             }
         }
         if (this.canEnter('owGlitches', false, false)) {
@@ -1281,15 +1281,15 @@ dungeons[7] = {
                         availability.owGlitches = 'available';
                     }
                     else {
-                        availability.owGlitches = 'possible';
+                        availability.owGlitches = 'partial';
                     }
                 }
                 else {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.canEnter('owGlitches', false, true)) {
@@ -1302,12 +1302,12 @@ dungeons[7] = {
                         availability.owGlitches = 'glitchavailable';
                     }
                     else {
-                        availability.owGlitches = 'glitchpossible';
+                        availability.owGlitches = 'glitchpartial';
                     }
                 }
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         if (this.canEnter('majorGlitches', false, false)) {
@@ -1320,15 +1320,15 @@ dungeons[7] = {
                         availability.majorGlitches = 'available';
                     }
                     else {
-                        availability.majorGlitches = 'possible';
+                        availability.majorGlitches = 'partial';
                     }
                 }
                 else {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', false, true)) {
@@ -1341,12 +1341,12 @@ dungeons[7] = {
                         availability.majorGlitches = 'glitchavailable';
                     }
                     else {
-                        availability.majorGlitches = 'glitchpossible';
+                        availability.majorGlitches = 'glitchpartial';
                     }
                 }
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         return availability;
@@ -1521,11 +1521,11 @@ dungeons[8] = {
                     availability.glitchless = 'available';
                 }
                 else {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
             }
             else {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.mayEnter('glitchless', false, false)) {
@@ -1547,11 +1547,11 @@ dungeons[8] = {
                     availability.owGlitches = 'available';
                 }
                 else {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
             }
             else {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         else if (this.mayEnter('owGlitches', false, false)) {
@@ -1573,11 +1573,11 @@ dungeons[8] = {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
-                    availability.owGlitches = 'glitchpossible';
+                    availability.owGlitches = 'glitchpartial';
                 }
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.mayEnter('owGlitches', false, true)) {
@@ -1605,11 +1605,11 @@ dungeons[8] = {
                     availability.majorGlitches = 'available';
                 }
                 else {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
             }
             else {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.mayEnter('majorGlitches', false, false)) {
@@ -1631,11 +1631,11 @@ dungeons[8] = {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
-                    availability.majorGlitches = 'glitchpossible';
+                    availability.majorGlitches = 'glitchpartial';
                 }
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.mayEnter('majorGlitches', false, true)) {
@@ -1857,25 +1857,25 @@ dungeons[9] = {
                         availability.glitchless = 'available';
                     }
                     else {
-                        availability.glitchless = 'possible';
+                        availability.glitchless = 'partial';
                     }
                 }
                 else if (trackerData.dungeonchests[9] >= 2) {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
                 else {
-                    availability.glitchless = 'glitchpossible'
+                    availability.glitchless = 'glitchpartial'
                 }
             }
             else {
                 if (trackerData.items.lantern && (trackerData.items.cape || trackerData.items.byrna || canBlockLasers())) {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
                 else if (trackerData.dungeonchests[9] >= 4) {
-                    availability.glitchless = 'possible';
+                    availability.glitchless = 'partial';
                 }
                 else {
-                    availability.glitchless = 'glitchpossible';
+                    availability.glitchless = 'glitchpartial';
                 }
             }
         }
@@ -1911,15 +1911,15 @@ dungeons[9] = {
                     availability.glitchless = 'glitchavailable';
                 }
                 else {
-                    availability.glitchless = 'glitchpossible';
+                    availability.glitchless = 'glitchpartial';
                 }
             }
             else {
-                availability.glitchless = 'glitchpossible';
+                availability.glitchless = 'glitchpartial';
             }
         }
         else if (this.mayEnter('glitchless', true)) {
-            availability.glitchless = 'glitchpossible';
+            availability.glitchless = 'glitchpartial';
         }
         // TODO: Account for lower/middle entrances for owGlitches and majorGlitches chest counts.
         if (this.canEnter('owGlitches', false)) {
@@ -1929,25 +1929,25 @@ dungeons[9] = {
                         availability.owGlitches = 'available';
                     }
                     else {
-                        availability.owGlitches = 'possible';
+                        availability.owGlitches = 'partial';
                     }
                 }
                 else if (trackerData.dungeonchests[9] >= 2) {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
                 else {
-                    availability.owGlitches = 'glitchpossible'
+                    availability.owGlitches = 'glitchpartial'
                 }
             }
             else {
                 if (trackerData.items.lantern && (trackerData.items.cape || trackerData.items.byrna || canBlockLasers())) {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
                 else if (trackerData.dungeonchests[9] >= 4) {
-                    availability.owGlitches = 'possible';
+                    availability.owGlitches = 'partial';
                 }
                 else {
-                    availability.owGlitches = 'glitchpossible';
+                    availability.owGlitches = 'glitchpartial';
                 }
             }
         }
@@ -1983,11 +1983,11 @@ dungeons[9] = {
                     availability.owGlitches = 'glitchavailable';
                 }
                 else {
-                    availability.owGlitches = 'glitchpossible';
+                    availability.owGlitches = 'glitchpartial';
                 }
             }
             else {
-                availability.owGlitches = 'glitchpossible';
+                availability.owGlitches = 'glitchpartial';
             }
         }
         else if (this.mayEnter('owGlitches', true)) {
@@ -2000,25 +2000,25 @@ dungeons[9] = {
                         availability.majorGlitches = 'available';
                     }
                     else {
-                        availability.majorGlitches = 'possible';
+                        availability.majorGlitches = 'partial';
                     }
                 }
                 else if (trackerData.dungeonchests[9] >= 2) {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
                 else {
-                    availability.majorGlitches = 'glitchpossible'
+                    availability.majorGlitches = 'glitchpartial'
                 }
             }
             else {
                 if (trackerData.items.lantern && (trackerData.items.cape || trackerData.items.byrna || canBlockLasers())) {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
                 else if (trackerData.dungeonchests[9] >= 4) {
-                    availability.majorGlitches = 'possible';
+                    availability.majorGlitches = 'partial';
                 }
                 else {
-                    availability.majorGlitches = 'glitchpossible';
+                    availability.majorGlitches = 'glitchpartial';
                 }
             }
         }
@@ -2054,11 +2054,11 @@ dungeons[9] = {
                     availability.majorGlitches = 'glitchavailable';
                 }
                 else {
-                    availability.majorGlitches = 'glitchpossible';
+                    availability.majorGlitches = 'glitchpartial';
                 }
             }
             else {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         else if (this.mayEnter('majorGlitches', true)) {
@@ -2226,7 +2226,7 @@ dungeons[10] = {
                 availability.glitchless = 'available';
             }
             else if (trackerData.dungeonchests[10] > (20 - maxItemsAvailable)) {
-                availability.glitchless = 'possible';
+                availability.glitchless = 'partial';
             }
         }
         else if (this.canEnter('glitchless', true)) {
@@ -2234,7 +2234,7 @@ dungeons[10] = {
                 availability.glitchless = 'glitchavailable';
             }
             else if (trackerData.dungeonchests[10] > (20 - maxItemsAvailable)) {
-                availability.glitchless = 'glitchpossible';
+                availability.glitchless = 'glitchpartial';
             }
         }
         if (this.canEnter('owGlitches', false)) {
@@ -2242,7 +2242,7 @@ dungeons[10] = {
                 availability.owGlitches = 'available';
             }
             else if (trackerData.dungeonchests[10] > (20 - maxItemsAvailable)) {
-                availability.owGlitches = 'possible';
+                availability.owGlitches = 'partial';
             }
         }
         if (this.canEnter('majorGlitches', false)) {
@@ -2250,7 +2250,7 @@ dungeons[10] = {
                 availability.majorGlitches = 'available';
             }
             else if (trackerData.dungeonchests[10] > (20 - maxItemsAvailable)) {
-                availability.majorGlitches = 'possible';
+                availability.majorGlitches = 'partial';
             }
         }
         else if (this.canEnter('majorGlitches', true)) {
@@ -2258,7 +2258,7 @@ dungeons[10] = {
                 availability.majorGlitches = 'glitchavailable';
             }
             else if (trackerData.dungeonchests[10] > (20 - maxItemsAvailable)) {
-                availability.majorGlitches = 'glitchpossible';
+                availability.majorGlitches = 'glitchpartial';
             }
         }
         return availability;
